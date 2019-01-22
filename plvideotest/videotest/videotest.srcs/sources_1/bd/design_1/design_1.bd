@@ -618,7 +618,7 @@
         <spirit:componentRef spirit:library="ip" spirit:name="axi_vdma" spirit:vendor="xilinx.com" spirit:version="6.3"/>
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_axi_vdma_0_0</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="c_use_s2mm_fsync">0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="c_use_s2mm_fsync">2</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="c_s2mm_genlock_mode">2</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="c_s2mm_linebuffer_depth">1024</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="c_include_mm2s">0</spirit:configurableElementValue>
@@ -889,6 +889,16 @@
         <spirit:name>camera_enable_1</spirit:name>
         <spirit:externalPortReference spirit:portRef="camera_enable"/>
         <spirit:externalPortReference spirit:portRef="cam_gpio"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>MIPI_CSI_2_RX_0_m_axis_video_tuser</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="MIPI_CSI_2_RX_0" spirit:portRef="m_axis_video_tuser"/>
+        <spirit:internalPortReference spirit:componentRef="AXI_BayerToRGB_0" spirit:portRef="s_axis_video_tuser"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>AXI_BayerToRGB_0_m_axis_video_tuser</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="AXI_BayerToRGB_0" spirit:portRef="m_axis_video_tuser"/>
+        <spirit:internalPortReference spirit:componentRef="axi_vdma_0" spirit:portRef="s_axis_s2mm_tuser"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>

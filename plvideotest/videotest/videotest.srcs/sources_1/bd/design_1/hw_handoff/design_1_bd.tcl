@@ -210,7 +210,7 @@ proc create_root_design { parentCell } {
    CONFIG.c_mm2s_genlock_mode {0} \
    CONFIG.c_s2mm_genlock_mode {2} \
    CONFIG.c_s2mm_linebuffer_depth {1024} \
-   CONFIG.c_use_s2mm_fsync {0} \
+   CONFIG.c_use_s2mm_fsync {2} \
  ] $axi_vdma_0
 
   # Create instance: clk_wiz_0, and set properties
@@ -769,6 +769,8 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M02_AXI [get_bd_intf_pins MIPI_CSI_2_RX_0/S_AXI_LITE] [get_bd_intf_pins ps7_0_axi_periph/M02_AXI]
 
   # Create port connections
+  connect_bd_net -net AXI_BayerToRGB_0_m_axis_video_tuser [get_bd_pins AXI_BayerToRGB_0/m_axis_video_tuser] [get_bd_pins axi_vdma_0/s_axis_s2mm_tuser]
+  connect_bd_net -net MIPI_CSI_2_RX_0_m_axis_video_tuser [get_bd_pins AXI_BayerToRGB_0/s_axis_video_tuser] [get_bd_pins MIPI_CSI_2_RX_0/m_axis_video_tuser]
   connect_bd_net -net MIPI_D_PHY_RX_0_RxByteClkHS [get_bd_pins MIPI_CSI_2_RX_0/RxByteClkHS] [get_bd_pins MIPI_D_PHY_RX_0/RxByteClkHS]
   connect_bd_net -net axi_vdma_0_s2mm_introut [get_bd_pins axi_vdma_0/s2mm_introut] [get_bd_pins xlconcat_0/In0]
   connect_bd_net -net camera_enable_1 [get_bd_ports cam_gpio] [get_bd_ports camera_enable]

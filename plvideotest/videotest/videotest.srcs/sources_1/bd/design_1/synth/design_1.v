@@ -1,7 +1,7 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Sat Jan 19 14:00:35 2019
+//Date        : Tue Jan 22 15:16:25 2019
 //Host        : catabit-UX430UAR running 64-bit Ubuntu 16.04.5 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -89,13 +89,13 @@ module design_1
   wire [31:0]AXI_BayerToRGB_0_AXI_Stream_Master_TDATA;
   wire AXI_BayerToRGB_0_AXI_Stream_Master_TLAST;
   wire AXI_BayerToRGB_0_AXI_Stream_Master_TREADY;
-  wire AXI_BayerToRGB_0_AXI_Stream_Master_TUSER;
   wire AXI_BayerToRGB_0_AXI_Stream_Master_TVALID;
+  wire AXI_BayerToRGB_0_m_axis_video_tuser;
   wire [39:0]MIPI_CSI_2_RX_0_m_axis_video_TDATA;
   wire MIPI_CSI_2_RX_0_m_axis_video_TLAST;
   wire MIPI_CSI_2_RX_0_m_axis_video_TREADY;
-  wire [0:0]MIPI_CSI_2_RX_0_m_axis_video_TUSER;
   wire MIPI_CSI_2_RX_0_m_axis_video_TVALID;
+  wire [0:0]MIPI_CSI_2_RX_0_m_axis_video_tuser;
   wire MIPI_D_PHY_RX_0_D_PHY_PPI_CL_ENABLE;
   wire MIPI_D_PHY_RX_0_D_PHY_PPI_CL_RXCLKACTIVEHS;
   wire MIPI_D_PHY_RX_0_D_PHY_PPI_CL_STOPSTATE;
@@ -319,13 +319,13 @@ module design_1
         .m_axis_video_tdata(AXI_BayerToRGB_0_AXI_Stream_Master_TDATA),
         .m_axis_video_tlast(AXI_BayerToRGB_0_AXI_Stream_Master_TLAST),
         .m_axis_video_tready(AXI_BayerToRGB_0_AXI_Stream_Master_TREADY),
-        .m_axis_video_tuser(AXI_BayerToRGB_0_AXI_Stream_Master_TUSER),
+        .m_axis_video_tuser(AXI_BayerToRGB_0_m_axis_video_tuser),
         .m_axis_video_tvalid(AXI_BayerToRGB_0_AXI_Stream_Master_TVALID),
         .sStreamReset_n(rst_ps7_0_50M_peripheral_aresetn),
         .s_axis_video_tdata(MIPI_CSI_2_RX_0_m_axis_video_TDATA),
         .s_axis_video_tlast(MIPI_CSI_2_RX_0_m_axis_video_TLAST),
         .s_axis_video_tready(MIPI_CSI_2_RX_0_m_axis_video_TREADY),
-        .s_axis_video_tuser(MIPI_CSI_2_RX_0_m_axis_video_TUSER),
+        .s_axis_video_tuser(MIPI_CSI_2_RX_0_m_axis_video_tuser),
         .s_axis_video_tvalid(MIPI_CSI_2_RX_0_m_axis_video_TVALID));
   design_1_MIPI_CSI_2_RX_0_0 MIPI_CSI_2_RX_0
        (.RxActiveHSD0(MIPI_D_PHY_RX_0_D_PHY_PPI_DL0_RXACTIVEHS),
@@ -353,7 +353,7 @@ module design_1
         .m_axis_video_tdata(MIPI_CSI_2_RX_0_m_axis_video_TDATA),
         .m_axis_video_tlast(MIPI_CSI_2_RX_0_m_axis_video_TLAST),
         .m_axis_video_tready(MIPI_CSI_2_RX_0_m_axis_video_TREADY),
-        .m_axis_video_tuser(MIPI_CSI_2_RX_0_m_axis_video_TUSER),
+        .m_axis_video_tuser(MIPI_CSI_2_RX_0_m_axis_video_tuser),
         .m_axis_video_tvalid(MIPI_CSI_2_RX_0_m_axis_video_TVALID),
         .s_axi_lite_aclk(processing_system7_0_FCLK_CLK0),
         .s_axi_lite_araddr(ps7_0_axi_periph_M02_AXI_ARADDR[3:0]),
@@ -536,7 +536,7 @@ module design_1
         .s_axis_s2mm_tkeep({1'b1,1'b1,1'b1,1'b1}),
         .s_axis_s2mm_tlast(AXI_BayerToRGB_0_AXI_Stream_Master_TLAST),
         .s_axis_s2mm_tready(AXI_BayerToRGB_0_AXI_Stream_Master_TREADY),
-        .s_axis_s2mm_tuser(AXI_BayerToRGB_0_AXI_Stream_Master_TUSER),
+        .s_axis_s2mm_tuser(AXI_BayerToRGB_0_m_axis_video_tuser),
         .s_axis_s2mm_tvalid(AXI_BayerToRGB_0_AXI_Stream_Master_TVALID));
   design_1_clk_wiz_0_0 clk_wiz_0
        (.clk_in1(processing_system7_0_FCLK_CLK0),

@@ -6243,11 +6243,11 @@ Note: Frame Delay must be less than or equal to Frame Buffers or an undefined re
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Jan 19 12:00:38 UTC 2019</spirit:value>
+            <spirit:value>Tue Jan 22 13:16:27 UTC 2019</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>7:91640947</spirit:value>
+            <spirit:value>7:0eed04cf</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -6289,7 +6289,7 @@ Note: Frame Delay must be less than or equal to Frame Buffers or an undefined re
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>7:91640947</spirit:value>
+            <spirit:value>7:0eed04cf</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -6304,11 +6304,11 @@ Note: Frame Delay must be less than or equal to Frame Buffers or an undefined re
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Jan 19 12:00:36 UTC 2019</spirit:value>
+            <spirit:value>Tue Jan 22 13:16:26 UTC 2019</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>7:91640947</spirit:value>
+            <spirit:value>7:0eed04cf</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -6350,7 +6350,7 @@ Note: Frame Delay must be less than or equal to Frame Buffers or an undefined re
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>7:c59aabb4</spirit:value>
+            <spirit:value>7:aa14d005</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -6365,11 +6365,11 @@ Note: Frame Delay must be less than or equal to Frame Buffers or an undefined re
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Jan 19 12:00:36 UTC 2019</spirit:value>
+            <spirit:value>Tue Jan 22 13:16:26 UTC 2019</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>7:c59aabb4</spirit:value>
+            <spirit:value>7:aa14d005</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -8494,7 +8494,7 @@ Note: Frame Delay must be less than or equal to Frame Buffers or an undefined re
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_USE_S2MM_FSYNC</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_S2MM_FSYNC" spirit:minimum="0" spirit:maximum="2" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_USE_S2MM_FSYNC" spirit:minimum="0" spirit:maximum="2" spirit:rangeType="long">2</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_FLUSH_ON_FSYNC</spirit:name>
@@ -9534,7 +9534,7 @@ Note: Frame Delay must be less than or equal to Frame Buffers or an undefined re
     <spirit:parameter>
       <spirit:name>c_use_s2mm_fsync</spirit:name>
       <spirit:displayName>Fsync Options</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.c_use_s2mm_fsync" spirit:choiceRef="choice_pairs_27a0f0bc" spirit:order="121" spirit:configGroups="0 NoDisplay">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.c_use_s2mm_fsync" spirit:choiceRef="choice_pairs_27a0f0bc" spirit:order="121" spirit:configGroups="0 NoDisplay">2</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>

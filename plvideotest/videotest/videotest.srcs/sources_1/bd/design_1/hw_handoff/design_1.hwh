@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sat Jan 19 14:00:37 2019" VIVADOVERSION="2017.4">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Jan 22 15:16:27 2019" VIVADOVERSION="2017.4">
 
   <SYSTEMINFO ARCH="zynq" BOARD="digilentinc.com:zybo-z7-20:part0:1.0" DEVICE="7z020" NAME="design_1" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -177,8 +177,9 @@
             <CONNECTION INSTANCE="MIPI_CSI_2_RX_0" PORT="m_axis_video_tvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="s_axis_video_tuser" SIGIS="undef" SIGNAME="AXI_BayerToRGB_0_s_axis_video_tuser">
+        <PORT DIR="I" NAME="s_axis_video_tuser" SIGIS="undef" SIGNAME="MIPI_CSI_2_RX_0_m_axis_video_tuser">
           <CONNECTIONS>
+            <CONNECTION INSTANCE="MIPI_CSI_2_RX_0" PORT="m_axis_video_tuser"/>
             <CONNECTION INSTANCE="MIPI_CSI_2_RX_0" PORT="m_axis_video_tuser"/>
           </CONNECTIONS>
         </PORT>
@@ -203,6 +204,9 @@
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="m_axis_video_tuser" SIGIS="undef" SIGNAME="AXI_BayerToRGB_0_m_axis_video_tuser">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_vdma_0" PORT="s_axis_s2mm_tuser"/>
+          </CONNECTIONS>
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_vdma_0" PORT="s_axis_s2mm_tuser"/>
           </CONNECTIONS>
@@ -383,8 +387,9 @@
             <CONNECTION INSTANCE="AXI_BayerToRGB_0" PORT="s_axis_video_tlast"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="0" NAME="m_axis_video_tuser" RIGHT="0" SIGIS="undef" SIGNAME="AXI_BayerToRGB_0_s_axis_video_tuser">
+        <PORT DIR="O" LEFT="0" NAME="m_axis_video_tuser" RIGHT="0" SIGIS="undef" SIGNAME="MIPI_CSI_2_RX_0_m_axis_video_tuser">
           <CONNECTIONS>
+            <CONNECTION INSTANCE="AXI_BayerToRGB_0" PORT="s_axis_video_tuser"/>
             <CONNECTION INSTANCE="AXI_BayerToRGB_0" PORT="s_axis_video_tuser"/>
           </CONNECTIONS>
         </PORT>
@@ -3276,7 +3281,7 @@
         <PARAMETER NAME="C_NUM_FSTORES" VALUE="3"/>
         <PARAMETER NAME="C_USE_FSYNC" VALUE="1"/>
         <PARAMETER NAME="C_USE_MM2S_FSYNC" VALUE="0"/>
-        <PARAMETER NAME="C_USE_S2MM_FSYNC" VALUE="0"/>
+        <PARAMETER NAME="C_USE_S2MM_FSYNC" VALUE="2"/>
         <PARAMETER NAME="C_FLUSH_ON_FSYNC" VALUE="1"/>
         <PARAMETER NAME="C_INCLUDE_INTERNAL_GENLOCK" VALUE="1"/>
         <PARAMETER NAME="C_INCLUDE_SG" VALUE="0"/>
@@ -3343,7 +3348,7 @@
         <PARAMETER NAME="c_num_fstores" VALUE="3"/>
         <PARAMETER NAME="c_use_fsync" VALUE="1"/>
         <PARAMETER NAME="c_use_mm2s_fsync" VALUE="0"/>
-        <PARAMETER NAME="c_use_s2mm_fsync" VALUE="0"/>
+        <PARAMETER NAME="c_use_s2mm_fsync" VALUE="2"/>
         <PARAMETER NAME="c_mm2s_sof_enable" VALUE="1"/>
         <PARAMETER NAME="c_s2mm_sof_enable" VALUE="1"/>
         <PARAMETER NAME="c_include_internal_genlock" VALUE="1"/>
@@ -3581,6 +3586,9 @@
         </PORT>
         <PORT DIR="I" LEFT="3" NAME="s_axis_s2mm_tkeep" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" LEFT="0" NAME="s_axis_s2mm_tuser" RIGHT="0" SIGIS="undef" SIGNAME="AXI_BayerToRGB_0_m_axis_video_tuser">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="AXI_BayerToRGB_0" PORT="m_axis_video_tuser"/>
+          </CONNECTIONS>
           <CONNECTIONS>
             <CONNECTION INSTANCE="AXI_BayerToRGB_0" PORT="m_axis_video_tuser"/>
           </CONNECTIONS>
