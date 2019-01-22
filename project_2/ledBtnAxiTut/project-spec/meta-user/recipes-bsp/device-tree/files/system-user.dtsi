@@ -1,0 +1,27 @@
+/include/ "system-conf.dtsi"
+/ {
+	chosen {
+    		bootargs = "console=ttyPS0,115200 earlyprintk uio_pdrv_genirq.of_id=generic-uio";
+    	};
+
+	amba_pl: amba_pl {
+		MotionController_0: MotionController@43c00000 {
+			compatible = "generic-uio";
+			reg = <0x43c00000 0x10000>;
+			xlnx,s00-axi-addr-width = <0x4>;
+			xlnx,s00-axi-data-width = <0x20>;
+		};
+		rgbpwm: pwmDriverAXI@43c10000 {
+			compatible = "generic-uio";
+			reg = <0x43c10000 0x10000>;
+			xlnx,s00-axi-addr-width = <0x4>;
+			xlnx,s00-axi-data-width = <0x20>;
+		};
+		sonarDriver_0: sonarDriver@43c20000 {
+			compatible = "generic-uio";
+			reg = <0x43c20000 0x10000>;
+			xlnx,s00-axi-addr-width = <0x4>;
+			xlnx,s00-axi-data-width = <0x20>;
+		};
+	};
+};
