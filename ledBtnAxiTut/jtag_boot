@@ -1,1 +1,0 @@
-petalinux-boot --jtag --bitstream images/linux/design_1_wrapper.bit --image images/linux/vmlinux --uboot images/linux/u-boot.elf --kernel images/linux/zImage
