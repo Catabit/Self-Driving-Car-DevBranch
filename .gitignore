@@ -1,7 +1,8 @@
-Debug/
-build/
-images/
-*.cache/
-*.runs/
-*.sim/
-*.tmp/
+*/**/Debug/
+*/**/build/
+*/**/images/
+*/**/*.cache
+*/**/*.runs
+*/**/*.sim
+*/**/*.tmp
+*/**/edit_projects
