@@ -1,0 +1,21 @@
+max duty 1023 (10 bits resolution)
+
+duty 26 - 500us
+duty 77 - 1500us
+duty 128 - 2500us
+
+102 usable values
+
+
+70 - 100
+
+
+12 bit resolution
+
+duty 105 - 500us
+duty 307 - 1500us
+duty 510 - 2500 us
+
+
+
+105 - 510
