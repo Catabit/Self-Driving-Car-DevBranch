@@ -1,1 +1,1 @@
-/home/catabit/Zybo/videotest/videotest.sdk/cameratest/src/cameratest.c
+../../../../../videotest/videotest.sdk/cameratest/src/cameratest.c
