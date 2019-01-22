@@ -1,1 +1,0 @@
-../../../../../../project_2.sdk/rgbled/src/rgbmain.c
