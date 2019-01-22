@@ -1,0 +1,7 @@
+Debug/
+build/
+images/
+*.cache/
+*.runs/
+*.sim/
+*.tmp/

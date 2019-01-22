@@ -1,0 +1,80 @@
+16:59:12 INFO  : Registering command handlers for SDK TCF services
+16:59:21 INFO  : Launching XSCT server: xsct -n -interactive /home/catabit/Zybo/videotest/videotest.sdk/temp_xsdb_launch_script.tcl
+16:59:25 INFO  : XSCT server has started successfully.
+16:59:33 INFO  : Successfully done setting XSCT server connection channel  
+16:59:33 INFO  : Successfully done setting SDK workspace  
+16:59:33 INFO  : Restoring global repository preferences: 
+		 /home/catabit/Zybo/ip_repo/vivado-library/ip/Pmods/PmodMAXSONAR_v1_0
+16:59:33 INFO  : Processing command line option -hwspec /home/catabit/Zybo/videotest/videotest.sdk/design_1_wrapper.hdf.
+23:24:17 INFO  : Registering command handlers for SDK TCF services
+23:24:18 INFO  : Launching XSCT server: xsct -n -interactive /home/catabit/Zybo/videotest/videotest.sdk/temp_xsdb_launch_script.tcl
+23:24:24 INFO  : XSCT server has started successfully.
+23:24:33 INFO  : Successfully done setting XSCT server connection channel  
+23:24:33 INFO  : Successfully done setting SDK workspace  
+23:24:33 INFO  : Restoring global repository preferences: 
+		 /home/catabit/Zybo/ip_repo/vivado-library/ip/Pmods/PmodMAXSONAR_v1_0
+23:24:44 INFO  : SDK has detected change in the last modified timestamps for source hardware specification file Source:1547586799000,  Project:1547560868000
+23:24:44 INFO  : Project design_1_wrapper_hw_platform_0's source hardware specification located at /home/catabit/Zybo/videotest/videotest.sdk/design_1_wrapper.hdf is now different from the local copy.
+		 The local copy will be replaced with the source specification and your workspace will be updated.
+23:24:48 INFO  : Copied contents of /home/catabit/Zybo/videotest/videotest.sdk/design_1_wrapper.hdf into /design_1_wrapper_hw_platform_0/system.hdf.
+23:24:53 INFO  : Synchronizing projects in the workspace with the hardware platform specification changes.
+23:24:53 INFO  : Clearing existing target manager status.
+23:24:53 WARN  : Given IPC port value is invalid. Using default port 2350
+23:24:53 WARN  : Given XMD timeout value is invalid. Using default value of 50000
+23:24:58 WARN  : Given XMD transaction timeout value is invalid. Using default value of 60000 milli seconds
+23:24:58 INFO  : Workspace synchronized with the new hardware specification file. Cleaning dependent projects...
+23:24:58 WARN  : Linker script will not be updated automatically. Users need to update it manually.
+00:51:25 ERROR : Unexpected error while parsing XMD response ￿: com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: invalid number or unquoted string near 
+22:17:35 INFO  : Registering command handlers for SDK TCF services
+22:17:37 INFO  : Launching XSCT server: xsct -n -interactive /home/catabit/Zybo/videotest/videotest.sdk/temp_xsdb_launch_script.tcl
+22:17:44 INFO  : XSCT server has started successfully.
+22:17:44 INFO  : Successfully done setting XSCT server connection channel  
+22:17:52 INFO  : Successfully done setting SDK workspace  
+22:17:52 INFO  : Restoring global repository preferences: 
+		 /home/catabit/Zybo/ip_repo/vivado-library/ip/Pmods/PmodMAXSONAR_v1_0
+11:13:14 INFO  : Registering command handlers for SDK TCF services
+11:13:17 INFO  : Launching XSCT server: xsct -n -interactive /home/catabit/Zybo/videotest/videotest.sdk/temp_xsdb_launch_script.tcl
+11:13:21 INFO  : XSCT server has started successfully.
+11:13:22 INFO  : Successfully done setting XSCT server connection channel  
+11:13:22 INFO  : Successfully done setting SDK workspace  
+11:13:22 INFO  : Restoring global repository preferences: 
+		 /home/catabit/Zybo/ip_repo/led_buttons_test_1.0
+11:13:35 INFO  : SDK has detected change in the last modified timestamps for source hardware specification file Source:1547763332000,  Project:1547586799000
+11:13:35 INFO  : Project design_1_wrapper_hw_platform_0's source hardware specification located at /home/catabit/Zybo/videotest/videotest.sdk/design_1_wrapper.hdf is now different from the local copy.
+		 The local copy will be replaced with the source specification and your workspace will be updated.
+11:15:06 INFO  : Copied contents of /home/catabit/Zybo/videotest/videotest.sdk/design_1_wrapper.hdf into /design_1_wrapper_hw_platform_0/system.hdf.
+11:15:12 INFO  : Synchronizing projects in the workspace with the hardware platform specification changes.
+11:15:13 INFO  : Clearing existing target manager status.
+11:15:13 WARN  : Given IPC port value is invalid. Using default port 2350
+11:15:13 WARN  : Given XMD timeout value is invalid. Using default value of 50000
+11:15:20 WARN  : Given XMD transaction timeout value is invalid. Using default value of 60000 milli seconds
+11:15:20 INFO  : Workspace synchronized with the new hardware specification file. Cleaning dependent projects...
+11:15:20 WARN  : Linker script will not be updated automatically. Users need to update it manually.
+14:07:50 ERROR : Unexpected error while parsing XMD response ￿: com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: invalid number or unquoted string near 
+13:53:26 INFO  : Registering command handlers for SDK TCF services
+13:53:27 INFO  : Launching XSCT server: xsct -n -interactive /home/catabit/Zybo/videotest/videotest.sdk/temp_xsdb_launch_script.tcl
+13:53:29 INFO  : XSCT server has started successfully.
+13:53:29 INFO  : Successfully done setting XSCT server connection channel  
+13:53:30 INFO  : Successfully done setting SDK workspace  
+13:53:30 INFO  : Restoring global repository preferences: 
+		 /home/catabit/Zybo/ip_repo/led_buttons_test_1.0
+13:53:35 INFO  : SDK has detected change in the last modified timestamps for source hardware specification file Source:1547829043000,  Project:1547763332000
+13:53:35 INFO  : Project design_1_wrapper_hw_platform_0's source hardware specification located at /home/catabit/Zybo/videotest/videotest.sdk/design_1_wrapper.hdf is now different from the local copy.
+		 The local copy will be replaced with the source specification and your workspace will be updated.
+13:53:36 INFO  : Copied contents of /home/catabit/Zybo/videotest/videotest.sdk/design_1_wrapper.hdf into /design_1_wrapper_hw_platform_0/system.hdf.
+13:53:38 INFO  : Synchronizing projects in the workspace with the hardware platform specification changes.
+13:53:38 INFO  : Clearing existing target manager status.
+13:53:38 WARN  : Given IPC port value is invalid. Using default port 2350
+13:53:38 WARN  : Given XMD timeout value is invalid. Using default value of 50000
+13:53:41 WARN  : Given XMD transaction timeout value is invalid. Using default value of 60000 milli seconds
+13:53:41 INFO  : Workspace synchronized with the new hardware specification file. Cleaning dependent projects...
+13:53:41 WARN  : Linker script will not be updated automatically. Users need to update it manually.
+14:05:56 INFO  : SDK has detected change in the last modified timestamps for source hardware specification file Source:1547899535000,  Project:1547829043000
+14:05:56 INFO  : Project design_1_wrapper_hw_platform_0's source hardware specification located at /home/catabit/Zybo/videotest/videotest.sdk/design_1_wrapper.hdf is now different from the local copy.
+		 The local copy will be replaced with the source specification and your workspace will be updated.
+14:05:56 INFO  : Copied contents of /home/catabit/Zybo/videotest/videotest.sdk/design_1_wrapper.hdf into /design_1_wrapper_hw_platform_0/system.hdf.
+14:05:59 INFO  : Synchronizing projects in the workspace with the hardware platform specification changes.
+14:05:59 INFO  : Clearing existing target manager status.
+14:05:59 INFO  : Workspace synchronized with the new hardware specification file. Cleaning dependent projects...
+14:05:59 WARN  : Linker script will not be updated automatically. Users need to update it manually.
+23:43:44 ERROR : Unexpected error while parsing XMD response ￿: com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: invalid number or unquoted string near 

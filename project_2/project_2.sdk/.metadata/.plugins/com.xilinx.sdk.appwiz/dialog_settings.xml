@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="Linux" key="os"/>
+	<item value="C" key="language"/>
+	<item value="sharedlib" key="libraryType"/>
+	<item value="ps7_cortexa9" key="processor"/>
+	<item value="32-bit" key="compilerType"/>
+</section>
