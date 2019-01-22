@@ -1,6 +1,7 @@
-*/**/Debug/
-*/**/build/
-*/**/images/
+IGNORE
+*/**/Debug
+*/**/build
+*/**/images
 */**/*.cache
 */**/*.runs
 */**/*.sim
