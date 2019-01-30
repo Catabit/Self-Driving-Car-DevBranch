@@ -1,0 +1,71 @@
+#include "PN532_rfid.h"
+
+int main() {
+	int fd = init();
+	getFirmwareVersion(fd);
+	SAMConfig(fd);
+
+	uint8_t success;
+	uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
+	uint8_t uidLength;
+
+	while(1) {
+		readPassiveTargetID(fd, PN532_MIFARE_ISO14443A, uid, &uidLength, 1000);
+
+		int block = 4;
+		if (uidLength == 4)
+		{
+		    uint8_t keya[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+		    success = mifareclassic_AuthenticateBlock(fd, uid, uidLength, block, 0, keya);
+
+		    	if (success) {
+					//write
+					uint8_t data[16] = { 'a', 'd', 'a', 'f', 'r', 'u', 'i', 't', '.', 'c', 'o', 'm', 0, 0, 0, 0};
+				    //mifareclassic_WriteDataBlock (block, data);
+
+				    //read
+				    mifareclassic_ReadDataBlock(fd, block, data);
+
+		    	}
+		}
+	}
+
+	close(fd);
+}
+
+
+/*
+#include <PN532_I2C.h>
+#include <PN532.h>
+
+PN532_I2C pn532i2c(Wire);
+PN532 nfc(pn532i2c);
+
+nfc.begin();
+nfc.getFirmwareVersion();
+nfc.SAMConfig();
+
+uint8_t success;
+uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
+uint8_t uidLength;
+nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
+
+int block = 4;
+
+if (uidLength == 4)
+{
+    uint8_t keya[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+    success = nfc.mifareclassic_AuthenticateBlock(uid, uidLength, block, 0, keya);
+
+    	if (success) {
+			//write
+			char data[16] = { 'a', 'd', 'a', 'f', 'r', 'u', 'i', 't', '.', 'c', 'o', 'm', 0, 0, 0, 0};
+		    nfc.mifareclassic_WriteDataBlock (block, data);
+
+		    //read
+		    nfc.mifareclassic_ReadDataBlock(block, data);
+
+    	}
+}
+
+*/

@@ -1,7 +1,7 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Wed Jan 30 17:57:34 2019
+//Date        : Wed Jan 30 23:40:50 2019
 //Host        : catabit-VirtualBox running 64-bit Ubuntu 16.04.5 LTS
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
@@ -42,7 +42,8 @@ module design_1_wrapper
     dphy_hs_clock_clk_n,
     dphy_hs_clock_clk_p,
     ps_iic_scl_io,
-    ps_iic_sda_io);
+    ps_iic_sda_io,
+    testled);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -76,6 +77,7 @@ module design_1_wrapper
   input dphy_hs_clock_clk_p;
   inout ps_iic_scl_io;
   inout ps_iic_sda_io;
+  output testled;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -116,6 +118,7 @@ module design_1_wrapper
   wire ps_iic_sda_io;
   wire ps_iic_sda_o;
   wire ps_iic_sda_t;
+  wire testled;
 
   design_1 design_1_i
        (.DDR_addr(DDR_addr),
@@ -154,7 +157,8 @@ module design_1_wrapper
         .ps_iic_scl_t(ps_iic_scl_t),
         .ps_iic_sda_i(ps_iic_sda_i),
         .ps_iic_sda_o(ps_iic_sda_o),
-        .ps_iic_sda_t(ps_iic_sda_t));
+        .ps_iic_sda_t(ps_iic_sda_t),
+        .testled(testled));
   IOBUF ps_iic_scl_iobuf
        (.I(ps_iic_scl_o),
         .IO(ps_iic_scl_io),

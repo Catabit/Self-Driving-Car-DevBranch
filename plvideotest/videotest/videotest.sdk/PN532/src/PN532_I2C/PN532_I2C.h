@@ -6,7 +6,7 @@
 #define __PN532_I2C_H__
 
 //#include <Wire.h>
-#include "PN532Interface.h"
+#include "../PN532/PN532Interface.h"
 
 class PN532_I2C : public PN532Interface {
 public:
@@ -25,19 +25,15 @@ private:
     int16_t getResponseLength(uint8_t buf[], uint8_t len, uint16_t timeout);
     
     inline uint8_t write(uint8_t data) {
-        #if ARDUINO >= 100
-            return _wire->write(data);
-        #else
-            return _wire->send(data);
-        #endif
+
+       return _wire->write(data);
+
     }
     
     inline uint8_t read() {
-        #if ARDUINO >= 100
-            return _wire->read();
-        #else
-            return _wire->receive();
-        #endif
+
+       return _wire->read();
+
     }
 };
 

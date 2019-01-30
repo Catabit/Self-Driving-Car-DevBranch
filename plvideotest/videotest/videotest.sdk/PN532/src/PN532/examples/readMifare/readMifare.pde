@@ -20,6 +20,42 @@
 */
 /**************************************************************************/
 
+/*
+#include <PN532_I2C.h>
+#include <PN532.h>
+
+PN532_I2C pn532i2c(Wire);
+PN532 nfc(pn532i2c);	
+
+nfc.begin();
+nfc.getFirmwareVersion();
+nfc.SAMConfig();
+
+uint8_t success;
+uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
+uint8_t uidLength;
+nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
+
+int block = 4;
+
+if (uidLength == 4)
+{
+    uint8_t keya[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+    success = nfc.mifareclassic_AuthenticateBlock(uid, uidLength, block, 0, keya);
+    	
+    	if (success) {
+			//write
+			char data[16] = { 'a', 'd', 'a', 'f', 'r', 'u', 'i', 't', '.', 'c', 'o', 'm', 0, 0, 0, 0};
+		    nfc.mifareclassic_WriteDataBlock (block, data);
+		    
+		    //read
+		    nfc.mifareclassic_ReadDataBlock(block, data);
+		    
+    	}
+}
+
+*/
+
 #if 0
   #include <SPI.h>
   #include <PN532_SPI.h>
@@ -27,7 +63,7 @@
 
   PN532_SPI pn532spi(SPI, 10);
   PN532 nfc(pn532spi);
-#elif 1
+#elif 0
   #include <PN532_HSU.h>
   #include <PN532.h>
       

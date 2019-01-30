@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jan 30 17:57:37 2019" VIVADOVERSION="2017.4">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jan 30 23:40:53 2019" VIVADOVERSION="2017.4">
 
   <SYSTEMINFO ARCH="zynq" BOARD="digilentinc.com:zybo-z7-20:part0:1.0" DEVICE="7z020" NAME="design_1" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -66,9 +66,15 @@
     <PORT DIR="I" NAME="camera_enable" SIGIS="undef" SIGNAME="External_Ports_camera_enable">
       <CONNECTIONS>
         <CONNECTION INSTANCE="External_Ports" PORT="cam_gpio"/>
+        <CONNECTION INSTANCE="External_Ports" PORT="testled"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="O" NAME="cam_gpio" SIGIS="undef" SIGNAME="External_Ports_camera_enable">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="External_Ports" PORT="camera_enable"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="testled" SIGIS="undef" SIGNAME="External_Ports_camera_enable">
       <CONNECTIONS>
         <CONNECTION INSTANCE="External_Ports" PORT="camera_enable"/>
       </CONNECTIONS>

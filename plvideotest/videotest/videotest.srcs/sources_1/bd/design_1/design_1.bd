@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<bd:repository xmlns:bd="http://www.xilinx.com/bd" bd:BoundaryCRC="0xD8CED3340EA62602" bd:device="xc7z020clg400-1" bd:isValidated="true" bd:synthFlowMode="Hierarchical" bd:tool_version="2017.4" bd:top="design_1" bd:version="1.00.a">
+<bd:repository xmlns:bd="http://www.xilinx.com/bd" bd:BoundaryCRC="0x8EFDEF791863B1BF" bd:device="xc7z020clg400-1" bd:isValidated="true" bd:synthFlowMode="Hierarchical" bd:tool_version="2017.4" bd:top="design_1" bd:version="1.00.a">
 
   <spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
     <spirit:vendor>xilinx.com</spirit:vendor>
@@ -248,6 +248,12 @@
         </spirit:port>
         <spirit:port>
           <spirit:name>cam_gpio</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>testled</spirit:name>
           <spirit:wire>
             <spirit:direction>out</spirit:direction>
           </spirit:wire>
@@ -889,6 +895,7 @@
         <spirit:name>camera_enable_1</spirit:name>
         <spirit:externalPortReference spirit:portRef="camera_enable"/>
         <spirit:externalPortReference spirit:portRef="cam_gpio"/>
+        <spirit:externalPortReference spirit:portRef="testled"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>MIPI_CSI_2_RX_0_m_axis_video_tuser</spirit:name>

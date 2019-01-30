@@ -1,0 +1,61 @@
+#include "PN532_rfid.h"
+
+int main() {
+	int fd = init();
+	getFirmwareVersion(fd);
+	SAMConfig(fd);
+
+	uint8_t success;
+	uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
+	uint8_t uidLength;
+
+
+	success = readPassiveTargetID(fd, PN532_MIFARE_ISO14443A, uid, &uidLength, 1000);
+	if (success) {
+		//			Serial.println("Found an ISO14443A card");
+		//			Serial.print("  UID Length: ");Serial.print(uidLength, DEC);Serial.println(" bytes");
+		//			Serial.print("  UID Value: ");
+		//			nfc.PrintHex(uid, uidLength);
+		//			Serial.println("");
+
+		printf("Found an ISO14443A card\n  UID Length: %d bytes\nUID Value: ", uidLength);
+		PrintHex(uid, uidLength);
+		printf("\n");
+
+		int block = 4;
+		if (uidLength == 4)
+		{
+			uint8_t keya[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+			success = mifareclassic_AuthenticateBlock(fd, uid, uidLength, block, 0, keya);
+
+			if (success) {
+				//write
+				uint8_t data[16] = { 'a', 'd', 'a', 'f', 'r', 'u', 'i', 't', '.', 'c', 'o', 'm', 0, 0, 0, 0};
+				//success = mifareclassic_WriteDataBlock(fd, block, data);
+
+				//read
+				success = mifareclassic_ReadDataBlock(fd, block, data);
+
+				if (success) {
+					// Data seems to have been read ... spit it out
+					printf("Reading Block 4:\n");
+					PrintHexChar(data, 16);
+
+					// Wait a bit before reading the card again
+					sleep(1);
+				}
+				else
+					printf("Ooops ... unable to read the requested block.  Try another key?\n");
+
+			}
+			else
+				printf("Ooops ... authentication failed: Try another key?\n");
+		}
+	} else {
+		printf("Timeout or error\n");
+	}
+
+
+	close(fd);
+}
+
