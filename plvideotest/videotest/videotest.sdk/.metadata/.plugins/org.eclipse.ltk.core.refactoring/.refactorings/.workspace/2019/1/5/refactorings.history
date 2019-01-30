@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 2 resources" deleteContents="false" description="Delete 2 resources" element1="/PN532/src/main.cc" element2="/PN532/src/README.txt" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="2" stamp="1548869800345"/>
+</session>
