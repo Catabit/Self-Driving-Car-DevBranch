@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Jan 22 15:16:27 2019" VIVADOVERSION="2017.4">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jan 30 17:57:37 2019" VIVADOVERSION="2017.4">
 
   <SYSTEMINFO ARCH="zynq" BOARD="digilentinc.com:zybo-z7-20:part0:1.0" DEVICE="7z020" NAME="design_1" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -25,12 +25,12 @@
     <PORT DIR="IO" NAME="FIXED_IO_ps_srstb" SIGIS="undef"/>
     <PORT DIR="IO" NAME="FIXED_IO_ps_clk" SIGIS="undef"/>
     <PORT DIR="IO" NAME="FIXED_IO_ps_porb" SIGIS="undef"/>
-    <PORT DIR="I" NAME="cam_iic_sda_i" SIGIS="undef"/>
-    <PORT DIR="O" NAME="cam_iic_sda_o" SIGIS="undef"/>
-    <PORT DIR="O" NAME="cam_iic_sda_t" SIGIS="undef"/>
-    <PORT DIR="I" NAME="cam_iic_scl_i" SIGIS="undef"/>
-    <PORT DIR="O" NAME="cam_iic_scl_o" SIGIS="undef"/>
-    <PORT DIR="O" NAME="cam_iic_scl_t" SIGIS="undef"/>
+    <PORT DIR="I" NAME="ps_iic_sda_i" SIGIS="undef"/>
+    <PORT DIR="O" NAME="ps_iic_sda_o" SIGIS="undef"/>
+    <PORT DIR="O" NAME="ps_iic_sda_t" SIGIS="undef"/>
+    <PORT DIR="I" NAME="ps_iic_scl_i" SIGIS="undef"/>
+    <PORT DIR="O" NAME="ps_iic_scl_o" SIGIS="undef"/>
+    <PORT DIR="O" NAME="ps_iic_scl_t" SIGIS="undef"/>
     <PORT CLKFREQUENCY="100000000" DIR="I" NAME="dphy_hs_clock_clk_p" SIGIS="clk"/>
     <PORT CLKFREQUENCY="100000000" DIR="I" NAME="dphy_hs_clock_clk_n" SIGIS="clk"/>
     <PORT DIR="I" NAME="dphy_clk_lp_p" SIGIS="undef" SIGNAME="External_Ports_dphy_clk_lp_p">
@@ -120,14 +120,14 @@
         <PORTMAP LOGICAL="PS_PORB" PHYSICAL="FIXED_IO_ps_porb"/>
       </PORTMAPS>
     </BUSINTERFACE>
-    <BUSINTERFACE BUSNAME="processing_system7_0_IIC_0" NAME="cam_iic" TYPE="INITIATOR">
+    <BUSINTERFACE BUSNAME="processing_system7_0_IIC_0" NAME="ps_iic" TYPE="INITIATOR">
       <PORTMAPS>
-        <PORTMAP LOGICAL="SDA_I" PHYSICAL="cam_iic_sda_i"/>
-        <PORTMAP LOGICAL="SDA_O" PHYSICAL="cam_iic_sda_o"/>
-        <PORTMAP LOGICAL="SDA_T" PHYSICAL="cam_iic_sda_t"/>
-        <PORTMAP LOGICAL="SCL_I" PHYSICAL="cam_iic_scl_i"/>
-        <PORTMAP LOGICAL="SCL_O" PHYSICAL="cam_iic_scl_o"/>
-        <PORTMAP LOGICAL="SCL_T" PHYSICAL="cam_iic_scl_t"/>
+        <PORTMAP LOGICAL="SDA_I" PHYSICAL="ps_iic_sda_i"/>
+        <PORTMAP LOGICAL="SDA_O" PHYSICAL="ps_iic_sda_o"/>
+        <PORTMAP LOGICAL="SDA_T" PHYSICAL="ps_iic_sda_t"/>
+        <PORTMAP LOGICAL="SCL_I" PHYSICAL="ps_iic_scl_i"/>
+        <PORTMAP LOGICAL="SCL_O" PHYSICAL="ps_iic_scl_o"/>
+        <PORTMAP LOGICAL="SCL_T" PHYSICAL="ps_iic_scl_t"/>
       </PORTMAPS>
     </BUSINTERFACE>
     <BUSINTERFACE BUSNAME="External_Interface_dphy_hs_clock" NAME="dphy_hs_clock" TYPE="TARGET">

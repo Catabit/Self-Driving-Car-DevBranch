@@ -1,10 +1,10 @@
 -- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
--- Date        : Tue Jan 15 13:46:35 2019
+-- Date        : Wed Jan 30 18:01:58 2019
 -- Host        : catabit-VirtualBox running 64-bit Ubuntu 16.04.5 LTS
 -- Command     : write_vhdl -force -mode synth_stub
---               /home/catabit/Zybo/videotest/videotest.srcs/sources_1/bd/design_1/ip/design_1_rst_ps7_0_50M_1/design_1_rst_ps7_0_50M_1_stub.vhdl
+--               /home/catabit/Zybo/plvideotest/videotest/videotest.srcs/sources_1/bd/design_1/ip/design_1_rst_ps7_0_50M_1/design_1_rst_ps7_0_50M_1_stub.vhdl
 -- Design      : design_1_rst_ps7_0_50M_1
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z020clg400-1

@@ -4122,14 +4122,12 @@ CONFIG_bridge-utils=y
 #
 # apps 
 #
-CONFIG_cameratest=y
 # CONFIG_gpio-demo is not set
 CONFIG_peekpoke=y
 
 #
 # user packages 
 #
-CONFIG_uiotools=y
 
 #
 # PetaLinux RootFS Settings

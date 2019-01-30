@@ -8,8 +8,8 @@ preplace port cam_gpio -pg 1 -y 70 -defaultsOSRD
 preplace port dphy_clk_lp_n -pg 1 -y 440 -defaultsOSRD
 preplace port dphy_clk_lp_p -pg 1 -y 420 -defaultsOSRD
 preplace port camera_enable -pg 1 -y 180 -defaultsOSRD
+preplace port ps_iic -pg 1 -y 160 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -y 140 -defaultsOSRD
-preplace port cam_iic -pg 1 -y 160 -defaultsOSRD
 preplace portBus dphy_data_hs_n -pg 1 -y 480 -defaultsOSRD
 preplace portBus dphy_data_hs_p -pg 1 -y 460 -defaultsOSRD
 preplace portBus dphy_data_lp_n -pg 1 -y 520 -defaultsOSRD

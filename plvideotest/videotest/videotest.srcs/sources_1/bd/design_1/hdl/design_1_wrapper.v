@@ -1,8 +1,8 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Tue Jan 22 15:16:25 2019
-//Host        : catabit-UX430UAR running 64-bit Ubuntu 16.04.5 LTS
+//Date        : Wed Jan 30 17:57:34 2019
+//Host        : catabit-VirtualBox running 64-bit Ubuntu 16.04.5 LTS
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
 //Purpose     : IP block netlist
@@ -32,8 +32,6 @@ module design_1_wrapper
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
     cam_gpio,
-    cam_iic_scl_io,
-    cam_iic_sda_io,
     camera_enable,
     dphy_clk_lp_n,
     dphy_clk_lp_p,
@@ -42,7 +40,9 @@ module design_1_wrapper
     dphy_data_lp_n,
     dphy_data_lp_p,
     dphy_hs_clock_clk_n,
-    dphy_hs_clock_clk_p);
+    dphy_hs_clock_clk_p,
+    ps_iic_scl_io,
+    ps_iic_sda_io);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -65,8 +65,6 @@ module design_1_wrapper
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
   output cam_gpio;
-  inout cam_iic_scl_io;
-  inout cam_iic_sda_io;
   input camera_enable;
   input dphy_clk_lp_n;
   input dphy_clk_lp_p;
@@ -76,6 +74,8 @@ module design_1_wrapper
   input [1:0]dphy_data_lp_p;
   input dphy_hs_clock_clk_n;
   input dphy_hs_clock_clk_p;
+  inout ps_iic_scl_io;
+  inout ps_iic_sda_io;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -99,14 +99,6 @@ module design_1_wrapper
   wire FIXED_IO_ps_porb;
   wire FIXED_IO_ps_srstb;
   wire cam_gpio;
-  wire cam_iic_scl_i;
-  wire cam_iic_scl_io;
-  wire cam_iic_scl_o;
-  wire cam_iic_scl_t;
-  wire cam_iic_sda_i;
-  wire cam_iic_sda_io;
-  wire cam_iic_sda_o;
-  wire cam_iic_sda_t;
   wire camera_enable;
   wire dphy_clk_lp_n;
   wire dphy_clk_lp_p;
@@ -116,17 +108,15 @@ module design_1_wrapper
   wire [1:0]dphy_data_lp_p;
   wire dphy_hs_clock_clk_n;
   wire dphy_hs_clock_clk_p;
+  wire ps_iic_scl_i;
+  wire ps_iic_scl_io;
+  wire ps_iic_scl_o;
+  wire ps_iic_scl_t;
+  wire ps_iic_sda_i;
+  wire ps_iic_sda_io;
+  wire ps_iic_sda_o;
+  wire ps_iic_sda_t;
 
-  IOBUF cam_iic_scl_iobuf
-       (.I(cam_iic_scl_o),
-        .IO(cam_iic_scl_io),
-        .O(cam_iic_scl_i),
-        .T(cam_iic_scl_t));
-  IOBUF cam_iic_sda_iobuf
-       (.I(cam_iic_sda_o),
-        .IO(cam_iic_sda_io),
-        .O(cam_iic_sda_i),
-        .T(cam_iic_sda_t));
   design_1 design_1_i
        (.DDR_addr(DDR_addr),
         .DDR_ba(DDR_ba),
@@ -150,12 +140,6 @@ module design_1_wrapper
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
         .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
         .cam_gpio(cam_gpio),
-        .cam_iic_scl_i(cam_iic_scl_i),
-        .cam_iic_scl_o(cam_iic_scl_o),
-        .cam_iic_scl_t(cam_iic_scl_t),
-        .cam_iic_sda_i(cam_iic_sda_i),
-        .cam_iic_sda_o(cam_iic_sda_o),
-        .cam_iic_sda_t(cam_iic_sda_t),
         .camera_enable(camera_enable),
         .dphy_clk_lp_n(dphy_clk_lp_n),
         .dphy_clk_lp_p(dphy_clk_lp_p),
@@ -164,5 +148,21 @@ module design_1_wrapper
         .dphy_data_lp_n(dphy_data_lp_n),
         .dphy_data_lp_p(dphy_data_lp_p),
         .dphy_hs_clock_clk_n(dphy_hs_clock_clk_n),
-        .dphy_hs_clock_clk_p(dphy_hs_clock_clk_p));
+        .dphy_hs_clock_clk_p(dphy_hs_clock_clk_p),
+        .ps_iic_scl_i(ps_iic_scl_i),
+        .ps_iic_scl_o(ps_iic_scl_o),
+        .ps_iic_scl_t(ps_iic_scl_t),
+        .ps_iic_sda_i(ps_iic_sda_i),
+        .ps_iic_sda_o(ps_iic_sda_o),
+        .ps_iic_sda_t(ps_iic_sda_t));
+  IOBUF ps_iic_scl_iobuf
+       (.I(ps_iic_scl_o),
+        .IO(ps_iic_scl_io),
+        .O(ps_iic_scl_i),
+        .T(ps_iic_scl_t));
+  IOBUF ps_iic_sda_iobuf
+       (.I(ps_iic_sda_o),
+        .IO(ps_iic_sda_io),
+        .O(ps_iic_sda_i),
+        .T(ps_iic_sda_t));
 endmodule

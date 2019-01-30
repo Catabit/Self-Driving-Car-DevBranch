@@ -1,0 +1,1 @@
+set xsdb_idle_timeout -1;source /home/catabit/.opt/Xilinx/SDK/2017.4/scripts/xsdb/xsdb/xsdb-server.tcl

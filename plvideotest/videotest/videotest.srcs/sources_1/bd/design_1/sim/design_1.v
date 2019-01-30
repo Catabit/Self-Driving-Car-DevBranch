@@ -1,8 +1,8 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Tue Jan 22 15:16:25 2019
-//Host        : catabit-UX430UAR running 64-bit Ubuntu 16.04.5 LTS
+//Date        : Wed Jan 30 17:57:34 2019
+//Host        : catabit-VirtualBox running 64-bit Ubuntu 16.04.5 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
 //Purpose     : IP block netlist
@@ -33,12 +33,6 @@ module design_1
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
     cam_gpio,
-    cam_iic_scl_i,
-    cam_iic_scl_o,
-    cam_iic_scl_t,
-    cam_iic_sda_i,
-    cam_iic_sda_o,
-    cam_iic_sda_t,
     camera_enable,
     dphy_clk_lp_n,
     dphy_clk_lp_p,
@@ -47,7 +41,13 @@ module design_1
     dphy_data_lp_n,
     dphy_data_lp_p,
     dphy_hs_clock_clk_n,
-    dphy_hs_clock_clk_p);
+    dphy_hs_clock_clk_p,
+    ps_iic_scl_i,
+    ps_iic_scl_o,
+    ps_iic_scl_t,
+    ps_iic_sda_i,
+    ps_iic_sda_o,
+    ps_iic_sda_t);
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR ADDR" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DDR, AXI_ARBITRATION_SCHEME TDM, BURST_LENGTH 8, CAN_DEBUG false, CAS_LATENCY 11, CAS_WRITE_LATENCY 11, CS_ENABLED true, DATA_MASK_ENABLED true, DATA_WIDTH 8, MEMORY_TYPE COMPONENTS, MEM_ADDR_MAP ROW_COLUMN_BANK, SLOT Single, TIMEPERIOD_PS 1250" *) inout [14:0]DDR_addr;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR BA" *) inout [2:0]DDR_ba;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR CAS_N" *) inout DDR_cas_n;
@@ -70,12 +70,6 @@ module design_1
   (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_PORB" *) inout FIXED_IO_ps_porb;
   (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_SRSTB" *) inout FIXED_IO_ps_srstb;
   output cam_gpio;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 cam_iic SCL_I" *) input cam_iic_scl_i;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 cam_iic SCL_O" *) output cam_iic_scl_o;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 cam_iic SCL_T" *) output cam_iic_scl_t;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 cam_iic SDA_I" *) input cam_iic_sda_i;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 cam_iic SDA_O" *) output cam_iic_sda_o;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 cam_iic SDA_T" *) output cam_iic_sda_t;
   input camera_enable;
   input dphy_clk_lp_n;
   input dphy_clk_lp_p;
@@ -85,6 +79,12 @@ module design_1
   input [1:0]dphy_data_lp_p;
   (* X_INTERFACE_INFO = "xilinx.com:interface:diff_clock:1.0 dphy_hs_clock CLK_N" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME dphy_hs_clock, CAN_DEBUG false, FREQ_HZ 100000000" *) input dphy_hs_clock_clk_n;
   (* X_INTERFACE_INFO = "xilinx.com:interface:diff_clock:1.0 dphy_hs_clock CLK_P" *) input dphy_hs_clock_clk_p;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 ps_iic " *) input ps_iic_scl_i;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 ps_iic " *) output ps_iic_scl_o;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 ps_iic " *) output ps_iic_scl_t;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 ps_iic " *) input ps_iic_sda_i;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 ps_iic " *) output ps_iic_sda_o;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 ps_iic " *) output ps_iic_sda_t;
 
   wire [31:0]AXI_BayerToRGB_0_AXI_Stream_Master_TDATA;
   wire AXI_BayerToRGB_0_AXI_Stream_Master_TLAST;
@@ -299,10 +299,6 @@ module design_1
   wire [0:0]xlconcat_0_dout;
 
   assign cam_gpio = camera_enable_1;
-  assign cam_iic_scl_o = processing_system7_0_IIC_0_SCL_O;
-  assign cam_iic_scl_t = processing_system7_0_IIC_0_SCL_T;
-  assign cam_iic_sda_o = processing_system7_0_IIC_0_SDA_O;
-  assign cam_iic_sda_t = processing_system7_0_IIC_0_SDA_T;
   assign camera_enable_1 = camera_enable;
   assign dphy_clk_lp_n_1 = dphy_clk_lp_n;
   assign dphy_clk_lp_p_1 = dphy_clk_lp_p;
@@ -312,8 +308,12 @@ module design_1
   assign dphy_data_lp_p_1 = dphy_data_lp_p[1:0];
   assign dphy_hs_clock_1_CLK_N = dphy_hs_clock_clk_n;
   assign dphy_hs_clock_1_CLK_P = dphy_hs_clock_clk_p;
-  assign processing_system7_0_IIC_0_SCL_I = cam_iic_scl_i;
-  assign processing_system7_0_IIC_0_SDA_I = cam_iic_sda_i;
+  assign processing_system7_0_IIC_0_SCL_I = ps_iic_scl_i;
+  assign processing_system7_0_IIC_0_SDA_I = ps_iic_sda_i;
+  assign ps_iic_scl_o = processing_system7_0_IIC_0_SCL_O;
+  assign ps_iic_scl_t = processing_system7_0_IIC_0_SCL_T;
+  assign ps_iic_sda_o = processing_system7_0_IIC_0_SDA_O;
+  assign ps_iic_sda_t = processing_system7_0_IIC_0_SDA_T;
   design_1_AXI_BayerToRGB_0_0 AXI_BayerToRGB_0
        (.StreamClk(clk_wiz_0_clk_out1),
         .m_axis_video_tdata(AXI_BayerToRGB_0_AXI_Stream_Master_TDATA),
