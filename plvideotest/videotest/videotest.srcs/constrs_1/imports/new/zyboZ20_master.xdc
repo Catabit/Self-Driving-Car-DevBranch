@@ -24,10 +24,10 @@ set_property -dict { PACKAGE_PIN G15   IOSTANDARD LVCMOS33 } [get_ports { camera
 
 
 ##LEDs
-#set_property -dict { PACKAGE_PIN M14   IOSTANDARD LVCMOS33 } [get_ports { Leds[0] }]; #IO_L23P_T3_35 Sch=led[0]
+set_property -dict { PACKAGE_PIN M14   IOSTANDARD LVCMOS33 } [get_ports { testled }]; #IO_L23P_T3_35 Sch=led[0]
 #set_property -dict { PACKAGE_PIN M15   IOSTANDARD LVCMOS33 } [get_ports { Leds[1] }]; #IO_L23N_T3_35 Sch=led[1]
 #set_property -dict { PACKAGE_PIN G14   IOSTANDARD LVCMOS33 } [get_ports { Leds[2] }]; #IO_0_35 Sch=led[2]
-set_property -dict { PACKAGE_PIN D18   IOSTANDARD LVCMOS33 } [get_ports { testled }]; #IO_L3N_T0_DQS_AD1N_35 Sch=led[3]
+#set_property -dict { PACKAGE_PIN D18   IOSTANDARD LVCMOS33 } [get_ports { Leds[3] }]; #IO_L3N_T0_DQS_AD1N_35 Sch=led[3]
 
 
 ##RGB LED 5 (Zybo Z7-20 only)
@@ -160,8 +160,8 @@ set_property PACKAGE_PIN G20 [get_ports {cam_gpio}]
 set_property IOSTANDARD LVCMOS33 [get_ports {cam_gpio}]
 set_property PULLUP true [get_ports {cam_gpio}]
 
-#set_property -dict {PACKAGE_PIN F20 IOSTANDARD LVCMOS33} [get_ports ps_iic_scl_io]
-#set_property -dict {PACKAGE_PIN F19 IOSTANDARD LVCMOS33} [get_ports ps_iic_sda_io]
+set_property -dict {PACKAGE_PIN F20 IOSTANDARD LVCMOS33} [get_ports cam_iic_scl_io]
+set_property -dict {PACKAGE_PIN F19 IOSTANDARD LVCMOS33} [get_ports cam_iic_sda_io]
 
 set_property INTERNAL_VREF 0.6 [get_iobanks 35]
 

@@ -64,6 +64,12 @@ module design_1_processing_system7_0_0 (
   I2C0_SCL_I,
   I2C0_SCL_O,
   I2C0_SCL_T,
+  I2C1_SDA_I,
+  I2C1_SDA_O,
+  I2C1_SDA_T,
+  I2C1_SCL_I,
+  I2C1_SCL_O,
+  I2C1_SCL_T,
   USB0_PORT_INDCTL,
   USB0_VBUS_PWRSELECT,
   USB0_VBUS_PWRFAULT,
@@ -189,6 +195,18 @@ input wire I2C0_SCL_I;
 output wire I2C0_SCL_O;
 (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 IIC_0 SCL_T" *)
 output wire I2C0_SCL_T;
+(* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 IIC_1 SDA_I" *)
+input wire I2C1_SDA_I;
+(* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 IIC_1 SDA_O" *)
+output wire I2C1_SDA_O;
+(* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 IIC_1 SDA_T" *)
+output wire I2C1_SDA_T;
+(* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 IIC_1 SCL_I" *)
+input wire I2C1_SCL_I;
+(* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 IIC_1 SCL_O" *)
+output wire I2C1_SCL_O;
+(* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 IIC_1 SCL_T" *)
+output wire I2C1_SCL_T;
 (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:usbctrl:1.0 USBIND_0 PORT_INDCTL" *)
 output wire [1 : 0] USB0_PORT_INDCTL;
 (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:usbctrl:1.0 USBIND_0 VBUS_PWRSELECT" *)
@@ -542,12 +560,12 @@ inout wire PS_PORB;
     .I2C0_SCL_I(I2C0_SCL_I),
     .I2C0_SCL_O(I2C0_SCL_O),
     .I2C0_SCL_T(I2C0_SCL_T),
-    .I2C1_SDA_I(1'B0),
-    .I2C1_SDA_O(),
-    .I2C1_SDA_T(),
-    .I2C1_SCL_I(1'B0),
-    .I2C1_SCL_O(),
-    .I2C1_SCL_T(),
+    .I2C1_SDA_I(I2C1_SDA_I),
+    .I2C1_SDA_O(I2C1_SDA_O),
+    .I2C1_SDA_T(I2C1_SDA_T),
+    .I2C1_SCL_I(I2C1_SCL_I),
+    .I2C1_SCL_O(I2C1_SCL_O),
+    .I2C1_SCL_T(I2C1_SCL_T),
     .PJTAG_TCK(1'B0),
     .PJTAG_TMS(1'B0),
     .PJTAG_TDI(1'B0),

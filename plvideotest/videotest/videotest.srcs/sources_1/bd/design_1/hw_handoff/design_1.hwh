@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jan 30 23:40:53 2019" VIVADOVERSION="2017.4">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Feb 14 16:52:38 2019" VIVADOVERSION="2017.4">
 
   <SYSTEMINFO ARCH="zynq" BOARD="digilentinc.com:zybo-z7-20:part0:1.0" DEVICE="7z020" NAME="design_1" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -25,12 +25,12 @@
     <PORT DIR="IO" NAME="FIXED_IO_ps_srstb" SIGIS="undef"/>
     <PORT DIR="IO" NAME="FIXED_IO_ps_clk" SIGIS="undef"/>
     <PORT DIR="IO" NAME="FIXED_IO_ps_porb" SIGIS="undef"/>
-    <PORT DIR="I" NAME="ps_iic_sda_i" SIGIS="undef"/>
-    <PORT DIR="O" NAME="ps_iic_sda_o" SIGIS="undef"/>
-    <PORT DIR="O" NAME="ps_iic_sda_t" SIGIS="undef"/>
-    <PORT DIR="I" NAME="ps_iic_scl_i" SIGIS="undef"/>
-    <PORT DIR="O" NAME="ps_iic_scl_o" SIGIS="undef"/>
-    <PORT DIR="O" NAME="ps_iic_scl_t" SIGIS="undef"/>
+    <PORT DIR="I" NAME="cam_iic_sda_i" SIGIS="undef"/>
+    <PORT DIR="O" NAME="cam_iic_sda_o" SIGIS="undef"/>
+    <PORT DIR="O" NAME="cam_iic_sda_t" SIGIS="undef"/>
+    <PORT DIR="I" NAME="cam_iic_scl_i" SIGIS="undef"/>
+    <PORT DIR="O" NAME="cam_iic_scl_o" SIGIS="undef"/>
+    <PORT DIR="O" NAME="cam_iic_scl_t" SIGIS="undef"/>
     <PORT CLKFREQUENCY="100000000" DIR="I" NAME="dphy_hs_clock_clk_p" SIGIS="clk"/>
     <PORT CLKFREQUENCY="100000000" DIR="I" NAME="dphy_hs_clock_clk_n" SIGIS="clk"/>
     <PORT DIR="I" NAME="dphy_clk_lp_p" SIGIS="undef" SIGNAME="External_Ports_dphy_clk_lp_p">
@@ -65,8 +65,8 @@
     </PORT>
     <PORT DIR="I" NAME="camera_enable" SIGIS="undef" SIGNAME="External_Ports_camera_enable">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="External_Ports" PORT="cam_gpio"/>
         <CONNECTION INSTANCE="External_Ports" PORT="testled"/>
+        <CONNECTION INSTANCE="External_Ports" PORT="cam_gpio"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="O" NAME="cam_gpio" SIGIS="undef" SIGNAME="External_Ports_camera_enable">
@@ -79,6 +79,12 @@
         <CONNECTION INSTANCE="External_Ports" PORT="camera_enable"/>
       </CONNECTIONS>
     </PORT>
+    <PORT DIR="I" NAME="ps_iic_sda_i" SIGIS="undef"/>
+    <PORT DIR="O" NAME="ps_iic_sda_o" SIGIS="undef"/>
+    <PORT DIR="O" NAME="ps_iic_sda_t" SIGIS="undef"/>
+    <PORT DIR="I" NAME="ps_iic_scl_i" SIGIS="undef"/>
+    <PORT DIR="O" NAME="ps_iic_scl_o" SIGIS="undef"/>
+    <PORT DIR="O" NAME="ps_iic_scl_t" SIGIS="undef"/>
   </EXTERNALPORTS>
 
   <EXTERNALINTERFACES>
@@ -126,14 +132,14 @@
         <PORTMAP LOGICAL="PS_PORB" PHYSICAL="FIXED_IO_ps_porb"/>
       </PORTMAPS>
     </BUSINTERFACE>
-    <BUSINTERFACE BUSNAME="processing_system7_0_IIC_0" NAME="ps_iic" TYPE="INITIATOR">
+    <BUSINTERFACE BUSNAME="processing_system7_0_IIC_0" NAME="cam_iic" TYPE="INITIATOR">
       <PORTMAPS>
-        <PORTMAP LOGICAL="SDA_I" PHYSICAL="ps_iic_sda_i"/>
-        <PORTMAP LOGICAL="SDA_O" PHYSICAL="ps_iic_sda_o"/>
-        <PORTMAP LOGICAL="SDA_T" PHYSICAL="ps_iic_sda_t"/>
-        <PORTMAP LOGICAL="SCL_I" PHYSICAL="ps_iic_scl_i"/>
-        <PORTMAP LOGICAL="SCL_O" PHYSICAL="ps_iic_scl_o"/>
-        <PORTMAP LOGICAL="SCL_T" PHYSICAL="ps_iic_scl_t"/>
+        <PORTMAP LOGICAL="SDA_I" PHYSICAL="cam_iic_sda_i"/>
+        <PORTMAP LOGICAL="SDA_O" PHYSICAL="cam_iic_sda_o"/>
+        <PORTMAP LOGICAL="SDA_T" PHYSICAL="cam_iic_sda_t"/>
+        <PORTMAP LOGICAL="SCL_I" PHYSICAL="cam_iic_scl_i"/>
+        <PORTMAP LOGICAL="SCL_O" PHYSICAL="cam_iic_scl_o"/>
+        <PORTMAP LOGICAL="SCL_T" PHYSICAL="cam_iic_scl_t"/>
       </PORTMAPS>
     </BUSINTERFACE>
     <BUSINTERFACE BUSNAME="External_Interface_dphy_hs_clock" NAME="dphy_hs_clock" TYPE="TARGET">
@@ -142,6 +148,16 @@
       <PORTMAPS>
         <PORTMAP LOGICAL="CLK_P" PHYSICAL="dphy_hs_clock_clk_p"/>
         <PORTMAP LOGICAL="CLK_N" PHYSICAL="dphy_hs_clock_clk_n"/>
+      </PORTMAPS>
+    </BUSINTERFACE>
+    <BUSINTERFACE BUSNAME="processing_system7_0_IIC_1" NAME="ps_iic" TYPE="INITIATOR">
+      <PORTMAPS>
+        <PORTMAP LOGICAL="SDA_I" PHYSICAL="ps_iic_sda_i"/>
+        <PORTMAP LOGICAL="SDA_O" PHYSICAL="ps_iic_sda_o"/>
+        <PORTMAP LOGICAL="SDA_T" PHYSICAL="ps_iic_sda_t"/>
+        <PORTMAP LOGICAL="SCL_I" PHYSICAL="ps_iic_scl_i"/>
+        <PORTMAP LOGICAL="SCL_O" PHYSICAL="ps_iic_scl_o"/>
+        <PORTMAP LOGICAL="SCL_T" PHYSICAL="ps_iic_scl_t"/>
       </PORTMAPS>
     </BUSINTERFACE>
   </EXTERNALINTERFACES>
@@ -4632,7 +4648,7 @@
         <PARAMETER NAME="PCW_EN_PTP_ENET1" VALUE="0"/>
         <PARAMETER NAME="PCW_EN_EMIO_GPIO" VALUE="0"/>
         <PARAMETER NAME="PCW_EN_EMIO_I2C0" VALUE="1"/>
-        <PARAMETER NAME="PCW_EN_EMIO_I2C1" VALUE="0"/>
+        <PARAMETER NAME="PCW_EN_EMIO_I2C1" VALUE="1"/>
         <PARAMETER NAME="PCW_EN_EMIO_PJTAG" VALUE="0"/>
         <PARAMETER NAME="PCW_EN_EMIO_SDIO0" VALUE="0"/>
         <PARAMETER NAME="PCW_EN_EMIO_CD_SDIO0" VALUE="0"/>
@@ -4741,7 +4757,7 @@
         <PARAMETER NAME="PCW_EN_ENET1" VALUE="0"/>
         <PARAMETER NAME="PCW_EN_GPIO" VALUE="1"/>
         <PARAMETER NAME="PCW_EN_I2C0" VALUE="1"/>
-        <PARAMETER NAME="PCW_EN_I2C1" VALUE="0"/>
+        <PARAMETER NAME="PCW_EN_I2C1" VALUE="1"/>
         <PARAMETER NAME="PCW_EN_PJTAG" VALUE="0"/>
         <PARAMETER NAME="PCW_EN_SDIO0" VALUE="1"/>
         <PARAMETER NAME="PCW_EN_SDIO1" VALUE="0"/>
@@ -4976,10 +4992,10 @@
         <PARAMETER NAME="PCW_I2C0_GRP_INT_IO" VALUE="EMIO"/>
         <PARAMETER NAME="PCW_I2C0_RESET_ENABLE" VALUE="0"/>
         <PARAMETER NAME="PCW_I2C0_RESET_IO" VALUE="&lt;Select>"/>
-        <PARAMETER NAME="PCW_I2C1_PERIPHERAL_ENABLE" VALUE="0"/>
-        <PARAMETER NAME="PCW_I2C1_I2C1_IO" VALUE="&lt;Select>"/>
-        <PARAMETER NAME="PCW_I2C1_GRP_INT_ENABLE" VALUE="0"/>
-        <PARAMETER NAME="PCW_I2C1_GRP_INT_IO" VALUE="&lt;Select>"/>
+        <PARAMETER NAME="PCW_I2C1_PERIPHERAL_ENABLE" VALUE="1"/>
+        <PARAMETER NAME="PCW_I2C1_I2C1_IO" VALUE="EMIO"/>
+        <PARAMETER NAME="PCW_I2C1_GRP_INT_ENABLE" VALUE="1"/>
+        <PARAMETER NAME="PCW_I2C1_GRP_INT_IO" VALUE="EMIO"/>
         <PARAMETER NAME="PCW_I2C_RESET_ENABLE" VALUE="1"/>
         <PARAMETER NAME="PCW_I2C_RESET_SELECT" VALUE="Share reset pin"/>
         <PARAMETER NAME="PCW_I2C1_RESET_ENABLE" VALUE="0"/>
@@ -5302,6 +5318,12 @@
         <PORT DIR="I" NAME="I2C0_SCL_I" SIGIS="undef"/>
         <PORT DIR="O" NAME="I2C0_SCL_O" SIGIS="undef"/>
         <PORT DIR="O" NAME="I2C0_SCL_T" SIGIS="undef"/>
+        <PORT DIR="I" NAME="I2C1_SDA_I" SIGIS="undef"/>
+        <PORT DIR="O" NAME="I2C1_SDA_O" SIGIS="undef"/>
+        <PORT DIR="O" NAME="I2C1_SDA_T" SIGIS="undef"/>
+        <PORT DIR="I" NAME="I2C1_SCL_I" SIGIS="undef"/>
+        <PORT DIR="O" NAME="I2C1_SCL_O" SIGIS="undef"/>
+        <PORT DIR="O" NAME="I2C1_SCL_T" SIGIS="undef"/>
         <PORT DIR="O" LEFT="1" NAME="USB0_PORT_INDCTL" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="O" NAME="USB0_VBUS_PWRSELECT" SIGIS="undef"/>
         <PORT DIR="I" NAME="USB0_VBUS_PWRFAULT" SIGIS="undef"/>
@@ -5801,6 +5823,16 @@
             <PORTMAP LOGICAL="SCL_I" PHYSICAL="I2C0_SCL_I"/>
             <PORTMAP LOGICAL="SCL_O" PHYSICAL="I2C0_SCL_O"/>
             <PORTMAP LOGICAL="SCL_T" PHYSICAL="I2C0_SCL_T"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="processing_system7_0_IIC_1" NAME="IIC_1" TYPE="INITIATOR" VLNV="xilinx.com:interface:iic:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="SDA_I" PHYSICAL="I2C1_SDA_I"/>
+            <PORTMAP LOGICAL="SDA_O" PHYSICAL="I2C1_SDA_O"/>
+            <PORTMAP LOGICAL="SDA_T" PHYSICAL="I2C1_SDA_T"/>
+            <PORTMAP LOGICAL="SCL_I" PHYSICAL="I2C1_SCL_I"/>
+            <PORTMAP LOGICAL="SCL_O" PHYSICAL="I2C1_SCL_O"/>
+            <PORTMAP LOGICAL="SCL_T" PHYSICAL="I2C1_SCL_T"/>
           </PORTMAPS>
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="__NOC__" NAME="USBIND_0" TYPE="INITIATOR" VLNV="xilinx.com:display_processing_system7:usbctrl:1.0">

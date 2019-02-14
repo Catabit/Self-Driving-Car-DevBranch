@@ -683,6 +683,12 @@
   I2C0_SCL_I,
   I2C0_SCL_O,
   I2C0_SCL_T,
+  I2C1_SDA_I,
+  I2C1_SDA_O,
+  I2C1_SDA_T,
+  I2C1_SCL_I,
+  I2C1_SCL_O,
+  I2C1_SCL_T,
   USB0_PORT_INDCTL,
   USB0_VBUS_PWRSELECT,
   USB0_VBUS_PWRFAULT,
@@ -863,6 +869,12 @@
       input  I2C0_SCL_I;
       output  I2C0_SCL_O;
       output  I2C0_SCL_T;
+      input  I2C1_SDA_I;
+      output  I2C1_SDA_O;
+      output  I2C1_SDA_T;
+      input  I2C1_SCL_I;
+      output  I2C1_SCL_O;
+      output  I2C1_SCL_T;
       output  [1 : 0] USB0_PORT_INDCTL;
       output  USB0_VBUS_PWRSELECT;
       input  USB0_VBUS_PWRFAULT;
@@ -981,6 +993,10 @@
       reg I2C0_SDA_T;
       reg I2C0_SCL_O;
       reg I2C0_SCL_T;
+      reg I2C1_SDA_O;
+      reg I2C1_SDA_T;
+      reg I2C1_SCL_O;
+      reg I2C1_SCL_T;
       reg [1 : 0] USB0_PORT_INDCTL;
       reg USB0_VBUS_PWRSELECT;
       reg M_AXI_GP0_ARVALID;

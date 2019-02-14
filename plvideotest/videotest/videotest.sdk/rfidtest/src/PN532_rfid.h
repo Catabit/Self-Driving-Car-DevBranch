@@ -7,6 +7,8 @@
 #include <sys/ioctl.h>
 #include <linux/i2c-dev.h>
 
+#define DEBUG(x) printf("DEBUG %d\n", x)
+
 #define PN532_PREAMBLE                (0x00)
 #define PN532_STARTCODE1              (0x00)
 #define PN532_STARTCODE2              (0xFF)
@@ -103,13 +105,35 @@ void PrintHexChar(const uint8_t *data, const uint32_t numBytes)
     printf("\n");
 }
 
+int requestData(int fd, uint8_t address, uint8_t *output, uint8_t length){
+//	uint8_t cleanbuf[200];
+//	int s = read(fd, cleanbuf, 200);
+//	printf("Cleaned %d bytes\n", s);
+
+
+	uint8_t buf[1];
+	buf[0]=address;
+	write(fd, buf, 1);
+
+	int result = read(fd,output,length);
+
+	if (result != length) {
+		//printf("Failed to read %d bytes from the i2c bus. Read %d bytes instead.\n", length, result);
+		return result;
+	} else {
+		return length;
+	}
+}
+
 int8_t readAckFrame(int fd) {
 	const uint8_t PN532_ACK[] = {0, 0, 0xFF, 0, 0xFF, 0};
 	uint8_t ackBuf[sizeof(PN532_ACK)+1];
 
+	DEBUG(2);
+
 	uint16_t time = 0;
 	do {
-		if (read(fd, ackBuf, sizeof(PN532_ACK) + 1)) {
+		if (requestData(fd, PN532_I2C_ADDRESS, ackBuf, 7)) {
 			if (ackBuf[0] & 1) {  // check first byte --- status
 				break;         // PN532 is ready
 			}
@@ -118,11 +142,12 @@ int8_t readAckFrame(int fd) {
 		usleep(1000);
 		time++;
 		if (time > PN532_ACK_WAIT_TIME) {
-			printf("TIMEOUT 2\n");
+			printf("TIMEOUT ACK\n");
 			return PN532_TIMEOUT;
 		}
 	} while (1);
 
+	//requestData(fd, PN532_I2C_ADDRESS, ackBuf+1, 6);
 
 	int ok=1;
 	for (int i=0; i<sizeof(PN532_ACK); i++)
@@ -157,7 +182,7 @@ int8_t writeCommand(int fd, const uint8_t *header, uint8_t hlen, const uint8_t *
 	iicbuf[1] = PN532_STARTCODE1;
 	iicbuf[2] = PN532_STARTCODE2;
 
-	uint8_t length = hlen + blen + 1;   // length of data field: TFI + DATA
+	int8_t length = hlen + blen + 1;   // length of data field: TFI + DATA
 
 	iicbuf[3] = length;
 	iicbuf[4] = ~length +1;
@@ -184,7 +209,9 @@ int8_t writeCommand(int fd, const uint8_t *header, uint8_t hlen, const uint8_t *
 	iicbuf[7+hlen]=PN532_POSTAMBLE;
 
 	if(write(fd, iicbuf, 8+hlen)!=8+hlen)
-		return 0;
+		return -1;
+
+	DEBUG(1);
 
 	return readAckFrame(fd);
 
@@ -195,8 +222,10 @@ int16_t getResponseLength(int fd, uint16_t timeout) {
 	uint16_t time = 0;
 	uint8_t iicbuf[7];
 
+	DEBUG(4);
+
 	do {
-		if (read(fd, iicbuf, 7)==7) {
+		if (requestData(fd, PN532_I2C_ADDRESS, iicbuf, 1)) {
 			if (iicbuf[0] & 1) {  // check first byte --- status
 				break;         // PN532 is ready
 			}
@@ -206,10 +235,12 @@ int16_t getResponseLength(int fd, uint16_t timeout) {
 		time++;
 		if ((0 != timeout) && (time > timeout)) {
 
-			printf("TIMEOUT 1\n");
+			printf("TIMEOUT RESPONSE LENGTH\n");
 			return -1;
 		}
 	} while (1);
+
+	DEBUG(10);
 
 	if (0x00 != iicbuf[1]      ||       // PREAMBLE
 			0x00 != iicbuf[2]  ||       // STARTCODE1
@@ -238,14 +269,25 @@ int16_t getResponseLength(int fd, uint16_t timeout) {
     */
 int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 	uint16_t time = 0;
-	uint8_t length;
+	int8_t length;
+
+	DEBUG(3);
 
 	length = getResponseLength(fd, timeout);
+
+
+	if (length<1){
+		printf("Could not get response length.\n");
+		return -1;
+	}
+
+	DEBUG(42);
+
 	uint8_t iicbuf[6 + length + 2];
 
 	// [RDY] 00 00 FF LEN LCS (TFI PD0 ... PDn) DCS 00
 	do {
-		if (read(fd, iicbuf, 6 + length + 2)) {
+		if (requestData(fd, PN532_I2C_ADDRESS, iicbuf, 6 + length + 2)) {
 			if (iicbuf[0] & 1) {  // check first byte --- status
 				break;         // PN532 is ready
 			}
@@ -254,7 +296,7 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 		usleep(1000);
 		time++;
 		if ((0 != timeout) && (time > timeout)) {
-			printf("TIMEOUT 3\n");
+			printf("TIMEOUT RESPONSE\n");
 			return -1;
 		}
 	} while (1);
@@ -291,6 +333,7 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 
 	uint8_t checksum = iicbuf[8+length];
 	if (0 != (uint8_t)(sum + checksum)) {
+		printf("Checksum invalid!\n");
 		return PN532_INVALID_FRAME;
 	}
 
@@ -314,15 +357,20 @@ uint32_t getFirmwareVersion(int fd)
 
     pn532_packetbuffer[0] = PN532_COMMAND_GETFIRMWAREVERSION;
 
-    if (writeCommand(fd, pn532_packetbuffer, 1, NULL, 0)) {
+    if (writeCommand(fd, pn532_packetbuffer, 1, NULL, 0)<0) {
         return 0;
     }
+
+    printf("DEBUG Written\n");
+
 
     // read data packet
     int16_t status = readResponse(fd, pn532_packetbuffer, sizeof(pn532_packetbuffer), 1000);
     if (0 > status) {
         return 0;
     }
+
+    DEBUG(5);
 
     response = pn532_packetbuffer[0];
     response <<= 8;
@@ -652,7 +700,7 @@ int init(){
 
 	int fd;
 	command = 0;
-	if ((fd = open("/dev/i2c-0", O_RDWR)) < 0) {
+	if ((fd = open("/dev/i2c-1", O_RDWR)) < 0) {
 		/* ERROR HANDLING: you can check errno to see what went wrong */
 		printf("Failed to open the i2c bus\n");
 		return -1;
@@ -664,6 +712,7 @@ int init(){
 		/* ERROR HANDLING; you can check errno to see what went wrong */
 		return -1;
 	}
+
 	printf("Opened device \n");
 	return fd;
 }

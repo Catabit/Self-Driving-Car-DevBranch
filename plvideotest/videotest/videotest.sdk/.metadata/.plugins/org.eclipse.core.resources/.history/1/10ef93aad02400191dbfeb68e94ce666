@@ -1,5 +1,0 @@
-#include "PN532_rfid.h"
-
-int main() {
-	return 0;
-}

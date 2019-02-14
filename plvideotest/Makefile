@@ -1,6 +1,8 @@
-BOOT_PARTITION = /media/catabit/BOOT
-ROOTFS_PARTITION = /media/catabit/rootfs
-SSH_IP = 192.168.1.2
+LOCAL_USERNAME = catabit
+BOOT_PARTITION = /media/$(LOCAL_USERNAME)/BOOT
+ROOTFS_PARTITION = /media/$(LOCAL_USERNAME)/rootfs
+SSH_IP = 10.20.30.2
+VIVADO_PROJECT_NAME = videotest
 
 package:
 	petalinux-package --boot --format BIN --fsbl ./images/linux/zynq_fsbl.elf --fpga ./images/linux/design_1_wrapper.bit --u-boot --force
@@ -24,14 +26,13 @@ unmount:
 	umount $(ROOTFS_PARTITION)
 
 hardware-change:
-	petalinux-config --get-hw-description=./videotest/videotest.sdk/ --oldconfig
+	petalinux-config --get-hw-description=./$(VIVADO_PROJECT_NAME)/$(VIVADO_PROJECT_NAME).sdk/ --oldconfig
 	petalinux-build
 	paplay /usr/share/sounds/ubuntu/notifications/Amsterdam.ogg
 
 hardware-change-deploy:
 	sudo -v
-	petalinux-config --get-hw-description=./videotest/videotest.sdk/ --oldconfig
-	petalinux-build
+	make hardware-change
 	make package
 	make deploy-kernel
 	make deploy-rootfs
@@ -39,8 +40,16 @@ hardware-change-deploy:
 	paplay /usr/share/sounds/ubuntu/notifications/Amsterdam.ogg
 
 cameratest:
-	cd ./videotest/videotest.sdk/cameratest/Debug/; \
+	cd ./$(VIVADO_PROJECT_NAME)/$(VIVADO_PROJECT_NAME).sdk/cameratest/Debug/; \
 	scp cameratest.elf root@$(SSH_IP):
 	ssh $(SSH_IP) ./cameratest.elf
 	scp $(SSH_IP):outimg.ppm .
 	eog outimg.ppm
+
+sendelfs:
+	scp `find $(VIVADO_PROJECT_NAME)/ -name *.elf -path */Debug/*` root@$(SSH_IP):
+
+resetssh:
+	ssh-keygen -f "/home/$(LOCAL_USERNAME)/.ssh/known_hosts" -R $(SSH_IP)
+	ssh-copy-id root@$(SSH_IP)
+	

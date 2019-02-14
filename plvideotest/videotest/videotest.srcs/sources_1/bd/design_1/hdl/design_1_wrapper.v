@@ -1,7 +1,7 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Wed Jan 30 23:40:50 2019
+//Date        : Thu Feb 14 16:52:02 2019
 //Host        : catabit-VirtualBox running 64-bit Ubuntu 16.04.5 LTS
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
@@ -32,6 +32,8 @@ module design_1_wrapper
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
     cam_gpio,
+    cam_iic_scl_io,
+    cam_iic_sda_io,
     camera_enable,
     dphy_clk_lp_n,
     dphy_clk_lp_p,
@@ -66,6 +68,8 @@ module design_1_wrapper
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
   output cam_gpio;
+  inout cam_iic_scl_io;
+  inout cam_iic_sda_io;
   input camera_enable;
   input dphy_clk_lp_n;
   input dphy_clk_lp_p;
@@ -101,6 +105,14 @@ module design_1_wrapper
   wire FIXED_IO_ps_porb;
   wire FIXED_IO_ps_srstb;
   wire cam_gpio;
+  wire cam_iic_scl_i;
+  wire cam_iic_scl_io;
+  wire cam_iic_scl_o;
+  wire cam_iic_scl_t;
+  wire cam_iic_sda_i;
+  wire cam_iic_sda_io;
+  wire cam_iic_sda_o;
+  wire cam_iic_sda_t;
   wire camera_enable;
   wire dphy_clk_lp_n;
   wire dphy_clk_lp_p;
@@ -120,6 +132,16 @@ module design_1_wrapper
   wire ps_iic_sda_t;
   wire testled;
 
+  IOBUF cam_iic_scl_iobuf
+       (.I(cam_iic_scl_o),
+        .IO(cam_iic_scl_io),
+        .O(cam_iic_scl_i),
+        .T(cam_iic_scl_t));
+  IOBUF cam_iic_sda_iobuf
+       (.I(cam_iic_sda_o),
+        .IO(cam_iic_sda_io),
+        .O(cam_iic_sda_i),
+        .T(cam_iic_sda_t));
   design_1 design_1_i
        (.DDR_addr(DDR_addr),
         .DDR_ba(DDR_ba),
@@ -143,6 +165,12 @@ module design_1_wrapper
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
         .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
         .cam_gpio(cam_gpio),
+        .cam_iic_scl_i(cam_iic_scl_i),
+        .cam_iic_scl_o(cam_iic_scl_o),
+        .cam_iic_scl_t(cam_iic_scl_t),
+        .cam_iic_sda_i(cam_iic_sda_i),
+        .cam_iic_sda_o(cam_iic_sda_o),
+        .cam_iic_sda_t(cam_iic_sda_t),
         .camera_enable(camera_enable),
         .dphy_clk_lp_n(dphy_clk_lp_n),
         .dphy_clk_lp_p(dphy_clk_lp_p),

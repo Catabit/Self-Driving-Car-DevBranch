@@ -8,16 +8,12 @@
 		<item value="214" key="dialogHeight"/>
 		<item value="314" key="dialogWidth"/>
 		<list key="textEntries">
-			<item value="1"/>
 		</list>
 		<list key="orderedElements">
-			<item value="org.eclipse.cdt.ui.edit.text.c.indent"/>
 		</list>
 		<list key="orderedProviders">
-			<item value="org.eclipse.ui.commands"/>
 		</list>
 		<list key="textArray">
-			<item value="inden"/>
 		</list>
 	</section>
 	<section name="PreferencesImportWizard">
