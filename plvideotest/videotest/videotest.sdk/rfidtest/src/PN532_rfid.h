@@ -105,15 +105,15 @@ void PrintHexChar(const uint8_t *data, const uint32_t numBytes)
     printf("\n");
 }
 
-int requestData(int fd, uint8_t address, uint8_t *output, uint8_t length){
+int requestData(int fd, int8_t address, uint8_t *output, uint8_t length){
 //	uint8_t cleanbuf[200];
 //	int s = read(fd, cleanbuf, 200);
 //	printf("Cleaned %d bytes\n", s);
 
 
-	uint8_t buf[1];
-	buf[0]=address;
-	write(fd, buf, 1);
+	int8_t buf[1];
+	buf[0] = address;
+	//write(fd, buf, 1);
 
 	int result = read(fd,output,length);
 
@@ -138,6 +138,7 @@ int8_t readAckFrame(int fd) {
 				break;         // PN532 is ready
 			}
 		}
+		return -1;
 
 		usleep(1000);
 		time++;
@@ -707,7 +708,7 @@ int init(){
 	}
 	printf("Opened the bus\n");
 
-	if (ioctl(fd,I2C_SLAVE,PN532_I2C_ADDRESS) < 0 ) {
+	if (ioctl(fd,I2C_SLAVE_FORCE ,PN532_I2C_ADDRESS) < 0 ) {
 		printf("Failed to acquire bus access and/or talk to slave.\n");
 		/* ERROR HANDLING; you can check errno to see what went wrong */
 		return -1;
