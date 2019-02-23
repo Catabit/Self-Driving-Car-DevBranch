@@ -1,7 +1,8 @@
 LOCAL_USERNAME = catabit
+
 BOOT_PARTITION = /media/$(LOCAL_USERNAME)/BOOT
 ROOTFS_PARTITION = /media/$(LOCAL_USERNAME)/rootfs
-SSH_IP = 10.20.30.4
+SSH_IP = 10.20.30.5
 VIVADO_PROJECT_NAME = videotest
 
 package:
@@ -28,6 +29,7 @@ unmount:
 hardware-change:
 	petalinux-config --get-hw-description=./$(VIVADO_PROJECT_NAME)/$(VIVADO_PROJECT_NAME).sdk/ --oldconfig
 	petalinux-build
+	make package
 	paplay /usr/share/sounds/ubuntu/notifications/Amsterdam.ogg
 
 hardware-change-deploy:

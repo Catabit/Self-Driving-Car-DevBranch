@@ -111,8 +111,8 @@ int requestData(int fd, int8_t address, uint8_t *output, uint8_t length){
 //	printf("Cleaned %d bytes\n", s);
 
 
-	int8_t buf[1];
-	buf[0] = address;
+	//int8_t buf[1];
+	//buf[0] = address;
 	//write(fd, buf, 1);
 
 	int result = read(fd,output,length);
@@ -138,7 +138,6 @@ int8_t readAckFrame(int fd) {
 				break;         // PN532 is ready
 			}
 		}
-		return -1;
 
 		usleep(1000);
 		time++;
@@ -226,7 +225,7 @@ int16_t getResponseLength(int fd, uint16_t timeout) {
 	DEBUG(4);
 
 	do {
-		if (requestData(fd, PN532_I2C_ADDRESS, iicbuf, 1)) {
+		if (requestData(fd, PN532_I2C_ADDRESS, iicbuf, 7)) {
 			if (iicbuf[0] & 1) {  // check first byte --- status
 				break;         // PN532 is ready
 			}
@@ -278,7 +277,7 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 
 
 	if (length<1){
-		printf("Could not get response length.\n");
+		printf("Could not get response length. %d\n", length);
 		return -1;
 	}
 
@@ -488,7 +487,7 @@ uint8_t readPassiveTargetID(int fd, uint8_t cardbaudrate, uint8_t *uid, uint8_t 
 
     if (writeCommand(fd, pn532_packetbuffer, 3, NULL, 0))
 		return 0;
-    printf("smth");
+    printf("smth\n");
 
     // read data packet
     if (readResponse(fd, pn532_packetbuffer, sizeof(pn532_packetbuffer), timeout) < 0) {

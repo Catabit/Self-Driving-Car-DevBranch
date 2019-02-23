@@ -576,7 +576,7 @@
       bit  IRQ_P2F_SPI1;
       bit  IRQ_P2F_UART1;
       bit  IRQ_P2F_CAN1;
-      bit  [0 : 0] IRQ_F2P;
+      bit  [1 : 0] IRQ_F2P;
       bit  Core0_nFIQ;
       bit  Core0_nIRQ;
       bit  Core1_nFIQ;
@@ -683,12 +683,6 @@
   I2C0_SCL_I,
   I2C0_SCL_O,
   I2C0_SCL_T,
-  I2C1_SDA_I,
-  I2C1_SDA_O,
-  I2C1_SDA_T,
-  I2C1_SCL_I,
-  I2C1_SCL_O,
-  I2C1_SCL_T,
   USB0_PORT_INDCTL,
   USB0_VBUS_PWRSELECT,
   USB0_VBUS_PWRFAULT,
@@ -835,7 +829,7 @@
       parameter C_S_AXI_HP3_DATA_WIDTH = 64;
       parameter C_M_AXI_GP0_THREAD_ID_WIDTH = 12;
       parameter C_M_AXI_GP1_THREAD_ID_WIDTH = 12;
-      parameter C_NUM_F2P_INTR_INPUTS = 1;
+      parameter C_NUM_F2P_INTR_INPUTS = 2;
       parameter C_IRQ_F2P_MODE = "DIRECT";
       parameter C_DQ_WIDTH = 32;
       parameter C_DQS_WIDTH = 4;
@@ -869,12 +863,6 @@
       input  I2C0_SCL_I;
       output  I2C0_SCL_O;
       output  I2C0_SCL_T;
-      input  I2C1_SDA_I;
-      output  I2C1_SDA_O;
-      output  I2C1_SDA_T;
-      input  I2C1_SCL_I;
-      output  I2C1_SCL_O;
-      output  I2C1_SCL_T;
       output  [1 : 0] USB0_PORT_INDCTL;
       output  USB0_VBUS_PWRSELECT;
       input  USB0_VBUS_PWRFAULT;
@@ -962,7 +950,7 @@
       input  [5 : 0] S_AXI_HP0_WID;
       input  [63 : 0] S_AXI_HP0_WDATA;
       input  [7 : 0] S_AXI_HP0_WSTRB;
-      input  [0 : 0] IRQ_F2P;
+      input  [1 : 0] IRQ_F2P;
       output  FCLK_CLK0;
       output  FCLK_RESET0_N;
       inout  [53 : 0] MIO;
@@ -993,10 +981,6 @@
       reg I2C0_SDA_T;
       reg I2C0_SCL_O;
       reg I2C0_SCL_T;
-      reg I2C1_SDA_O;
-      reg I2C1_SDA_T;
-      reg I2C1_SCL_O;
-      reg I2C1_SCL_T;
       reg [1 : 0] USB0_PORT_INDCTL;
       reg USB0_VBUS_PWRSELECT;
       reg M_AXI_GP0_ARVALID;
@@ -1262,6 +1246,14 @@ end
 always@(negedge IRQ_F2P[0])
 begin
     ps7_set_input_IRQ_F2P(0,0);
+end
+always@(posedge IRQ_F2P[1])
+begin
+    ps7_set_input_IRQ_F2P(1,1);
+end
+always@(negedge IRQ_F2P[1])
+begin
+    ps7_set_input_IRQ_F2P(1,0);
 end
 
 always@(posedge M_AXI_GP0_ACLK)

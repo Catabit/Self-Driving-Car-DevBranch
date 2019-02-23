@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="33">
   <CompositeFile CompositeFileTopName="design_1" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1550155959"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1550155959"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1550155959"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1550155959"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1550857949"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1550857949"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1550857949"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1550857949"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/design_1_processing_system7_0_0/design_1_processing_system7_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system7_0"/>
@@ -108,6 +108,14 @@
       </File>
       <File Name="ip/design_1_xlconcat_0_0/design_1_xlconcat_0_0.xci" Type="IP">
         <Instance HierarchyPath="xlconcat_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/design_1_axi_iic_0_0/design_1_axi_iic_0_0.xci" Type="IP">
+        <Instance HierarchyPath="axi_iic_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
