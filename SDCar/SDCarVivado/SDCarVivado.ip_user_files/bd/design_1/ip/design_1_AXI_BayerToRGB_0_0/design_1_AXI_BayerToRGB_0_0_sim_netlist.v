@@ -1,10 +1,10 @@
 // Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-// Date        : Tue Jan 15 13:40:30 2019
+// Date        : Wed Jan 30 17:59:32 2019
 // Host        : catabit-VirtualBox running 64-bit Ubuntu 16.04.5 LTS
 // Command     : write_verilog -force -mode funcsim
-//               /home/catabit/Zybo/videotest/videotest.srcs/sources_1/bd/design_1/ip/design_1_AXI_BayerToRGB_0_0/design_1_AXI_BayerToRGB_0_0_sim_netlist.v
+//               /home/catabit/Zybo/plvideotest/videotest/videotest.srcs/sources_1/bd/design_1/ip/design_1_AXI_BayerToRGB_0_0/design_1_AXI_BayerToRGB_0_0_sim_netlist.v
 // Design      : design_1_AXI_BayerToRGB_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.

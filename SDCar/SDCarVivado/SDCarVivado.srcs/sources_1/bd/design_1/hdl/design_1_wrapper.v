@@ -1,7 +1,7 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Fri Feb 22 19:51:54 2019
+//Date        : Mon Feb 25 15:45:19 2019
 //Host        : catabit-VirtualBox running 64-bit Ubuntu 16.04.5 LTS
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
@@ -31,7 +31,6 @@ module design_1_wrapper
     FIXED_IO_ps_clk,
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
-    cam_gpio,
     cam_iic_scl_io,
     cam_iic_sda_io,
     camera_enable,
@@ -43,9 +42,16 @@ module design_1_wrapper
     dphy_data_lp_p,
     dphy_hs_clock_clk_n,
     dphy_hs_clock_clk_p,
+    motionEnableLed,
+    motion_enable_sw,
+    motor_left_dir_out,
+    motor_left_pwm_out,
+    motor_right_dir_out,
+    motor_right_pwm_out,
     ps_iic_scl_io,
     ps_iic_sda_io,
-    testled);
+    servo_pwm_out,
+    sonar0_pwm_in);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -67,10 +73,9 @@ module design_1_wrapper
   inout FIXED_IO_ps_clk;
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
-  output cam_gpio;
   inout cam_iic_scl_io;
   inout cam_iic_sda_io;
-  input camera_enable;
+  output [0:0]camera_enable;
   input dphy_clk_lp_n;
   input dphy_clk_lp_p;
   input [1:0]dphy_data_hs_n;
@@ -79,9 +84,16 @@ module design_1_wrapper
   input [1:0]dphy_data_lp_p;
   input dphy_hs_clock_clk_n;
   input dphy_hs_clock_clk_p;
+  output motionEnableLed;
+  input motion_enable_sw;
+  output motor_left_dir_out;
+  output motor_left_pwm_out;
+  output motor_right_dir_out;
+  output motor_right_pwm_out;
   inout ps_iic_scl_io;
   inout ps_iic_sda_io;
-  output testled;
+  output servo_pwm_out;
+  input sonar0_pwm_in;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -104,7 +116,6 @@ module design_1_wrapper
   wire FIXED_IO_ps_clk;
   wire FIXED_IO_ps_porb;
   wire FIXED_IO_ps_srstb;
-  wire cam_gpio;
   wire cam_iic_scl_i;
   wire cam_iic_scl_io;
   wire cam_iic_scl_o;
@@ -113,7 +124,7 @@ module design_1_wrapper
   wire cam_iic_sda_io;
   wire cam_iic_sda_o;
   wire cam_iic_sda_t;
-  wire camera_enable;
+  wire [0:0]camera_enable;
   wire dphy_clk_lp_n;
   wire dphy_clk_lp_p;
   wire [1:0]dphy_data_hs_n;
@@ -122,6 +133,12 @@ module design_1_wrapper
   wire [1:0]dphy_data_lp_p;
   wire dphy_hs_clock_clk_n;
   wire dphy_hs_clock_clk_p;
+  wire motionEnableLed;
+  wire motion_enable_sw;
+  wire motor_left_dir_out;
+  wire motor_left_pwm_out;
+  wire motor_right_dir_out;
+  wire motor_right_pwm_out;
   wire ps_iic_scl_i;
   wire ps_iic_scl_io;
   wire ps_iic_scl_o;
@@ -130,7 +147,8 @@ module design_1_wrapper
   wire ps_iic_sda_io;
   wire ps_iic_sda_o;
   wire ps_iic_sda_t;
-  wire testled;
+  wire servo_pwm_out;
+  wire sonar0_pwm_in;
 
   IOBUF cam_iic_scl_iobuf
        (.I(cam_iic_scl_o),
@@ -164,7 +182,6 @@ module design_1_wrapper
         .FIXED_IO_ps_clk(FIXED_IO_ps_clk),
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
         .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
-        .cam_gpio(cam_gpio),
         .cam_iic_scl_i(cam_iic_scl_i),
         .cam_iic_scl_o(cam_iic_scl_o),
         .cam_iic_scl_t(cam_iic_scl_t),
@@ -180,13 +197,20 @@ module design_1_wrapper
         .dphy_data_lp_p(dphy_data_lp_p),
         .dphy_hs_clock_clk_n(dphy_hs_clock_clk_n),
         .dphy_hs_clock_clk_p(dphy_hs_clock_clk_p),
+        .motionEnableLed(motionEnableLed),
+        .motion_enable_sw(motion_enable_sw),
+        .motor_left_dir_out(motor_left_dir_out),
+        .motor_left_pwm_out(motor_left_pwm_out),
+        .motor_right_dir_out(motor_right_dir_out),
+        .motor_right_pwm_out(motor_right_pwm_out),
         .ps_iic_scl_i(ps_iic_scl_i),
         .ps_iic_scl_o(ps_iic_scl_o),
         .ps_iic_scl_t(ps_iic_scl_t),
         .ps_iic_sda_i(ps_iic_sda_i),
         .ps_iic_sda_o(ps_iic_sda_o),
         .ps_iic_sda_t(ps_iic_sda_t),
-        .testled(testled));
+        .servo_pwm_out(servo_pwm_out),
+        .sonar0_pwm_in(sonar0_pwm_in));
   IOBUF ps_iic_scl_iobuf
        (.I(ps_iic_scl_o),
         .IO(ps_iic_scl_io),
