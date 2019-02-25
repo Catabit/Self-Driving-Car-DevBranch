@@ -4,6 +4,11 @@ BOOT_PARTITION = /media/$(LOCAL_USERNAME)/BOOT
 ROOTFS_PARTITION = /media/$(LOCAL_USERNAME)/rootfs
 SSH_IP = 10.20.30.5
 VIVADO_PROJECT_NAME = SDCarVivado
+TOOLS = ../tools
+
+PETALINUX_APPS = \
+	rfidtest \
+	cameratest \
 
 package:
 	petalinux-package --boot --format BIN --fsbl ./images/linux/zynq_fsbl.elf --fpga ./images/linux/design_1_wrapper.bit --u-boot --force
@@ -40,6 +45,9 @@ hardware-change-deploy:
 	make deploy-rootfs
 	make unmount
 	paplay /usr/share/sounds/ubuntu/notifications/Amsterdam.ogg
+
+fixlinks:
+	$(TOOLS)/addLinks.sh $(VIVADO_PROJECT_NAME) $(PETALINUX_APPS)
 
 cameratest:
 	make sendelfs
