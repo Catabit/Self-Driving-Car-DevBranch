@@ -62,4 +62,7 @@ sendelfs:
 resetssh:
 	ssh-keygen -f "/home/$(LOCAL_USERNAME)/.ssh/known_hosts" -R $(SSH_IP)
 	ssh-copy-id root@$(SSH_IP)
-	
+
+clean:
+	$(TOOLS)/confirm.sh $@
+	petalinux-build -x mrproper
