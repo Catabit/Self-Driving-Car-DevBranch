@@ -41,5 +41,17 @@
 				xlnx,genlock-mode ;
 			};
 		};
+		MotionController_0: MotionController@43c20000 {
+			compatible = "generic-uio";
+			reg = <0x43c20000 0x10000>;
+			xlnx,s00-axi-addr-width = <0x4>;
+			xlnx,s00-axi-data-width = <0x20>;
+		};
+		sonarDriver_0: sonarDriver@43c30000 {
+			compatible = "generic-uio";
+			reg = <0x43c30000 0x10000>;
+			xlnx,s00-axi-addr-width = <0x4>;
+			xlnx,s00-axi-data-width = <0x20>;
+		};
 	};
 };

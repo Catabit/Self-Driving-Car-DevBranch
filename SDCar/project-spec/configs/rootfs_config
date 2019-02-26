@@ -4124,8 +4124,11 @@ CONFIG_bridge-utils=y
 #
 CONFIG_cameratest=y
 # CONFIG_gpio-demo is not set
+CONFIG_motion=y
+CONFIG_motionselftest=y
 CONFIG_peekpoke=y
 CONFIG_rfidtest=y
+CONFIG_sonarTest=y
 
 #
 # user packages 
