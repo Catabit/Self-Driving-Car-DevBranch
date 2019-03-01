@@ -4131,6 +4131,11 @@ CONFIG_rfidtest=y
 CONFIG_sonarTest=y
 
 #
+# modules 
+#
+CONFIG_vdmaDriver=y
+
+#
 # user packages 
 #
 CONFIG_uiotools=y

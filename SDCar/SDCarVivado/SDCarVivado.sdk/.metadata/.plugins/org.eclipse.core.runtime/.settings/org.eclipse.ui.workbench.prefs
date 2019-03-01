@@ -3,8 +3,8 @@ ACTIVE_HYPERLINK_COLOR=138,201,242
 CONFLICTING_COLOR=240,15,66
 CONTENT_ASSIST_BACKGROUND_COLOR=52,57,61
 CONTENT_ASSIST_FOREGROUND_COLOR=238,238,238
-ColorsAndFontsPreferencePage.expandedCategories=Torg.eclipse.debug.ui.presentation
-ColorsAndFontsPreferencePage.selectedElement=Corg.eclipse.cdt.dsf.ui.staledata.background
+ColorsAndFontsPreferencePage.expandedCategories=Torg.eclipse.ui.workbenchMisc\tTorg.eclipse.cdt.ui.presentation\tTorg.eclipse.debug.ui.presentation\tTorg.eclipse.egit.ui.GitTheme\tTorg.eclipse.rse.ui.presentation\tTorg.eclipse.compare.contentmergeviewer.TextMergeViewer\tTorg.eclipse.tracecompass.tmf.ui.theme.category\tTorg.eclipse.ui.presentation.default
+ColorsAndFontsPreferencePage.selectedElement=Corg.eclipse.ui.workbench.ACTIVE_TAB_TEXT_COLOR
 DECORATIONS_COLOR=149,125,71
 ENABLED_DECORATORS=com.xilinx.sdk.decorators.resource\:false,org.eclipse.cdt.ui.indexedFiles\:false,org.eclipse.cdt.managedbuilder.ui.excludedFile\:true,org.eclipse.cdt.managedbuilder.ui.includeFolder\:true,org.eclipse.cdt.internal.ui.CustomBuildSettingsDecorator\:true,org.eclipse.egit.ui.internal.decorators.GitLightweightDecorator\:true,org.eclipse.rse.core.virtualobject.decorator\:true,org.eclipse.rse.core.binary.executable.decorator\:true,org.eclipse.rse.core.script.executable.decorator\:true,org.eclipse.rse.core.java.executable.decorator\:true,org.eclipse.rse.core.library.decorator\:true,org.eclipse.rse.core.link.decorator\:true,org.eclipse.rse.subsystems.error.decorator\:true,org.eclipse.linuxtools.tmf.ui.trace_folder.decorator\:true,org.eclipse.linuxtools.tmf.ui.experiment_folder.decorator\:true,org.eclipse.linuxtools.tmf.ui.linked_trace.decorator\:true,org.eclipse.ui.LinkedResourceDecorator\:true,org.eclipse.ui.SymlinkDecorator\:true,org.eclipse.ui.VirtualResourceDecorator\:true,org.eclipse.ui.ContentTypeDecorator\:true,org.eclipse.ui.ResourceFilterDecorator\:false,
 ERROR_COLOR=247,68,117
@@ -13,6 +13,7 @@ INCOMING_COLOR=31,179,235
 OUTGOING_COLOR=238,238,238
 RESOLVED_COLOR=108,210,17
 eclipse.preferences.version=1
+editors=<?xml version\="1.0" encoding\="UTF-8"?>\n<editors>\n<descriptor id\="org.eclipse.ui.browser.editorSupport" image\="$nl$/icons/obj16/internal_browser.gif" internal\="false" label\="Web Browser" launcher\="org.eclipse.ui.internal.browser.BrowserLauncher" openMode\="4" open_in_place\="false" plugin\="org.eclipse.ui.browser"/>\n<descriptor class\="com.xilinx.sdk.tcf.debug.ui.TcfProfilerEditor" id\="com.xilinx.sdk.tcf.debug.ui.TcfProfilerEditor" internal\="true" label\="TCF Profiler" openMode\="1" open_in_place\="false" plugin\="com.xilinx.sdk.tcf.debug.ui"/>\n<descriptor id\="org.eclipse.linuxtools.gprof.editor.single" image\="icons/toggle.gif" internal\="false" label\="Gprof Editor" launcher\="org.eclipse.linuxtools.internal.gprof.action.OpenGmonAction" openMode\="4" open_in_place\="false" plugin\="org.eclipse.linuxtools.gprof"/>\n<descriptor id\="com.xilinx.sdk.oprofile.OprofileEditor" image\="icons/gprof.gif" internal\="false" label\="Oprofile Results Viewer" launcher\="com.xilinx.sdk.oprofile.internal.ui.OprofileViewerLauncher" openMode\="4" open_in_place\="false" plugin\="com.xilinx.sdk.oprofile"/>\n</editors>
 org.eclipse.cdt.dsf.ui.staledata.background=91,91,91
 org.eclipse.cdt.dsf.ui.staledata.foreground=202,202,202
 org.eclipse.egit.ui.DiffAddBackgroundColor=11,121,90
@@ -36,3 +37,4 @@ org.eclipse.team.cvs.ui.fontsandcolors.ignored_resource_foreground_color=244,244
 org.eclipse.team.cvs.ui.fontsandcolors.outgoing_change_background_color=52,52,52
 org.eclipse.team.cvs.ui.fontsandcolors.outgoing_change_foreground_color=244,244,244
 org.eclipse.wst.jsdt.ui.ColoredLabels.inherited=108,108,255
+resourcetypes=<?xml version\="1.0" encoding\="UTF-8"?>\n<editors version\="3.1">\n<info extension\="shtml" name\="*">\n<editor id\="org.eclipse.ui.browser.editorSupport"/>\n</info>\n<info extension\="tcfprof" name\="*">\n<editor id\="com.xilinx.sdk.tcf.debug.ui.TcfProfilerEditor"/>\n</info>\n<info extension\="htm" name\="*">\n<editor id\="org.eclipse.ui.browser.editorSupport"/>\n</info>\n<info extension\="html" name\="*">\n<editor id\="org.eclipse.ui.browser.editorSupport"/>\n</info>\n<info extension\="out" name\="gmon">\n<editor id\="org.eclipse.linuxtools.gprof.editor.single"/>\n<defaultEditor id\="org.eclipse.linuxtools.gprof.editor.single"/>\n</info>\n<info extension\="sum" name\="gmon">\n<editor id\="org.eclipse.linuxtools.gprof.editor.single"/>\n<defaultEditor id\="org.eclipse.linuxtools.gprof.editor.single"/>\n</info>\n<info extension\="xml" name\="opreport">\n<editor id\="com.xilinx.sdk.oprofile.OprofileEditor"/>\n</info>\n</editors>

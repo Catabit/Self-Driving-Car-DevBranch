@@ -107,5 +107,6 @@ semanticHighlighting.typedef.bold=true
 semanticHighlighting.typedef.color=18,144,195
 semanticHighlighting.typedef.enabled=true
 spelling_locale_initialized=true
+spelling_user_dictionary_encoding=
 useAnnotationsPrefPage=true
 useQuickDiffPrefPage=true
