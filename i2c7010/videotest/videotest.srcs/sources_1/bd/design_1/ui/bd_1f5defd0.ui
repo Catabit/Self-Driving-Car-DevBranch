@@ -1,0 +1,74 @@
+{
+   ExpandedHierarchyInLayout: "",
+   guistr: "# # String gsaved with Nlview 6.6.11  2017-06-12 bk=1.3860 VDI=40 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port DDR -pg 1 -y 100 -defaultsOSRD
+preplace port dphy_hs_clock -pg 1 -y 460 -defaultsOSRD
+preplace port cam_gpio -pg 1 -y 710 -defaultsOSRD
+preplace port dphy_clk_lp_n -pg 1 -y 500 -defaultsOSRD
+preplace port dphy_clk_lp_p -pg 1 -y 480 -defaultsOSRD
+preplace port camera_enable -pg 1 -y 730 -defaultsOSRD
+preplace port ps_iic -pg 1 -y 420 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -y 120 -defaultsOSRD
+preplace port cam_iic -pg 1 -y 140 -defaultsOSRD
+preplace port testled -pg 1 -y 730 -defaultsOSRD
+preplace portBus dphy_data_hs_n -pg 1 -y 540 -defaultsOSRD
+preplace portBus dphy_data_hs_p -pg 1 -y 520 -defaultsOSRD
+preplace portBus dphy_data_lp_n -pg 1 -y 580 -defaultsOSRD
+preplace portBus dphy_data_lp_p -pg 1 -y 560 -defaultsOSRD
+preplace inst rst_ps7_0_50M -pg 1 -lvl 2 -y 350 -defaultsOSRD
+preplace inst axi_vdma_0 -pg 1 -lvl 7 -y 290 -defaultsOSRD
+preplace inst axi_iic_0 -pg 1 -lvl 9 -y 440 -defaultsOSRD
+preplace inst MIPI_D_PHY_RX_0 -pg 1 -lvl 4 -y 560 -defaultsOSRD
+preplace inst MIPI_CSI_2_RX_0 -pg 1 -lvl 5 -y 400 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 8 -y 360 -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 3 -y 270 -defaultsOSRD
+preplace inst axi_interconnect_0 -pg 1 -lvl 8 -y 150 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 1 -y 380 -defaultsOSRD
+preplace inst AXI_BayerToRGB_0 -pg 1 -lvl 6 -y 320 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 9 -y 160 -defaultsOSRD
+preplace netloc processing_system7_0_DDR 1 9 1 NJ
+preplace netloc ps7_0_axi_periph_M02_AXI 1 3 2 NJ 280 1280
+preplace netloc dphy_data_hs_p_1 1 0 4 NJ 520 NJ 520 NJ 520 NJ
+preplace netloc axi_vdma_0_s2mm_introut 1 7 1 2590
+preplace netloc dphy_data_lp_n_1 1 0 4 NJ 580 NJ 580 NJ 580 NJ
+preplace netloc clk_wiz_0_locked 1 1 1 230
+preplace netloc axi_iic_0_iic2intc_irpt 1 7 3 2640 510 NJ 510 3380
+preplace netloc camera_enable_1 1 0 10 NJ 730 NJ 730 NJ 730 NJ 730 NJ 730 NJ 730 NJ 730 NJ 730 NJ 730 3390J
+preplace netloc dphy_hs_clock_1 1 0 4 NJ 460 NJ 460 NJ 460 NJ
+preplace netloc processing_system7_0_M_AXI_GP0 1 2 8 650 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 3390
+preplace netloc AXI_BayerToRGB_0_m_axis_video_tuser 1 6 1 2160
+preplace netloc dphy_clk_lp_p_1 1 0 4 NJ 480 NJ 480 NJ 480 NJ
+preplace netloc dphy_clk_lp_n_1 1 0 4 NJ 500 NJ 500 NJ 500 NJ
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 1 9 240 80 NJ 80 NJ 80 NJ 80 NJ 80 NJ 80 2620J 300 NJ 300 3380
+preplace netloc processing_system7_0_IIC_0 1 9 1 NJ
+preplace netloc ps7_0_axi_periph_M03_AXI 1 3 6 930J 160 NJ 160 NJ 160 NJ 160 2600J 420 N
+preplace netloc AXI_BayerToRGB_0_AXI_Stream_Master 1 6 1 2140
+preplace netloc dphy_data_hs_n_1 1 0 4 NJ 540 NJ 540 NJ 540 NJ
+preplace netloc ps7_0_axi_periph_M01_AXI 1 3 1 940
+preplace netloc rst_ps7_0_50M_peripheral_reset 1 2 2 620 620 NJ
+preplace netloc rst_ps7_0_50M_interconnect_aresetn 1 2 6 630 90 NJ 90 NJ 90 NJ 90 NJ 90 2630J
+preplace netloc MIPI_CSI_2_RX_0_m_axis_video_tuser 1 5 1 1730
+preplace netloc xlconcat_0_dout 1 8 1 2940
+preplace netloc processing_system7_0_FIXED_IO 1 9 1 NJ
+preplace netloc MIPI_D_PHY_RX_0_RxByteClkHS 1 4 1 1320
+preplace netloc rst_ps7_0_50M_peripheral_aresetn 1 2 7 650 470 950 380 1310 300 1720 230 2150 170 2630 460 NJ
+preplace netloc clk_wiz_0_clk_out1 1 1 8 220 70 NJ 70 NJ 70 1300 240 1710 240 2130 140 2640 290 2920J
+preplace netloc axi_iic_0_IIC 1 9 1 NJ
+preplace netloc axi_interconnect_0_M00_AXI 1 8 1 N
+preplace netloc clk_wiz_0_clk_out2 1 1 3 220 440 610J 490 930J
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 10 20 310 230 260 640 450 960 390 1280 500 1710J 430 2170 430 NJ 430 2930 270 3390
+preplace netloc MIPI_D_PHY_RX_0_D_PHY_PPI 1 4 1 1290
+preplace netloc ps7_0_axi_periph_M00_AXI 1 3 4 940J 210 NJ 210 NJ 210 2120
+preplace netloc axi_vdma_0_M_AXI_S2MM 1 7 1 2610
+preplace netloc dphy_data_lp_p_1 1 0 4 NJ 560 NJ 560 NJ 560 NJ
+preplace netloc MIPI_CSI_2_RX_0_m_axis_video 1 5 1 1700
+levelinfo -pg 1 0 120 430 790 1120 1510 1930 2380 2780 3160 3410 -top 0 -bot 750
+",
+}
+{
+   da_axi4_cnt: "6",
+   da_board_cnt: "1",
+   da_clkrst_cnt: "6",
+   da_ps7_cnt: "1",
+}

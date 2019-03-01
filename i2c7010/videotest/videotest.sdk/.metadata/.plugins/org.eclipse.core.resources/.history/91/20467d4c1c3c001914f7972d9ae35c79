@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+environment/project/xilinx.gnu.armv7.linux.exe.debug.185639475/PATH/delimiter=\:
+environment/project/xilinx.gnu.armv7.linux.exe.debug.185639475/PATH/operation=prepend
+environment/project/xilinx.gnu.armv7.linux.exe.debug.185639475/PATH/value=/home/catabit/.opt/petalinux/tools/linux-i386/gcc-arm-linux-gnueabi/bin
+environment/project/xilinx.gnu.armv7.linux.exe.debug.185639475/append=true
+environment/project/xilinx.gnu.armv7.linux.exe.debug.185639475/appendContributed=true
