@@ -25,7 +25,7 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>src/vdmadriver.c</name>
+			<name>vdmadriver.c</name>
 			<type>1</type>
 			<location>/home/catabit/Zybo/SDCar/project-spec/meta-user/recipes-modules/vdmadriver/files/vdmadriver.c</location>
 		</link>

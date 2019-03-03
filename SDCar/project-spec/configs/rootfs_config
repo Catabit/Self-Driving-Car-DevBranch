@@ -4133,7 +4133,7 @@ CONFIG_sonarTest=y
 #
 # modules 
 #
-CONFIG_vdmaDriver=y
+# CONFIG_vdmadriver is not set
 
 #
 # user packages 

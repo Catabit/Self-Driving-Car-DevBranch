@@ -1,0 +1,19 @@
+ARCH:=arm
+CROSS_COMPILE:=$(CROSS)
+
+CC=$(CROSS_COMPILE)gcc
+
+obj-m += vdmadriver.o
+
+KDIR := /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source
+PWD := $(shell pwd)
+
+
+# make oldconfig && make prepare && make scripts && make tools
+
+all:
+	${MAKE} -C ${KDIR} oldconfig && ${MAKE} -C ${KDIR} prepare && ${MAKE} -C ${KDIR} scripts && ${MAKE} -C ${KDIR} tools/objtool
+	${MAKE} -C ${KDIR} M=${PWD} modules 
+
+clean:
+	${MAKE} -C ${KDIR} M=${PWD} clean

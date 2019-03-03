@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;vdmaDriver/src&apos;" deleteContents="false" description="Delete resource &apos;vdmaDriver/src&apos;" element1="/vdmaDriver/src" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1551612504745"/>
+</session>
