@@ -1,0 +1,578 @@
+[INFO] building vdmadriver
+[INFO] sourcing bitbake
+INFO: bitbake vdmadriver
+Loading cache...done.
+Loaded 3264 entries from dependency cache.
+Parsing recipes...done.
+Parsing of 2473 .bb files complete (2441 cached, 32 parsed). 3266 targets, 226 skipped, 0 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+Initialising tasks...done.
+Checking sstate mirror object availability...done.
+NOTE: Executing SetScene Tasks
+NOTE: Executing RunQueue Tasks
+NOTE: Running task 642 of 687 (/home/catabit/Zybo/SDCar/project-spec/meta-user/recipes-modules/vdmadriver/vdmadriver.bb:do_compile)
+NOTE: recipe vdmadriver-1.0-r0: task do_compile: Started
+Log data follows:
+| DEBUG: Executing shell function do_compile
+| NOTE: make -j 4 KERNEL_SRC=/home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source KERNEL_PATH=/home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source KERNEL_VERSION=4.9.0-xilinx-v2017.4 CC=arm-xilinx-linux-gnueabi-gcc  -mno-thumb-interwork -marm -fuse-ld=bfd LD=arm-xilinx-linux-gnueabi-ld.bfd   AR=arm-xilinx-linux-gnueabi-ar  O=/home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-build-artifacts KBUILD_EXTRA_SYMBOLS=
+| make -C /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source M=/home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0
+| make[1]: Entering directory '/home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source'
+| make[2]: Entering directory '/home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-build-artifacts'
+|   CC [M]  /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.o
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/irqflags.h:15:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/bitops.h:27,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/bitops.h:36,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kernel.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:19:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/irqflags.h:21:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ >= 6
+|      ^~~~~~~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/bitops.h:28:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/bitops.h:36,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kernel.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:19:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/barrier.h:8:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ >= 7 ||  \
+|      ^~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/barrier.h:9:3: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|   (__LINUX_ARM_ARCH__ == 6 && defined(CONFIG_CPU_32v6K))
+|    ^~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/barrier.h:15:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ >= 7
+|      ^~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/barrier.h:19:35: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #elif defined(CONFIG_CPU_XSC3) || __LINUX_ARM_ARCH__ == 6
+|                                    ^~~~~~~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/bitops.h:36:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kernel.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:19:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/bitops.h:215:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ < 5
+|      ^~~~~~~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/bitops.h:218:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/bitops.h:36,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kernel.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:19:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/__fls.h: In function '__fls':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/__fls.h:17:21: warning: left shift count >= width of type [-Wshift-count-overflow]
+|   if (!(word & (~0ul << 32))) {
+|                      ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/__fls.h:19:8: warning: left shift count >= width of type [-Wshift-count-overflow]
+|    word <<= 32;
+|         ^~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/__fls.h:22:21: warning: left shift count >= width of type [-Wshift-count-overflow]
+|   if (!(word & (~0ul << (BITS_PER_LONG-16)))) {
+|                      ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/__fls.h:26:21: warning: left shift count >= width of type [-Wshift-count-overflow]
+|   if (!(word & (~0ul << (BITS_PER_LONG-8)))) {
+|                      ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/__fls.h:30:21: warning: left shift count >= width of type [-Wshift-count-overflow]
+|   if (!(word & (~0ul << (BITS_PER_LONG-4)))) {
+|                      ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/__fls.h:34:21: warning: left shift count >= width of type [-Wshift-count-overflow]
+|   if (!(word & (~0ul << (BITS_PER_LONG-2)))) {
+|                      ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/__fls.h:38:21: warning: left shift count >= width of type [-Wshift-count-overflow]
+|   if (!(word & (~0ul << (BITS_PER_LONG-1))))
+|                      ^~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/bitops.h:219:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/bitops.h:36,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kernel.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:19:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/__ffs.h: In function '__ffs':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/__ffs.h:19:8: warning: right shift count >= width of type [-Wshift-count-overflow]
+|    word >>= 32;
+|         ^~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/swab.h:18:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/uapi/linux/swab.h:6,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/swab.h:4,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/uapi/linux/byteorder/little_endian.h:12,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/byteorder/little_endian.h:4,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/uapi/asm/byteorder.h:21,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/le.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/bitops.h:340,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/bitops.h:36,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kernel.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:19:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/uapi/asm/swab.h: At top level:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/uapi/asm/swab.h:26:29: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if !defined(__KERNEL__) || __LINUX_ARM_ARCH__ < 6
+|                              ^~~~~~~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/uapi/linux/swab.h:6:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/swab.h:4,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/uapi/linux/byteorder/little_endian.h:12,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/byteorder/little_endian.h:4,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/uapi/asm/byteorder.h:21,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/bitops/le.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/bitops.h:340,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/bitops.h:36,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kernel.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:19:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/swab.h:20:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ >= 6
+|      ^~~~~~~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/thread_info.h:16:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:58,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h:4,
+|                  from ./arch/arm/include/generated/asm/preempt.h:1,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/preempt.h:59,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:50,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/fpstate.h:32:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ < 6
+|      ^~~~~~~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/thread_info.h:17:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:58,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h:4,
+|                  from ./arch/arm/include/generated/asm/preempt.h:1,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/preempt.h:59,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:50,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/page.h:107:2: error: #error Unknown user operations model
+|  #error Unknown user operations model
+|   ^~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/list.h:7:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:9,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:40:24: warning: "CONFIG_PAGE_OFFSETUL" is not defined, evaluates to 0 [-Wundef]
+|  #define TASK_SIZE  (UL(CONFIG_PAGE_OFFSET) - UL(SZ_16M))
+|                         ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/uapi/linux/const.h:19:20: note: in definition of macro '__AC'
+|  #define __AC(X,Y) (X##Y)
+|                     ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:29:15: note: in expansion of macro '_AC'
+|  #define UL(x) _AC(x, UL)
+|                ^~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:40:21: note: in expansion of macro 'UL'
+|  #define TASK_SIZE  (UL(CONFIG_PAGE_OFFSET) - UL(SZ_16M))
+|                      ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:59:5: note: in expansion of macro 'TASK_SIZE'
+|  #if TASK_SIZE > MODULES_VADDR
+|      ^~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:32:25: warning: "CONFIG_PAGE_OFFSETUL" is not defined, evaluates to 0 [-Wundef]
+|  #define PAGE_OFFSET  UL(CONFIG_PAGE_OFFSET)
+|                          ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/uapi/linux/const.h:19:20: note: in definition of macro '__AC'
+|  #define __AC(X,Y) (X##Y)
+|                     ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:29:15: note: in expansion of macro '_AC'
+|  #define UL(x) _AC(x, UL)
+|                ^~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:32:22: note: in expansion of macro 'UL'
+|  #define PAGE_OFFSET  UL(CONFIG_PAGE_OFFSET)
+|                       ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:53:25: note: in expansion of macro 'PAGE_OFFSET'
+|  #define MODULES_VADDR  (PAGE_OFFSET - SZ_16M)
+|                          ^~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:59:17: note: in expansion of macro 'MODULES_VADDR'
+|  #if TASK_SIZE > MODULES_VADDR
+|                  ^~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/page.h:163:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/thread_info.h:17,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:58,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h:4,
+|                  from ./arch/arm/include/generated/asm/preempt.h:1,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/preempt.h:59,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:50,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:53:37: warning: the right operand of ">" changes sign when promoted
+|  #define MODULES_VADDR  (PAGE_OFFSET - SZ_16M)
+|                                      ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:59:17: note: in expansion of macro 'MODULES_VADDR'
+|  #if TASK_SIZE > MODULES_VADDR
+|                  ^~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/list.h:7:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:9,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h: In function '__virt_to_phys':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:32:25: error: 'CONFIG_PAGE_OFFSETUL' undeclared (first use in this function)
+|  #define PAGE_OFFSET  UL(CONFIG_PAGE_OFFSET)
+|                          ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/uapi/linux/const.h:19:20: note: in definition of macro '__AC'
+|  #define __AC(X,Y) (X##Y)
+|                     ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:29:15: note: in expansion of macro '_AC'
+|  #define UL(x) _AC(x, UL)
+|                ^~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:32:22: note: in expansion of macro 'UL'
+|  #define PAGE_OFFSET  UL(CONFIG_PAGE_OFFSET)
+|                       ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:241:26: note: in expansion of macro 'PAGE_OFFSET'
+|   return (phys_addr_t)x - PAGE_OFFSET + PHYS_OFFSET;
+|                           ^~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:32:25: note: each undeclared identifier is reported only once for each function it appears in
+|  #define PAGE_OFFSET  UL(CONFIG_PAGE_OFFSET)
+|                          ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/uapi/linux/const.h:19:20: note: in definition of macro '__AC'
+|  #define __AC(X,Y) (X##Y)
+|                     ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:29:15: note: in expansion of macro '_AC'
+|  #define UL(x) _AC(x, UL)
+|                ^~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:32:22: note: in expansion of macro 'UL'
+|  #define PAGE_OFFSET  UL(CONFIG_PAGE_OFFSET)
+|                       ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:241:26: note: in expansion of macro 'PAGE_OFFSET'
+|   return (phys_addr_t)x - PAGE_OFFSET + PHYS_OFFSET;
+|                           ^~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:133:29: error: 'CONFIG_PHYS_OFFSETUL' undeclared (first use in this function)
+|  #define PLAT_PHYS_OFFSET UL(CONFIG_PHYS_OFFSET)
+|                              ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/uapi/linux/const.h:19:20: note: in definition of macro '__AC'
+|  #define __AC(X,Y) (X##Y)
+|                     ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:29:15: note: in expansion of macro '_AC'
+|  #define UL(x) _AC(x, UL)
+|                ^~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:133:26: note: in expansion of macro 'UL'
+|  #define PLAT_PHYS_OFFSET UL(CONFIG_PHYS_OFFSET)
+|                           ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:236:21: note: in expansion of macro 'PLAT_PHYS_OFFSET'
+|  #define PHYS_OFFSET PLAT_PHYS_OFFSET
+|                      ^~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:241:40: note: in expansion of macro 'PHYS_OFFSET'
+|   return (phys_addr_t)x - PAGE_OFFSET + PHYS_OFFSET;
+|                                         ^~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h: In function '__phys_to_virt':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:133:29: error: 'CONFIG_PHYS_OFFSETUL' undeclared (first use in this function)
+|  #define PLAT_PHYS_OFFSET UL(CONFIG_PHYS_OFFSET)
+|                              ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/uapi/linux/const.h:19:20: note: in definition of macro '__AC'
+|  #define __AC(X,Y) (X##Y)
+|                     ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:29:15: note: in expansion of macro '_AC'
+|  #define UL(x) _AC(x, UL)
+|                ^~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:133:26: note: in expansion of macro 'UL'
+|  #define PLAT_PHYS_OFFSET UL(CONFIG_PHYS_OFFSET)
+|                           ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:236:21: note: in expansion of macro 'PLAT_PHYS_OFFSET'
+|  #define PHYS_OFFSET PLAT_PHYS_OFFSET
+|                      ^~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:246:13: note: in expansion of macro 'PHYS_OFFSET'
+|   return x - PHYS_OFFSET + PAGE_OFFSET;
+|              ^~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:32:25: error: 'CONFIG_PAGE_OFFSETUL' undeclared (first use in this function)
+|  #define PAGE_OFFSET  UL(CONFIG_PAGE_OFFSET)
+|                          ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/uapi/linux/const.h:19:20: note: in definition of macro '__AC'
+|  #define __AC(X,Y) (X##Y)
+|                     ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:29:15: note: in expansion of macro '_AC'
+|  #define UL(x) _AC(x, UL)
+|                ^~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:32:22: note: in expansion of macro 'UL'
+|  #define PAGE_OFFSET  UL(CONFIG_PAGE_OFFSET)
+|                       ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/memory.h:246:27: note: in expansion of macro 'PAGE_OFFSET'
+|   return x - PHYS_OFFSET + PAGE_OFFSET;
+|                            ^~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:58:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h:4,
+|                  from ./arch/arm/include/generated/asm/preempt.h:1,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/preempt.h:59,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:50,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/thread_info.h: At top level:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/thread_info.h:89:59: error: macro "current_thread_info" passed 1 arguments, but takes just 0
+|  static inline struct thread_info *current_thread_info(void) __attribute_const__;
+|                                                            ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/thread_info.h:89:35: warning: variable 'current_thread_info' declared 'inline'
+|  static inline struct thread_info *current_thread_info(void) __attribute_const__;
+|                                    ^~~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/thread_info.h:89:22: warning: 'const' attribute ignored [-Wattributes]
+|  static inline struct thread_info *current_thread_info(void) __attribute_const__;
+|                       ^~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/thread_info.h:89:35: error: 'no_instrument_function' attribute applies only to functions
+|  static inline struct thread_info *current_thread_info(void) __attribute_const__;
+|                                    ^~~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/thread_info.h:91:59: error: macro "current_thread_info" passed 1 arguments, but takes just 0
+|  static inline struct thread_info *current_thread_info(void)
+|                                                            ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/thread_info.h:92:1: error: expected '=', ',', ';', 'asm' or '__attribute__' before '{' token
+|  {
+|  ^
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/linkage.h:4:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kernel.h:6,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:19:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h: In function 'preempt_count':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:17:54: error: 'current' undeclared (first use in this function)
+|  #define current_thread_info() ((struct thread_info *)current)
+|                                                       ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/compiler.h:305:17: note: in definition of macro '__READ_ONCE'
+|   union { typeof(x) __val; char __c[1]; } __u;   \
+|                  ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h:10:9: note: in expansion of macro 'READ_ONCE'
+|   return READ_ONCE(current_thread_info()->preempt_count);
+|          ^~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h:10:19: note: in expansion of macro 'current_thread_info'
+|   return READ_ONCE(current_thread_info()->preempt_count);
+|                    ^~~~~~~~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h:4:0,
+|                  from ./arch/arm/include/generated/asm/preempt.h:1,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/preempt.h:59,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:50,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h: In function 'preempt_count_ptr':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:17:54: error: 'current' undeclared (first use in this function)
+|  #define current_thread_info() ((struct thread_info *)current)
+|                                                       ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h:15:10: note: in expansion of macro 'current_thread_info'
+|   return &current_thread_info()->preempt_count;
+|           ^~~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h: In function '__preempt_count_dec_and_test':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:17:54: error: 'current' undeclared (first use in this function)
+|  #define current_thread_info() ((struct thread_info *)current)
+|                                                       ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:108:22: note: in expansion of macro 'current_thread_info'
+|   test_ti_thread_flag(current_thread_info(), flag)
+|                       ^~~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:110:28: note: in expansion of macro 'test_thread_flag'
+|  #define tif_need_resched() test_thread_flag(TIF_NEED_RESCHED)
+|                             ^~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h:68:36: note: in expansion of macro 'tif_need_resched'
+|   return !--*preempt_count_ptr() && tif_need_resched();
+|                                     ^~~~~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/linkage.h:4:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kernel.h:6,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:19:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h: In function 'should_resched':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:17:54: error: 'current' undeclared (first use in this function)
+|  #define current_thread_info() ((struct thread_info *)current)
+|                                                       ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/compiler.h:168:42: note: in definition of macro 'unlikely'
+|  # define unlikely(x) __builtin_expect(!!(x), 0)
+|                                           ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:108:22: note: in expansion of macro 'current_thread_info'
+|   test_ti_thread_flag(current_thread_info(), flag)
+|                       ^~~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/thread_info.h:110:28: note: in expansion of macro 'test_thread_flag'
+|  #define tif_need_resched() test_thread_flag(TIF_NEED_RESCHED)
+|                             ^~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/preempt.h:77:4: note: in expansion of macro 'tif_need_resched'
+|     tif_need_resched());
+|     ^~~~~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:87:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/spinlock.h: At top level:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/spinlock.h:4:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ < 6
+|      ^~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/spinlock.h:5:2: error: #error SMP not supported on pre-ARMv6 CPUs
+|  #error SMP not supported on pre-ARMv6 CPUs
+|   ^~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/prefetch.h:14:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/spinlock.h:8,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:87,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/processor.h:79:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ == 6 || defined(CONFIG_ARM_ERRATA_754327)
+|      ^~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/processor.h:107:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ >= 5
+|      ^~~~~~~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:87:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/spinlock.h: In function 'arch_spin_unlock_wait':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/spinlock.h:66:3: error: implicit declaration of function 'wfe' [-Werror=implicit-function-declaration]
+|    wfe();
+|    ^~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/atomic.h:19:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/atomic.h:4,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:406,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/cmpxchg.h: In function '__xchg':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/cmpxchg.h:34:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ >= 6
+|      ^~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/cmpxchg.h:41:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ >= 6
+|      ^~~~~~~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/atomic.h:19:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/atomic.h:4,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:406,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/cmpxchg.h: At top level:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/cmpxchg.h:123:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ < 6
+|      ^~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/cmpxchg.h:127:2: error: #error "SMP is not supported on this platform"
+|  #error "SMP is not supported on this platform"
+|   ^~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/cmpxchg.h:145:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/atomic.h:19,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/atomic.h:4,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:406,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/asm-generic/cmpxchg.h:10:2: error: #error "Cannot use generic cmpxchg on SMP"
+|  #error "Cannot use generic cmpxchg on SMP"
+|   ^~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/atomic.h:4:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/spinlock.h:406,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/seqlock.h:35,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/time.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/stat.h:18,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:10,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/atomic.h:33:5: warning: "__LINUX_ARM_ARCH__" is not defined, evaluates to 0 [-Wundef]
+|  #if __LINUX_ARM_ARCH__ >= 6
+|      ^~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/atomic.h:163:2: error: #error SMP not supported on pre-ARMv6 CPUs
+|  #error SMP not supported on pre-ARMv6 CPUs
+|   ^~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/atomic.h:271:3: error: conflicting types for 'atomic64_t'
+|  } atomic64_t;
+|    ^~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kernel.h:8:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:19:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/types.h:181:3: note: previous declaration of 'atomic64_t' was here
+|  } atomic64_t;
+|    ^~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/cache.h:5:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/printk.h:8,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kernel.h:13,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:19:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/arch/arm/include/asm/cache.h:7:25: error: 'CONFIG_ARM_L1_CACHE_SHIFT' undeclared here (not in a function)
+|  #define L1_CACHE_SHIFT  CONFIG_ARM_L1_CACHE_SHIFT
+|                          ^
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/cache.h:65:31: note: in expansion of macro 'L1_CACHE_SHIFT'
+|  #define INTERNODE_CACHE_SHIFT L1_CACHE_SHIFT
+|                                ^~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/cache.h:71:35: note: in expansion of macro 'INTERNODE_CACHE_SHIFT'
+|   __attribute__((__aligned__(1 << (INTERNODE_CACHE_SHIFT))))
+|                                    ^~~~~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/mmzone.h:106:3: note: in expansion of macro '____cacheline_internodealigned_in_smp'
+|  } ____cacheline_internodealigned_in_smp;
+|    ^
+| ERROR: oe_runmake failed
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/ktime.h:309:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/rcupdate.h:47,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/srcu.h:33,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/notifier.h:15,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/memory_hotplug.h:6,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/mmzone.h:751,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/gfp.h:5,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kmod.h:22,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:13,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h: In function 'do_settimeofday':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:67:27: error: passing argument 1 of 'do_settimeofday64' from incompatible pointer type [-Werror=incompatible-pointer-types]
+|   return do_settimeofday64(ts);
+|                            ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:15:12: note: expected 'const struct timespec64 *' but argument is of type 'const struct timespec *'
+|  extern int do_settimeofday64(const struct timespec64 *ts);
+|             ^~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h: In function '__getnstimeofday':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:72:28: error: passing argument 1 of '__getnstimeofday64' from incompatible pointer type [-Werror=incompatible-pointer-types]
+|   return __getnstimeofday64(ts);
+|                             ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:57:12: note: expected 'struct timespec64 *' but argument is of type 'struct timespec *'
+|  extern int __getnstimeofday64(struct timespec64 *tv);
+|             ^~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h: In function 'getnstimeofday':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:77:19: error: passing argument 1 of 'getnstimeofday64' from incompatible pointer type [-Werror=incompatible-pointer-types]
+|   getnstimeofday64(ts);
+|                    ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:58:13: note: expected 'struct timespec64 *' but argument is of type 'struct timespec *'
+|  extern void getnstimeofday64(struct timespec64 *tv);
+|              ^~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h: In function 'ktime_get_ts':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:82:17: error: passing argument 1 of 'ktime_get_ts64' from incompatible pointer type [-Werror=incompatible-pointer-types]
+|   ktime_get_ts64(ts);
+|                  ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:53:13: note: expected 'struct timespec64 *' but argument is of type 'struct timespec *'
+|  extern void ktime_get_ts64(struct timespec64 *ts);
+|              ^~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h: In function 'ktime_get_real_ts':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:87:19: error: passing argument 1 of 'getnstimeofday64' from incompatible pointer type [-Werror=incompatible-pointer-types]
+|   getnstimeofday64(ts);
+|                    ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:58:13: note: expected 'struct timespec64 *' but argument is of type 'struct timespec *'
+|  extern void getnstimeofday64(struct timespec64 *tv);
+|              ^~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h: In function 'getrawmonotonic':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:92:20: error: passing argument 1 of 'getrawmonotonic64' from incompatible pointer type [-Werror=incompatible-pointer-types]
+|   getrawmonotonic64(ts);
+|                     ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:52:13: note: expected 'struct timespec64 *' but argument is of type 'struct timespec *'
+|  extern void getrawmonotonic64(struct timespec64 *ts);
+|              ^~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h: In function 'get_monotonic_coarse':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:97:9: error: incompatible types when returning type 'struct timespec64' but 'struct timespec' was expected
+|   return get_monotonic_coarse64();
+|          ^~~~~~~~~~~~~~~~~~~~~~~~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h: In function 'getboottime':
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:102:23: error: passing argument 1 of 'getboottime64' from incompatible pointer type [-Werror=incompatible-pointer-types]
+|   return getboottime64(ts);
+|                        ^~
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/timekeeping.h:59:13: note: expected 'struct timespec64 *' but argument is of type 'struct timespec *'
+|  extern void getboottime64(struct timespec64 *ts);
+|              ^~~~~~~~~~~~~
+| In file included from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/gfp.h:5:0,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/kmod.h:22,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/module.h:13,
+|                  from /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.c:21:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/mmzone.h: At top level:
+| /home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/include/linux/mmzone.h:889:24: fatal error: asm/mmzone.h: No such file or directory
+|  #include <asm/mmzone.h>
+|                         ^
+| cc1: some warnings being treated as errors
+| compilation terminated.
+| make[3]: *** [/home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/scripts/Makefile.build:300: /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/vdmadriver.o] Error 1
+| make[2]: *** [/home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source/Makefile:1490: _module_/home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0] Error 2
+| make[2]: Leaving directory '/home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-build-artifacts'
+| make[1]: *** [Makefile:150: sub-make] Error 2
+| make[1]: Leaving directory '/home/catabit/Zybo/SDCar/build/tmp/work-shared/plnx_arm/kernel-source'
+| make: *** [Makefile:6: all] Error 2
+| WARNING: exit code 1 from a shell command.
+| ERROR: Function failed: do_compile (log file is located at /home/catabit/Zybo/SDCar/build/tmp/work/plnx_arm-xilinx-linux-gnueabi/vdmadriver/1.0-r0/temp/log.do_compile.5485)
+NOTE: recipe vdmadriver-1.0-r0: task do_compile: Failed
+NOTE: Tasks Summary: Attempted 678 tasks of which 677 didn't need to be rerun and 1 failed.
+
+Summary: 1 task failed:
+  /home/catabit/Zybo/SDCar/project-spec/meta-user/recipes-modules/vdmadriver/vdmadriver.bb:do_compile
+Summary: There were 2 ERROR messages shown, returning a non-zero exit code.

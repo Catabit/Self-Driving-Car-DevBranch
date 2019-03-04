@@ -32,56 +32,8 @@
 #include <linux/of_device.h>
 #include <linux/of_platform.h>
 
-/* Register offsets */
-#define OFFSET_PARK_PTR_REG                     0x28
-#define OFFSET_VERSION                          0x2c
-
-#define OFFSET_VDMA_MM2S_CONTROL_REGISTER       0x00
-#define OFFSET_VDMA_MM2S_STATUS_REGISTER        0x04
-#define OFFSET_VDMA_MM2S_VSIZE                  0x50
-#define OFFSET_VDMA_MM2S_HSIZE                  0x54
-#define OFFSET_VDMA_MM2S_FRMDLY_STRIDE          0x58
-#define OFFSET_VDMA_MM2S_FRAMEBUFFER1           0x5c
-#define OFFSET_VDMA_MM2S_FRAMEBUFFER2           0x60
-#define OFFSET_VDMA_MM2S_FRAMEBUFFER3           0x64
-#define OFFSET_VDMA_MM2S_FRAMEBUFFER4           0x68
-
-
-/* S2MM and MM2S control register flags */
-#define VDMA_CONTROL_REGISTER_START                     0x00000001
-#define VDMA_CONTROL_REGISTER_CIRCULAR_PARK             0x00000002
-#define VDMA_CONTROL_REGISTER_RESET                     0x00000004
-#define VDMA_CONTROL_REGISTER_GENLOCK_ENABLE            0x00000008
-#define VDMA_CONTROL_REGISTER_FrameCntEn                0x00000010
-#define VDMA_CONTROL_REGISTER_INTERNAL_GENLOCK          0x00000080
-#define VDMA_CONTROL_REGISTER_WrPntr                    0x00000f00
-#define VDMA_CONTROL_REGISTER_FrmCtn_IrqEn              0x00001000
-#define VDMA_CONTROL_REGISTER_DlyCnt_IrqEn              0x00002000
-#define VDMA_CONTROL_REGISTER_ERR_IrqEn                 0x00004000
-#define VDMA_CONTROL_REGISTER_Repeat_En                 0x00008000
-#define VDMA_CONTROL_REGISTER_InterruptFrameCount       0x00ff0000
-#define VDMA_CONTROL_REGISTER_IRQDelayCount             0xff000000
-
-/* S2MM status register */
-#define VDMA_STATUS_REGISTER_HALTED                     0x00000001  // Read-only
-#define VDMA_STATUS_REGISTER_VDMAInternalError          0x00000010  // Read or write-clear
-#define VDMA_STATUS_REGISTER_VDMASlaveError             0x00000020  // Read-only
-#define VDMA_STATUS_REGISTER_VDMADecodeError            0x00000040  // Read-only
-#define VDMA_STATUS_REGISTER_StartOfFrameEarlyError     0x00000080  // Read-only
-#define VDMA_STATUS_REGISTER_EndOfLineEarlyError        0x00000100  // Read-only
-#define VDMA_STATUS_REGISTER_StartOfFrameLateError      0x00000800  // Read-only
-#define VDMA_STATUS_REGISTER_FrameCountInterrupt        0x00001000  // Read-only
-#define VDMA_STATUS_REGISTER_DelayCountInterrupt        0x00002000  // Read-only
-#define VDMA_STATUS_REGISTER_ErrorInterrupt             0x00004000  // Read-only
-#define VDMA_STATUS_REGISTER_EndOfLineLateError         0x00008000  // Read-only
-#define VDMA_STATUS_REGISTER_FrameCount                 0x00ff0000  // Read-only
-#define VDMA_STATUS_REGISTER_DelayCount                 0xff000000  // Read-only
-
-#define FB1_START 0x01000000
-#define FB2_START 0x03000000
-#define FB3_START 0x05000000
-#define WIDTH 1280
-#define HEIGHT 720
+#include "vdma.h"
+#include "charvideodev.h"
 
 #define CONFIG_OF
 
@@ -95,52 +47,14 @@ MODULE_DESCRIPTION
 #define DRIVER_NAME "vdmadriver"
 
 
-static const char    g_s_Hello_World_string[] = "Hello world from kernel mode!\n\0";
-static const ssize_t g_s_Hello_World_size = sizeof(g_s_Hello_World_string);
-
-/*===============================================================================================*/
-static ssize_t device_file_read(
-                           struct file *file_ptr
-                        , char __user *user_buffer
-                        , size_t count
-                        , loff_t *possition)
-{
-   printk( KERN_NOTICE "Simple-driver: Device file is read at offset = %i, read bytes count = %u"
-            , (int)*possition
-            , (unsigned int)count );
-
-   if( *possition >= g_s_Hello_World_size )
-      return 0;
-
-   if( *possition + count > g_s_Hello_World_size )
-      count = g_s_Hello_World_size - *possition;
-
-   if( copy_to_user(user_buffer, g_s_Hello_World_string + *possition, count) != 0 )
-      return -EFAULT;
-
-   *possition += count;
-   return count;
-}
-/*===============================================================================================*/
-static struct file_operations simple_driver_fops =
-{
-   .owner   = THIS_MODULE,
-   .read    = device_file_read,
-};
-
-static int device_file_major_number = 0;
-
-static const char device_name[] = "vdmachardriver";
-
-
-
-
 
 struct vdmaDriver_local {
 	int irq;
 	unsigned long mem_start;
 	unsigned long mem_end;
 	void __iomem *base_addr;
+	struct charvideodev *chardev;
+	struct vdmaController *vdmactrl;
 };
 
 static irqreturn_t vdmaDriver_irq(int irq, void *lp)
@@ -200,32 +114,53 @@ static int vdmaDriver_probe(struct platform_device *pdev)
 		goto error2;
 	}
 
+	lp->chardev = initCharVideoDev(lp);
+	if (!lp->chardev){
+		dev_err(dev, "vdmadriver: Could not allocate chardev\n");
+		rc = -EIO;
+		goto error2;
+	}
+
+	lp->vdmactrl = initVdmaController(lp);
+	if (!lp->vdmactrl){
+		dev_err(dev, "vdmadriver: Could not allocate vdmactrl\n");
+		rc = -EIO;
+		goto error2;
+	}
+
 	/* Get IRQ for the device */
 	r_irq = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
-	if (!r_irq) {
-		dev_info(dev, "no IRQ found\n");
-		dev_info(dev, "vdmadriver at 0x%08x mapped to 0x%08x\n",
-			(unsigned int __force)lp->mem_start,
-			(unsigned int __force)lp->base_addr);
-		return 0;
+
+	if(r_irq){
+		lp->irq = r_irq->start;
+		rc = request_irq(lp->irq, &vdmaDriver_irq, 0, DRIVER_NAME, lp);
+		if (rc) {
+			dev_err(dev, "vdmadriver: Could not allocate interrupt %d.\n",lp->irq);
+			goto error3;
+		}
 	}
-	lp->irq = r_irq->start;
-	rc = request_irq(lp->irq, &vdmaDriver_irq, 0, DRIVER_NAME, lp);
-	if (rc) {
-		dev_err(dev, "testmodule: Could not allocate interrupt %d.\n",
-			lp->irq);
+
+	if(!regCharVideoDev(lp->chardev)){
+		dev_err(dev, "vdmadriver: Could not register chardev.\n");
+		goto error3;
+	}
+
+	if(!vdma_setup(lp->vdmactrl, lp->base_addr)){
+		dev_err(dev, "vdmadriver: Could not setup vdmactrl.\n");
 		goto error3;
 	}
 
 	dev_info(dev,"vdmadriver at 0x%08x mapped to 0x%08x, irq=%d\n",
-		(unsigned int __force)lp->mem_start,
-		(unsigned int __force)lp->base_addr,
-		lp->irq);
+			(unsigned int __force)lp->mem_start,
+			(unsigned int __force)lp->base_addr,
+			lp->irq);
 
-	dev_info(dev, "status register reads 0x%08x\n", dma_read(lp, OFFSET_VDMA_MM2S_STATUS_REGISTER));
-	dev_info(dev, "control register reads 0x%08x\n", dma_read(lp, OFFSET_VDMA_MM2S_CONTROL_REGISTER));
-	dev_info(dev, "version register reads 0x%08x\n", dma_read(lp, OFFSET_VERSION));
+	//vdma_s2mm_status_dump(lp->vdmactrl);
+	//vdma_start_triple_buffering(lp->vdmactrl);
+	//vdma_s2mm_status_dump(lp->vdmactrl);
+
 	return 0;
+
 error3:
 	free_irq(lp->irq, lp);
 error2:
@@ -242,6 +177,7 @@ static int vdmaDriver_remove(struct platform_device *pdev)
 	struct vdmaDriver_local *lp = dev_get_drvdata(dev);
 	free_irq(lp->irq, lp);
 	release_mem_region(lp->mem_start, lp->mem_end - lp->mem_start + 1);
+	unregCharVideoDev(lp->chardev);
 	kfree(lp);
 	dev_set_drvdata(dev, NULL);
 	return 0;
@@ -272,29 +208,12 @@ static int __init vdmaDriver_init(void)
 {
 	printk("<1>Hello module world.\n");
 
-	int result = register_chrdev( 0, device_name, &simple_driver_fops );
-	if( result < 0 )
-	{
-	 printk( KERN_WARNING "Simple-driver:  can\'t register character device with errorcode = %i", result );
-	 return result;
-	}
-
-	device_file_major_number = result;
-	printk( KERN_NOTICE "Simple-driver: registered character device with major number = %i and minor numbers 0...255"
-			  , device_file_major_number );
-
 	return platform_driver_register(&vdmaDriver_driver);
 }
 
 
 static void __exit vdmaDriver_exit(void)
 {
-	printk( KERN_NOTICE "Simple-driver: unregister_device() is called" );
-	if(device_file_major_number != 0)
-	{
-	  unregister_chrdev(device_file_major_number, device_name);
-	}
-
 	platform_driver_unregister(&vdmaDriver_driver);
 	printk(KERN_ALERT "Goodbye module world.\n");
 }

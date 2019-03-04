@@ -1,0 +1,88 @@
+#ifndef CHARVIDEODEV_H_
+#define CHARVIDEODEV_H_
+
+static const char    g_s_Hello_World_string[] = "Hello world from kernel mode!\n\0";
+static const ssize_t g_s_Hello_World_size = sizeof(g_s_Hello_World_string);
+
+/*===============================================================================================*/
+static ssize_t device_file_read(
+                           struct file *file_ptr
+                        , char __user *user_buffer
+                        , size_t count
+                        , loff_t *possition)
+{
+   printk( KERN_NOTICE "Simple-driver: Device file is read at offset = %i, read bytes count = %u"
+            , (int)*possition
+            , (unsigned int)count );
+
+   if( *possition >= g_s_Hello_World_size )
+      return 0;
+
+   if( *possition + count > g_s_Hello_World_size )
+      count = g_s_Hello_World_size - *possition;
+
+   if( copy_to_user(user_buffer, g_s_Hello_World_string + *possition, count) != 0 )
+      return -EFAULT;
+
+   *possition += count;
+   return count;
+}
+/*===============================================================================================*/
+
+struct charvideodev {
+	struct file_operations fops;
+	int device_file_major_number;
+	static const char device_name[]="charVideoDev";
+};
+
+
+struct charvideodev* init(){
+	struct charvideodev* local;
+
+	local = (struct charvideodev *) kmalloc(sizeof(struct charvideodev), GFP_KERNEL);
+	if (local == NULL) {
+		printk(KERN_ERR "Could not allocate charvideodriver device\n");
+		return NULL;
+	}
+	local->device_file_major_number=0;
+	struct file_operations fops;
+	fops.owner=THIS_MODULE;
+	fops.read= device_file_read;
+	local->fops = fops;
+
+	return local;
+}
+
+int regCharVideoDev(struct charvideodev *dev){
+	if (!dev) return -1;
+
+	int result;
+	result = register_chrdev(0, dev->device_name, &dev->fops);
+	if( result < 0 )
+	{
+		printk(KERN_ERR "%s: can\'t register character device with errorcode = %i", dev->device_name, result);
+		return result;
+	}
+
+	dev->device_file_major_number = result;
+	printk(KERN_NOTICE "%s: registered character device with major number = %i and minor numbers 0...255"
+			  , dev->device_name, dev->device_file_major_number);
+	return dev->device_file_major_number;
+}
+
+int unregCharVideoDev(struct charvideodev *dev) {
+	if (!dev) return -1;
+
+	printk(KERN_NOTICE "%s: unregistering", dev->device_name);
+	if(dev->device_file_major_number != 0)
+	{
+		unregister_chrdev(dev->device_file_major_number, dev->device_name);
+		kfree(dev);
+
+		return 0;
+	} else {
+		return -1;
+	}
+}
+
+#endif

@@ -24,6 +24,7 @@ infoIndicationColor=86,194,170
 javaScriptOccurrenceIndicationColor=72,72,72
 javaScriptOverrideIndicatorColor=72,113,109
 lineNumberColor=98,98,98
+lineNumberRuler=true
 linked.slave.color=66,156,255
 matchingTagIndicationColor=72,72,72
 occurrenceIndicationColor=72,72,72

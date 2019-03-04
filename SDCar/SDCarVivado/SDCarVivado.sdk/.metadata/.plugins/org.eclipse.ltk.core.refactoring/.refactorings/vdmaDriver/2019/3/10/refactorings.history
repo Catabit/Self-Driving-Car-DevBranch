@@ -1,4 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move &apos;Makefile&apos; to &apos;vdmaDriver&apos;" description="Move &apos;Makefile&apos; to &apos;vdmaDriver&apos;" destination="/vdmaDriver" element1="src/Makefile" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1551612482101" updateReferences="true"/>
+<session version="1.0">&#x0A;<refactoring comment="Move &apos;Makefile&apos; to &apos;vdmaDriver&apos;" description="Move &apos;Makefile&apos; to &apos;vdmaDriver&apos;" destination="/vdmaDriver" element1="src/Makefile" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1551612482101" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;vdmaDriver/vdmadriver.c&apos; to &apos;vdmadriver1.c&apos;" description="Rename resource &apos;vdmadriver.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="vdmadriver.c" name="vdmadriver1.c" stamp="1551625420595" updateReferences="true"/>
 </session>

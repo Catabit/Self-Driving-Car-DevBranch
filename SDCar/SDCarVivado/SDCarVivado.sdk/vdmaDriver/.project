@@ -23,11 +23,4 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>vdmadriver.c</name>
-			<type>1</type>
-			<location>/home/catabit/Zybo/SDCar/project-spec/meta-user/recipes-modules/vdmadriver/files/vdmadriver.c</location>
-		</link>
-	</linkedResources>
 </projectDescription>
