@@ -296,6 +296,7 @@ void pixelSplit(uint32_t pixel10bit, int rLeftOffset, uint8_t *r, uint8_t *g, ui
 	*g = temp;
 }
 
+
 int main() {
     int j, i;
     vdma_handle handle;
@@ -333,12 +334,13 @@ int main() {
 	}
 
 	unsigned char buf[HEIGHT*WIDTH*4];
-	read(test, buf, HEIGHT*WIDTH*4);
+	int result = read(test, buf, HEIGHT*WIDTH*4);
+	printf("Read %d\n", result);
 
 	char filename[100];
 	sprintf(filename, "/home/root/outimg0.ppm");
 	FILE *outimg = fopen(filename, "w");
-	fprintf(outimg, "P3\n%d %d\n%d\n", WIDTH, HEIGHT, 255);
+	fprintf(outimg, "P3\n%d %d\n%d\n", WIDTH, HEIGHT, 50);
 
 	printf("Opened %s\n", filename);
 
@@ -353,6 +355,7 @@ int main() {
 
 			pixelSplit(pixel, 0, &r, &g, &b);
 
+			//printf("Pixel: 0x%0X\n", pixel);
 			fprintf(outimg, "%d %d %d ", r, g, b);
 		}
 		fprintf(outimg, "\n");

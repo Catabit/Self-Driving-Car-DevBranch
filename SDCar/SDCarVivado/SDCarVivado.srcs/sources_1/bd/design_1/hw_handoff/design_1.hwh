@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Mar  7 22:30:29 2019" VIVADOVERSION="2017.4">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Mar  7 23:42:40 2019" VIVADOVERSION="2017.4">
 
   <SYSTEMINFO ARCH="zynq" BOARD="digilentinc.com:zybo-z7-20:part0:1.0" DEVICE="7z020" NAME="design_1" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -4506,7 +4506,7 @@
         <PARAMETER NAME="C_S2MM_GENLOCK_NUM_MASTERS" VALUE="1"/>
         <PARAMETER NAME="C_S2MM_GENLOCK_REPEAT_EN" VALUE="1"/>
         <PARAMETER NAME="C_S2MM_SOF_ENABLE" VALUE="1"/>
-        <PARAMETER NAME="C_INCLUDE_S2MM_DRE" VALUE="1"/>
+        <PARAMETER NAME="C_INCLUDE_S2MM_DRE" VALUE="0"/>
         <PARAMETER NAME="C_INCLUDE_S2MM_SF" VALUE="1"/>
         <PARAMETER NAME="C_S2MM_LINEBUFFER_DEPTH" VALUE="1024"/>
         <PARAMETER NAME="C_S2MM_LINEBUFFER_THRESH" VALUE="4"/>
@@ -4541,7 +4541,7 @@
         <PARAMETER NAME="c_m_axis_mm2s_tdata_width" VALUE="32"/>
         <PARAMETER NAME="c_m_axi_s2mm_data_width" VALUE="64"/>
         <PARAMETER NAME="c_s_axis_s2mm_tdata_width" VALUE="32"/>
-        <PARAMETER NAME="c_include_s2mm_dre" VALUE="1"/>
+        <PARAMETER NAME="c_include_s2mm_dre" VALUE="0"/>
         <PARAMETER NAME="c_include_s2mm_sf" VALUE="1"/>
         <PARAMETER NAME="c_include_mm2s_sf" VALUE="0"/>
         <PARAMETER NAME="c_enable_vidprmtr_reads" VALUE="1"/>

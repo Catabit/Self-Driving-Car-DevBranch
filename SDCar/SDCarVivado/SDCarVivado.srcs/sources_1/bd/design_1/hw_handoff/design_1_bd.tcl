@@ -221,7 +221,7 @@ proc create_root_design { parentCell } {
   set_property -dict [ list \
    CONFIG.c_include_mm2s {0} \
    CONFIG.c_include_s2mm {1} \
-   CONFIG.c_include_s2mm_dre {1} \
+   CONFIG.c_include_s2mm_dre {0} \
    CONFIG.c_mm2s_genlock_mode {0} \
    CONFIG.c_s2mm_genlock_mode {2} \
    CONFIG.c_s2mm_linebuffer_depth {1024} \

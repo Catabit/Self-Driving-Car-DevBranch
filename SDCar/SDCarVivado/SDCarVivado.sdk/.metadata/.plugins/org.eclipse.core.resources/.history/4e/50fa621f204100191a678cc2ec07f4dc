@@ -1,5 +1,24 @@
-#ifndef VDMA_H_
-#define VDMA_H_
+/*
+ * Triple buffering example for Xilinx VDMA v6.2 IP-core,
+ * loosely based on Ales Ruda's work.
+ *
+ *  Created on: 17.3.2013
+ *      Author: Ales Ruda
+ *         web: www.arbot.cz
+ *
+ *  Modified on: 18.12.2014
+ *       Author: Lauri Vosandi
+ *          web: lauri.vosandi.com
+ */
+
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <uiotools/uiotools.h>
+#include "cameraiic.h"
+
 /* Register offsets */
 #define OFFSET_PARK_PTR_REG                     0x28
 #define OFFSET_VERSION                          0x2c
@@ -56,17 +75,22 @@
 #define VDMA_STATUS_REGISTER_FrameCount                 0x00ff0000  // Read-only
 #define VDMA_STATUS_REGISTER_DelayCount                 0xff000000  // Read-only
 
-#define FB_SIZE 0x02000000
-
 #define FB1_START 0x01000000
-#define FB2_START FB1_START + 1*FB_SIZE
-#define FB3_START FB1_START + 2*FB_SIZE
-#define FB4_START FB1_START + 3*FB_SIZE
+#define FB2_START 0x03000000
+#define FB3_START 0x05000000
 #define WIDTH 1280
 #define HEIGHT 720
 
+#define VDMA_NAME "dma"
+#define CSI_2_RX_NAME "MIPI_CSI_2_RX"
+#define D_PHY_RX_NAME "MIPI_D_PHY_RX"
+
+#define MIPI_MAP_SIZE 0x10000
+#define MIPI_PIPELINE_ENABLE 0x2
+#define MIPI_PIPELINE_RESET 0x1
 
 #define IMAGEDUMP
+#define BURSTDUMP 5
 
 
 typedef struct {
@@ -85,50 +109,50 @@ typedef struct {
     unsigned char* fb3PhysicalAddress;
 } vdma_handle;
 
-struct vdmaController{
-    int fbHandler;
-    int width;
-    int height;
-    int pixelLength;
-    int fbLength;
-    unsigned int* vdmaVirtualAddress;
-    unsigned char* fb1VirtualAddress;
-    unsigned char* fb1PhysicalAddress;
-    unsigned char* fb2VirtualAddress;
-    unsigned char* fb2PhysicalAddress;
-    unsigned char* fb3VirtualAddress;
-    unsigned char* fb3PhysicalAddress;
-};
 
-
-unsigned int vdma_get(vdma_handle *handle, uint32_t num) {
-    return ioread32(handle->vdmaVirtualAddress + num);
+unsigned int vdma_get(vdma_handle *handle, int num) {
+    return handle->vdmaVirtualAddress[num>>2];
 }
 
-void vdma_set(vdma_handle *handle, uint32_t num, uint32_t val) {
-	iowrite32(val, handle->vdmaVirtualAddress + num);
+void vdma_set(vdma_handle *handle, int num, unsigned int val) {
+    handle->vdmaVirtualAddress[num>>2]=val;
 }
 
-int vdma_setup(vdmaController *controller, int width, int height, int pixelLength, unsigned int fb1Addr, unsigned int fb2Addr, unsigned int fb3Addr) {
-    controller->width=width;
-    controller->height=height;
-    controller->pixelLength=pixelLength;
-    controller->fbLength=pixelLength*width*height;
-
-    controller->fb1PhysicalAddress = fb1Addr;
-    controller->fb2PhysicalAddress = fb2Addr;
-    controller->fb3PhysicalAddress = fb3Addr;
-
-    //request_mem_region(FB1_START,FB3_END - FB1_START + 1,DRIVER_NAME);
-
-    controller->fb1VirtualAddress = memremap(FB1_START, FB4_START - FB1_START + 1, MEMREMAP_WT );
-    if(!controller->fb1VirtualAddress) {
-    	perror("fb1VirtualAddress mapping for absolute memory access failed.\n");
-		return -2;
+int vdma_setup(vdma_handle *handle, int width, int height, int pixelLength, unsigned int fb1Addr, unsigned int fb2Addr, unsigned int fb3Addr) {
+    handle->width=width;
+    handle->height=height;
+    handle->pixelLength=pixelLength;
+    handle->fbLength=pixelLength*width*height;
+    handle->vdmaHandler = findDeviceByName(VDMA_NAME);
+    handle->vdmaVirtualAddress = (unsigned int*)mmap(NULL, 65535, PROT_READ | PROT_WRITE, MAP_SHARED, handle->vdmaHandler, 0);
+    if(handle->vdmaVirtualAddress == MAP_FAILED) {
+        perror("vdmaVirtualAddress mapping for absolute memory access failed.\n");
+        return -1;
     }
-    controller->fb2VirtualAddress = controller->fb1VirtualAddress + 1*FB_SIZE;
-    controller->fb3VirtualAddress = controller->fb1VirtualAddress + 2*FB_SIZE;
 
+    handle->fbHandler = open("/dev/mem", O_RDWR | O_SYNC);
+
+    handle->fb1PhysicalAddress = fb1Addr;
+    handle->fb1VirtualAddress = (unsigned char*)mmap(NULL, handle->fbLength, PROT_READ | PROT_WRITE, MAP_SHARED, handle->fbHandler, (off_t)fb1Addr);
+    if(handle->fb1VirtualAddress == MAP_FAILED) {
+        perror("fb1VirtualAddress mapping for absolute memory access failed.\n");
+        return -2;
+    }
+
+    handle->fb2PhysicalAddress = fb2Addr;
+    handle->fb2VirtualAddress = (unsigned char*)mmap(NULL, handle->fbLength, PROT_READ | PROT_WRITE, MAP_SHARED, handle->fbHandler, (off_t)fb2Addr);
+    if(handle->fb2VirtualAddress == MAP_FAILED) {
+        perror("fb2VirtualAddress mapping for absolute memory access failed.\n");
+        return -3;
+    }
+
+    handle->fb3PhysicalAddress = fb3Addr;
+    handle->fb3VirtualAddress = (unsigned char*)mmap(NULL, handle->fbLength, PROT_READ | PROT_WRITE, MAP_SHARED, handle->fbHandler, (off_t)fb3Addr);
+    if(handle->fb3VirtualAddress == MAP_FAILED)
+    {
+     perror("fb3VirtualAddress mapping for absolute memory access failed.\n");
+     return -3;
+    }
 
     memset(handle->fb1VirtualAddress, 255, handle->width*handle->height*handle->pixelLength);
     memset(handle->fb2VirtualAddress, 255, handle->width*handle->height*handle->pixelLength);
@@ -140,7 +164,12 @@ int vdma_setup(vdmaController *controller, int width, int height, int pixelLengt
 void vdma_halt(vdma_handle *handle) {
     vdma_set(handle, OFFSET_VDMA_S2MM_CONTROL_REGISTER, VDMA_CONTROL_REGISTER_RESET);
     vdma_set(handle, OFFSET_VDMA_MM2S_CONTROL_REGISTER, VDMA_CONTROL_REGISTER_RESET);
-    memunmap((void *)handle->fb1VirtualAddress);
+    munmap((void *)handle->vdmaVirtualAddress, 65535);
+    munmap((void *)handle->fb1VirtualAddress, handle->fbLength);
+    munmap((void *)handle->fb2VirtualAddress, handle->fbLength);
+    munmap((void *)handle->fb3VirtualAddress, handle->fbLength);
+    close(handle->vdmaHandler);
+    //close(handle->fbHandler);
 }
 
 
@@ -170,6 +199,11 @@ void vdma_s2mm_status_dump(vdma_handle *handle) {
     vdma_status_dump(status);
 }
 
+void vdma_mm2s_status_dump(vdma_handle *handle) {
+    int status = vdma_get(handle, OFFSET_VDMA_MM2S_STATUS_REGISTER);
+    printf("MM2S status register (%08x):", status);
+    vdma_status_dump(status);
+}
 
 void vdma_start_triple_buffering(vdma_handle *handle) {
     // Reset VDMA
@@ -196,6 +230,12 @@ void vdma_start_triple_buffering(vdma_handle *handle) {
 		VDMA_CONTROL_REGISTER_GENLOCK_ENABLE |
         VDMA_CONTROL_REGISTER_INTERNAL_GENLOCK |
         VDMA_CONTROL_REGISTER_CIRCULAR_PARK);
+    /*vdma_set(handle, OFFSET_VDMA_MM2S_CONTROL_REGISTER,
+        (interrupt_frame_count << 16) |
+        VDMA_CONTROL_REGISTER_START |
+        VDMA_CONTROL_REGISTER_GENLOCK_ENABLE |
+        VDMA_CONTROL_REGISTER_INTERNAL_GENLOCK |
+        VDMA_CONTROL_REGISTER_CIRCULAR_PARK);*/
 
 
 
@@ -209,20 +249,26 @@ void vdma_start_triple_buffering(vdma_handle *handle) {
 
     // Write physical addresses to control register
     vdma_set(handle, OFFSET_VDMA_S2MM_FRAMEBUFFER1, handle->fb1PhysicalAddress);
+    //vdma_set(handle, OFFSET_VDMA_MM2S_FRAMEBUFFER1, handle->fb1PhysicalAddress);
     vdma_set(handle, OFFSET_VDMA_S2MM_FRAMEBUFFER2, handle->fb2PhysicalAddress);
+    //vdma_set(handle, OFFSET_VDMA_MM2S_FRAMEBUFFER2, handle->fb2PhysicalAddress);
     vdma_set(handle, OFFSET_VDMA_S2MM_FRAMEBUFFER3, handle->fb3PhysicalAddress);
+    //vdma_set(handle, OFFSET_VDMA_MM2S_FRAMEBUFFER3, handle->fb3PhysicalAddress);
 
     // Write Park pointer register
     vdma_set(handle, OFFSET_PARK_PTR_REG, 0);
 
     // Frame delay and stride (bytes)
     vdma_set(handle, OFFSET_VDMA_S2MM_FRMDLY_STRIDE, handle->width*handle->pixelLength);
+    //vdma_set(handle, OFFSET_VDMA_MM2S_FRMDLY_STRIDE, handle->width*handle->pixelLength);
 
     // Write horizontal size (bytes)
     vdma_set(handle, OFFSET_VDMA_S2MM_HSIZE, handle->width*handle->pixelLength);
+    //vdma_set(handle, OFFSET_VDMA_MM2S_HSIZE, handle->width*handle->pixelLength);
 
     // Write vertical size (lines), this actually starts the transfer
     vdma_set(handle, OFFSET_VDMA_S2MM_VSIZE, handle->height);
+    //vdma_set(handle, OFFSET_VDMA_MM2S_VSIZE, handle->height);
 }
 
 int vdma_running(vdma_handle *handle) {
@@ -250,4 +296,182 @@ void pixelSplit(uint32_t pixel10bit, int rLeftOffset, uint8_t *r, uint8_t *g, ui
 	*g = temp;
 }
 
+void pixelSplit2(uint32_t pixel10bit, int rLeftOffset, uint8_t *r, uint8_t *g, uint8_t *b) {
+	//(2bit unused)(8bit red)(2bit unused)(8bit blue)(2bit unused)(8bit green)(2bit unused)
+	int gLeftOffset = rLeftOffset+10;
+	int bLeftOffset = rLeftOffset+20;
+
+	uint16_t temp = ((pixel10bit<<rLeftOffset) >> (32-10-rLeftOffset));
+	*r = temp;
+
+	temp = ((pixel10bit<<gLeftOffset) >> (32-10-rLeftOffset));
+	*b = temp;
+
+	temp = ((pixel10bit<<bLeftOffset) >> (32-10-rLeftOffset));
+	*g = temp;
+}
+
+int main() {
+    int j, i;
+    vdma_handle handle;
+
+    //Reset the MIPI video pipeline
+	int fd;
+	void *ptr;
+
+	fd = findDeviceByName(CSI_2_RX_NAME);
+	ptr = mmap(NULL, MIPI_MAP_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+	*((unsigned *)(ptr)) = MIPI_PIPELINE_ENABLE;
+	munmap(ptr, MIPI_MAP_SIZE);
+	close(fd);
+
+	fd = findDeviceByName(D_PHY_RX_NAME);
+	ptr = mmap(NULL, MIPI_MAP_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+	*((unsigned *)(ptr)) = MIPI_PIPELINE_ENABLE;
+	munmap(ptr, MIPI_MAP_SIZE);
+	close(fd);
+
+	int camerafd=-1;
+	camerafd = cameraInit();
+	if (camerafd<0) {
+		printf("Cammera error!\n\n");
+		return -1;
+	}
+
+
+	printf("Successfully setup the camera!\n");
+
+	int test = open("/dev/1", O_RDONLY);
+	if(!test){
+		printf("Can't open file\n");
+		return -1;
+	}
+
+	unsigned int buf[HEIGHT*WIDTH];
+	int result = read(test, buf, HEIGHT*WIDTH);
+	printf("Read %d\n", result);
+
+	char filename[100];
+	sprintf(filename, "/home/root/outimg0.ppm");
+	FILE *outimg = fopen(filename, "w");
+	fprintf(outimg, "P3\n%d %d\n%d\n", WIDTH, HEIGHT, 255);
+
+	printf("Opened %s\n", filename);
+
+	for (int line=0; line<HEIGHT; line++){
+		for (int col=0; col<WIDTH; col++)
+		{
+			uint8_t r, g, b;
+
+
+			pixelSplit(buf[line*WIDTH + col], 0, &r, &g, &b);
+
+			printf("Pixel: 0x%0X\n", pixel);
+			fprintf(outimg, "%d %d %d ", r, g, b);
+		}
+		fprintf(outimg, "\n");
+	}
+	fclose(outimg);
+
+
+	close(test);
+	return 0;
+
+    // Setup VDMA handle and memory-mapped ranges
+    vdma_setup(&handle, WIDTH, HEIGHT, 4, FB1_START, FB2_START, FB3_START);
+
+    printf("Successfully setup the vdma!\n");
+
+    // Start triple buffering
+    vdma_start_triple_buffering(&handle);
+
+    printf("Successfully started the vdma!\n");
+
+    
+
+
+    sleep(2);
+    vdma_s2mm_status_dump(&handle);
+
+#ifdef IMAGEDUMP
+#ifdef BURSTDUMP
+    for (int nrImage=0; nrImage<BURSTDUMP; nrImage++){
+		printf("\n##############\nFB1 full dump %d\n#############\n", nrImage);
+		printf("Aim the camera\n");
+		sleep(1);
+		printf("Done\n");
+
+		vdma_set(&handle, OFFSET_VDMA_S2MM_CONTROL_REGISTER,  VDMA_CONTROL_REGISTER_RESET);
+		usleep(100000);
+		vdma_s2mm_status_dump(&handle);
+
+
+		char filename[100];
+		sprintf(filename, "/home/root/outimg%d.ppm", nrImage);
+		FILE *outimg = fopen(filename, "w");
+		printf("Opened %s\n", filename);
+		fprintf(outimg, "P3\n%d %d\n%d\n", WIDTH, HEIGHT, 255);
+
+		for (int line=0; line<handle.height; line++){
+			for (int col=0; col<handle.width*handle.pixelLength; col+=handle.pixelLength)
+			{
+				uint8_t r, g, b;
+				unsigned int pixel = (handle.fb1VirtualAddress[(line*(handle.width)*(handle.pixelLength)) + col+3] <<24) +
+									(handle.fb1VirtualAddress[(line*(handle.width)*(handle.pixelLength)) + col+2] <<16) +
+									(handle.fb1VirtualAddress[(line*(handle.width)*(handle.pixelLength)) + col+1] <<8) +
+									handle.fb1VirtualAddress[(line*(handle.width)*(handle.pixelLength)) + col+0];
+
+				pixelSplit(pixel, 0, &r, &g, &b);
+
+				fprintf(outimg, "%d %d %d ", r, g, b);
+			}
+			fprintf(outimg, "\n");
+		}
+		fclose(outimg);
+		vdma_start_triple_buffering(&handle);
+		vdma_s2mm_status_dump(&handle);
+    }
+#else
+
+    sleep(1);
+	printf("\n##############\nFB1 full dump\n#############\n");
+	printf("Aim the camera\n");
+	sleep(1);
+	printf("Done\n");
+
+
+	vdma_set(&handle, OFFSET_VDMA_S2MM_CONTROL_REGISTER,  VDMA_CONTROL_REGISTER_RESET);
+	usleep(100000);
+	vdma_s2mm_status_dump(&handle);
+
+	char filename[100];
+	sprintf(filename, "/home/root/outimg0.ppm");
+	FILE *outimg = fopen(filename, "w");
+	fprintf(outimg, "P3\n%d %d\n%d\n", WIDTH, HEIGHT, 255);
+
+	printf("Opened %s\n", filename);
+
+	for (int line=0; line<handle.height; line++){
+		for (int col=0; col<handle.width*handle.pixelLength; col+=handle.pixelLength)
+		{
+			uint8_t r, g, b;
+			unsigned int pixel = (handle.fb1VirtualAddress[(line*(handle.width)*(handle.pixelLength)) + col+3] <<24) +
+								(handle.fb1VirtualAddress[(line*(handle.width)*(handle.pixelLength)) + col+2] <<16) +
+								(handle.fb1VirtualAddress[(line*(handle.width)*(handle.pixelLength)) + col+1] <<8) +
+								handle.fb1VirtualAddress[(line*(handle.width)*(handle.pixelLength)) + col+0];
+
+			pixelSplit(pixel, 0, &r, &g, &b);
+
+			fprintf(outimg, "%d %d %d ", r, g, b);
+		}
+		fprintf(outimg, "\n");
+	}
+	fclose(outimg);
+
 #endif
+#endif
+
+    // Halt VDMA and unmap memory ranges
+    vdma_halt(&handle);
+    cam_reset(camerafd);
+}

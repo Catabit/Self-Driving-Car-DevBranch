@@ -673,7 +673,7 @@
         <spirit:componentRef spirit:library="ip" spirit:name="axi_vdma" spirit:vendor="xilinx.com" spirit:version="6.3"/>
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_axi_vdma_0_0</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="c_include_s2mm_dre">1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="c_include_s2mm_dre">0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="c_use_s2mm_fsync">2</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="c_s2mm_genlock_mode">2</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="c_s2mm_linebuffer_depth">1024</spirit:configurableElementValue>

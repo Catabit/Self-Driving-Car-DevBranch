@@ -50,7 +50,7 @@
 #define VDMA_STATUS_REGISTER_DelayCount                 0xff000000  // Read-only
 
 #define FB_SIZE 0x00a00000 // @16MB each
-#define FB_PADDING 0x000
+#define FB_PADDING 0x100
 
 #define WIDTH 1280
 #define HEIGHT 720
@@ -117,9 +117,9 @@ int vdma_setup(struct vdmaController *controller) {
 
 
 	printk(KERN_NOTICE "Attempting memsetfb1\n");
-    memset(controller->fb1VirtualAddress, 42, controller->width*controller->height*controller->pixelLength);
+    memset(controller->fb1VirtualAddress, 255, controller->width*controller->height*controller->pixelLength);
     printk(KERN_NOTICE "Attempting memsetfb2\n");
-    memset(controller->fb2VirtualAddress, 128, controller->width*controller->height*controller->pixelLength);
+    memset(controller->fb2VirtualAddress, 255, controller->width*controller->height*controller->pixelLength);
     printk(KERN_NOTICE "Attempting memsetfb3\n");
     memset(controller->fb3VirtualAddress, 255, controller->width*controller->height*controller->pixelLength);
     printk(KERN_NOTICE "FrameBuffer testing successfull\n");
@@ -198,7 +198,6 @@ void vdma_start_triple_buffering(struct vdmaController *controller) {
     vdma_set(controller, OFFSET_VDMA_S2MM_FRAMEBUFFER1, controller->fb1PhysicalAddress);
     vdma_set(controller, OFFSET_VDMA_S2MM_FRAMEBUFFER2, controller->fb2PhysicalAddress);
     vdma_set(controller, OFFSET_VDMA_S2MM_FRAMEBUFFER3, controller->fb3PhysicalAddress);
-    vdma_set(controller, OFFSET_VDMA_S2MM_FRAMEBUFFER4, controller->fb3PhysicalAddress);
 
     // Write Park pointer register
     vdma_set(controller, OFFSET_PARK_PTR_REG, 0);
