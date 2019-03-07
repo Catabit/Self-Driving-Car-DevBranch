@@ -8,6 +8,7 @@ inherit module
 
 SRC_URI = "file://Makefile \
            file://vdmadriver.c \
+           file://vdmadriver.h \
            file://vdma.h \
            file://charvideodev.h \
 	   file://COPYING \

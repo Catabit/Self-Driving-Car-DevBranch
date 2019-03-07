@@ -316,6 +316,53 @@ int main() {
 	munmap(ptr, MIPI_MAP_SIZE);
 	close(fd);
 
+	int camerafd=-1;
+	camerafd = cameraInit();
+	if (camerafd<0) {
+		printf("Cammera error!\n\n");
+		return -1;
+	}
+
+
+	printf("Successfully setup the camera!\n");
+
+	int test = open("/dev/1", O_RDONLY);
+	if(!test){
+		printf("Can't open file\n");
+		return -1;
+	}
+
+	unsigned char buf[HEIGHT*WIDTH*4];
+	read(test, buf, HEIGHT*WIDTH*4);
+
+	char filename[100];
+	sprintf(filename, "/home/root/outimg0.ppm");
+	FILE *outimg = fopen(filename, "w");
+	fprintf(outimg, "P3\n%d %d\n%d\n", WIDTH, HEIGHT, 255);
+
+	printf("Opened %s\n", filename);
+
+	for (int line=0; line<HEIGHT; line++){
+		for (int col=0; col<WIDTH*4; col+=4)
+		{
+			uint8_t r, g, b;
+			unsigned int pixel = (buf[(line*(WIDTH)*(4)) + col+3] <<24) +
+								(buf[(line*(WIDTH)*(4)) + col+2] <<16) +
+								(buf[(line*(WIDTH)*(4)) + col+1] <<8) +
+								buf[(line*(WIDTH)*(4)) + col+0];
+
+			pixelSplit(pixel, 0, &r, &g, &b);
+
+			fprintf(outimg, "%d %d %d ", r, g, b);
+		}
+		fprintf(outimg, "\n");
+	}
+	fclose(outimg);
+
+
+	close(test);
+	return 0;
+
     // Setup VDMA handle and memory-mapped ranges
     vdma_setup(&handle, WIDTH, HEIGHT, 4, FB1_START, FB2_START, FB3_START);
 
@@ -326,12 +373,7 @@ int main() {
 
     printf("Successfully started the vdma!\n");
 
-    int camerafd=-1;
-    camerafd = cameraInit();
-    if (camerafd<0) {
-    	printf("Cammera error!\n\n");
-    	return -1;
-    }
+    
 
 
     sleep(2);

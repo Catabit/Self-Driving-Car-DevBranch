@@ -33,7 +33,9 @@
 #include <linux/of_platform.h>
 #include <linux/of_reserved_mem.h>
 #include <linux/dma-mapping.h>
+#include <linux/delay.h>
 
+#include "vdmadriver.h"
 #include "vdma.h"
 #include "charvideodev.h"
 
@@ -51,17 +53,6 @@ MODULE_DESCRIPTION
 #define ALLOC_SIZE 64*1000*1000 //128mb
 
 
-
-struct vdmaDriver_local {
-	int irq;
-	unsigned long mem_start;
-	unsigned long mem_end;
-	void __iomem *base_addr;
-	char *kbuf;
-	dma_addr_t handle;
-	struct charvideodev *chardev;
-	struct vdmaController *vdmactrl;
-};
 
 static irqreturn_t vdmaDriver_irq(int irq, void *lp)
 {
@@ -100,6 +91,7 @@ static int vdmaDriver_probe(struct platform_device *pdev)
 		dev_err(dev, "Cound not allocate vdmadriver device\n");
 		return -ENOMEM;
 	}
+	lp->this = THIS_MODULE;
 	dev_set_drvdata(dev, lp);
 	lp->mem_start = r_mem->start;
 	lp->mem_end = r_mem->end;
@@ -129,21 +121,23 @@ static int vdmaDriver_probe(struct platform_device *pdev)
 	/* Allocate memory */
 	dev_info(dev, "Trying to get coherent memory\n");
 	dma_set_coherent_mask(dev, 0xFFFFFFFF);
-	lp->kbuf = dma_alloc_coherent(dev, ALLOC_SIZE, &lp->handle, GFP_KERNEL);
-	if(!lp->kbuf){
+	lp->buffer_vaddr = dma_alloc_coherent(dev, ALLOC_SIZE, &lp->buffer_paddr, GFP_KERNEL);
+	if(!lp->buffer_vaddr){
 		dev_err(dev, "Could not get coherent memory\n");
 		goto error2;
 	}
 
-	dev_info(dev, "Allocated coherent memory, vaddr: 0x%0lX, paddr: 0x%0lX\n", (u32)lp->kbuf, lp->handle);
-	dma_free_coherent(dev, ALLOC_SIZE, lp->kbuf, lp->handle);
+	dev_info(dev, "Allocated coherent memory, virtual: 0x%0lX, physical: 0x%0lX\n", (u32)lp->buffer_vaddr, lp->buffer_paddr);
 
-	lp->chardev = initCharVideoDev(lp);
+
+	lp->chardev = charvideo_alloc(lp);
 	if (!lp->chardev){
 		dev_err(dev, "vdmadriver: Could not allocate chardev\n");
 		rc = -EIO;
 		goto error3;
 	}
+
+	printk(KERN_NOTICE "charvideo init with major %d\n", lp->chardev->dev_major);
 
 	lp->vdmactrl = initVdmaController(lp);
 	if (!lp->vdmactrl){
@@ -164,24 +158,19 @@ static int vdmaDriver_probe(struct platform_device *pdev)
 		}
 	}
 
-	if(!regCharVideoDev(lp->chardev)){
-		dev_err(dev, "vdmadriver: Could not register chardev.\n");
+	if(vdma_setup(lp->vdmactrl)<0){
+		dev_err(dev, "vdmadriver: Could not setup vdmactrl.\n");
 		goto error4;
 	}
-
-	//if(!vdma_setup(lp->vdmactrl, lp->base_addr)){
-	//	dev_err(dev, "vdmadriver: Could not setup vdmactrl.\n");
-	//	goto error4;
-	//}
 
 	dev_info(dev,"vdmadriver at 0x%08x mapped to 0x%08x, irq=%d\n",
 			(unsigned int __force)lp->mem_start,
 			(unsigned int __force)lp->base_addr,
 			lp->irq);
 
-	//vdma_s2mm_status_dump(lp->vdmactrl);
-	//vdma_start_triple_buffering(lp->vdmactrl);
-	//vdma_s2mm_status_dump(lp->vdmactrl);
+	vdma_s2mm_status_dump(lp->vdmactrl);
+	vdma_start_triple_buffering(lp->vdmactrl);
+	vdma_s2mm_status_dump(lp->vdmactrl);
 
 	return 0;
 
@@ -189,7 +178,7 @@ error4:
 	free_irq(lp->irq, lp);
 	if (lp->vdmactrl) kfree(lp->vdmactrl); // TODO : add cleanup
 error3:
-	dma_free_coherent(dev, ALLOC_SIZE, lp->kbuf, lp->handle);
+	dma_free_coherent(dev, ALLOC_SIZE, lp->buffer_vaddr, lp->buffer_paddr);
 error2:
 	release_mem_region(lp->mem_start, lp->mem_end - lp->mem_start + 1);
 error1:
@@ -202,10 +191,10 @@ static int vdmaDriver_remove(struct platform_device *pdev)
 {
 	struct device *dev = &pdev->dev;
 	struct vdmaDriver_local *lp = dev_get_drvdata(dev);
-	dma_free_coherent(dev, ALLOC_SIZE, lp->kbuf, lp->handle);
+	dma_free_coherent(dev, ALLOC_SIZE, lp->buffer_vaddr, lp->buffer_paddr);
 	free_irq(lp->irq, lp);
 	release_mem_region(lp->mem_start, lp->mem_end - lp->mem_start + 1);
-	unregCharVideoDev(lp->chardev);
+	if(lp->chardev) charvideo_delete(lp->chardev);
 	kfree(lp);
 	dev_set_drvdata(dev, NULL);
 	return 0;

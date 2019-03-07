@@ -1,18 +1,11 @@
 #ifndef VDMA_H_
 #define VDMA_H_
+
+#include "vdmadriver.h"
+
 /* Register offsets */
 #define OFFSET_PARK_PTR_REG                     0x28
 #define OFFSET_VERSION                          0x2c
-
-#define OFFSET_VDMA_MM2S_CONTROL_REGISTER       0x00
-#define OFFSET_VDMA_MM2S_STATUS_REGISTER        0x04
-#define OFFSET_VDMA_MM2S_VSIZE                  0x50
-#define OFFSET_VDMA_MM2S_HSIZE                  0x54
-#define OFFSET_VDMA_MM2S_FRMDLY_STRIDE          0x58
-#define OFFSET_VDMA_MM2S_FRAMEBUFFER1           0x5c
-#define OFFSET_VDMA_MM2S_FRAMEBUFFER2           0x60
-#define OFFSET_VDMA_MM2S_FRAMEBUFFER3           0x64
-#define OFFSET_VDMA_MM2S_FRAMEBUFFER4           0x68
 
 #define OFFSET_VDMA_S2MM_CONTROL_REGISTER       0x30
 #define OFFSET_VDMA_S2MM_STATUS_REGISTER        0x34
@@ -56,20 +49,15 @@
 #define VDMA_STATUS_REGISTER_FrameCount                 0x00ff0000  // Read-only
 #define VDMA_STATUS_REGISTER_DelayCount                 0xff000000  // Read-only
 
-#define FB_SIZE 0x02000000
+#define FB_SIZE 0x00a00000 // @16MB each
+#define FB_PADDING 0x000
 
-#define FB1_START 0x01000000
-#define FB2_START FB1_START + 1*FB_SIZE
-#define FB3_START FB1_START + 2*FB_SIZE
-#define FB4_START FB1_START + 3*FB_SIZE
 #define WIDTH 1280
 #define HEIGHT 720
 #define PIXELLEN 4
 
 
 #define IMAGEDUMP
-
-struct vdmaDriver_local;
 
 
 struct vdmaController{
@@ -78,13 +66,13 @@ struct vdmaController{
     int height;
     int pixelLength;
     int fbLength;
-    unsigned int* vdmaVirtualAddress;
-    unsigned char* fb1VirtualAddress;
-    unsigned char* fb1PhysicalAddress;
-    unsigned char* fb2VirtualAddress;
-    unsigned char* fb2PhysicalAddress;
-    unsigned char* fb3VirtualAddress;
-    unsigned char* fb3PhysicalAddress;
+    void __iomem * vdmaVirtualAddress;
+    void __iomem * fb1VirtualAddress;
+    void __iomem * fb1PhysicalAddress;
+    void __iomem * fb2VirtualAddress;
+    void __iomem * fb2PhysicalAddress;
+    void __iomem * fb3VirtualAddress;
+    void __iomem * fb3PhysicalAddress;
     struct vdmaDriver_local *lp;
 };
 
@@ -102,45 +90,47 @@ struct vdmaController* initVdmaController(struct vdmaDriver_local *lp){
 
 	local = (struct vdmaController *) kmalloc(sizeof(struct vdmaController), GFP_KERNEL);
 	if (local == NULL) {
-		printk(KERN_ERR "Could not allocate charvideodriver device\n");
+		printk(KERN_ERR "Could not allocate vdmaController\n");
 		return NULL;
 	}
 	local->lp = lp;
 	return local;
 }
 
-int vdma_setup(struct vdmaController *controller, unsigned int *baseAddr) {
+int vdma_setup(struct vdmaController *controller) {
     controller->width=WIDTH;
     controller->height=HEIGHT;
     controller->pixelLength=PIXELLEN;
     controller->fbLength=PIXELLEN*WIDTH*HEIGHT;
 
-    controller->fb1PhysicalAddress = FB1_START;
-    controller->fb2PhysicalAddress = FB2_START;
-    controller->fb3PhysicalAddress = FB3_START;
+    controller->vdmaVirtualAddress = controller->lp->base_addr;
 
-    //request_mem_region(FB1_START,FB3_END - FB1_START + 1,DRIVER_NAME);
+    controller->fb1PhysicalAddress = controller->lp->buffer_paddr + FB_PADDING;
+    controller->fb2PhysicalAddress = controller->fb1PhysicalAddress + 1 * FB_SIZE + FB_PADDING;
+	controller->fb3PhysicalAddress = controller->fb1PhysicalAddress + 2 * FB_SIZE + FB_PADDING;
 
-    controller->fb1VirtualAddress = memremap(FB1_START, FB4_START - FB1_START + 1, MEMREMAP_WT );
-    if(!controller->fb1VirtualAddress) {
-    	printk("fb1VirtualAddress mapping for absolute memory access failed.\n");
-		return -2;
-    }
-    controller->fb2VirtualAddress = controller->fb1VirtualAddress + 1*FB_SIZE;
-    controller->fb3VirtualAddress = controller->fb1VirtualAddress + 2*FB_SIZE;
+	controller->fb1VirtualAddress = controller->lp->buffer_vaddr + FB_PADDING;
+	controller->fb2VirtualAddress = controller->fb1VirtualAddress + 1 * FB_SIZE + FB_PADDING;
+	controller->fb3VirtualAddress = controller->fb1VirtualAddress + 2 * FB_SIZE + FB_PADDING;
+
+	printk(KERN_NOTICE "Successfully set the registers for the framebuffers\n");
 
 
-    memset(controller->fb1VirtualAddress, 255, controller->width*controller->height*controller->pixelLength);
-    memset(controller->fb2VirtualAddress, 255, controller->width*controller->height*controller->pixelLength);
+	printk(KERN_NOTICE "Attempting memsetfb1\n");
+    memset(controller->fb1VirtualAddress, 42, controller->width*controller->height*controller->pixelLength);
+    printk(KERN_NOTICE "Attempting memsetfb2\n");
+    memset(controller->fb2VirtualAddress, 128, controller->width*controller->height*controller->pixelLength);
+    printk(KERN_NOTICE "Attempting memsetfb3\n");
     memset(controller->fb3VirtualAddress, 255, controller->width*controller->height*controller->pixelLength);
+    printk(KERN_NOTICE "FrameBuffer testing successfull\n");
     return 0;
 }
 
 
 void vdma_halt(struct vdmaController *controller) {
     vdma_set(controller, OFFSET_VDMA_S2MM_CONTROL_REGISTER, VDMA_CONTROL_REGISTER_RESET);
-    vdma_set(controller, OFFSET_VDMA_MM2S_CONTROL_REGISTER, VDMA_CONTROL_REGISTER_RESET);
-    memunmap((void *)controller->fb1VirtualAddress);
+    //vdma_set(controller, OFFSET_VDMA_MM2S_CONTROL_REGISTER, VDMA_CONTROL_REGISTER_RESET);
+    //memunmap((void *)controller->fb1VirtualAddress);
 }
 
 
@@ -199,9 +189,7 @@ void vdma_start_triple_buffering(struct vdmaController *controller) {
 
 
     printk("Waiting for VDMA to start running...\n");
-    while((vdma_get(controller, 0x30)&1)==0 || (vdma_get(controller, 0x34)&1)==1) {
-
-    }
+    while((vdma_get(controller, 0x30)&1)==0 || (vdma_get(controller, 0x34)&1)==1) {}
 
     // Extra register index, use first 16 frame pointer registers
     vdma_set(controller, OFFSET_VDMA_S2MM_REG_INDEX, 0);
@@ -210,6 +198,7 @@ void vdma_start_triple_buffering(struct vdmaController *controller) {
     vdma_set(controller, OFFSET_VDMA_S2MM_FRAMEBUFFER1, controller->fb1PhysicalAddress);
     vdma_set(controller, OFFSET_VDMA_S2MM_FRAMEBUFFER2, controller->fb2PhysicalAddress);
     vdma_set(controller, OFFSET_VDMA_S2MM_FRAMEBUFFER3, controller->fb3PhysicalAddress);
+    vdma_set(controller, OFFSET_VDMA_S2MM_FRAMEBUFFER4, controller->fb3PhysicalAddress);
 
     // Write Park pointer register
     vdma_set(controller, OFFSET_PARK_PTR_REG, 0);

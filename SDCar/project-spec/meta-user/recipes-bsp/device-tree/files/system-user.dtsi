@@ -47,7 +47,8 @@
 			xlnx,flush-fsync = <0x1>;
 			xlnx,num-fstores = <0x3>;
 			dma-channel@43000030 {
-				compatible = "xlnx,axi-vdma-s2mm-channel";
+				compatible = "ctbt,vdmadriver";
+				memory-region = <&camera_reserved>;
 				interrupts = <0 29 4>;
 				xlnx,datawidth = <0x20>;
 				xlnx,device-id = <0x0>;

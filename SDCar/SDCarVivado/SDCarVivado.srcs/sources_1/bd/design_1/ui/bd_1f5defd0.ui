@@ -6,8 +6,8 @@ preplace port motor_left_pwm_out -pg 1 -y 960 -defaultsOSRD
 preplace port motor_left_dir_out -pg 1 -y 920 -defaultsOSRD
 preplace port DDR -pg 1 -y 110 -defaultsOSRD
 preplace port dphy_hs_clock -pg 1 -y 490 -defaultsOSRD
-preplace port motor_right_dir_out -pg 1 -y 940 -defaultsOSRD
 preplace port motion_enable_sw -pg 1 -y 950 -defaultsOSRD
+preplace port motor_right_dir_out -pg 1 -y 940 -defaultsOSRD
 preplace port dphy_clk_lp_n -pg 1 -y 530 -defaultsOSRD
 preplace port sonar0_pwm_in -pg 1 -y 840 -defaultsOSRD
 preplace port servo_pwm_out -pg 1 -y 1000 -defaultsOSRD
