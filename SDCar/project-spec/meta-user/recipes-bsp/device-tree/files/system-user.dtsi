@@ -3,6 +3,18 @@
 	chosen {
     		bootargs = "console=ttyPS0,115200 earlyprintk root=/dev/mmcblk0p2 rw rootfstype=ext4 rootwait uio_pdrv_genirq.of_id=generic-uio";
     	};
+	
+	reserved-memory {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
+
+		camera_reserved: buffer@0 {
+			compatible = "shared-dma-pool";
+			no-map;
+			size = <0x04000000>;
+		};
+	};
 
 	sdhci0 {
 		status = "okay";
@@ -27,6 +39,7 @@
 			clock-names = "s_axi_lite_aclk", "m_axi_s2mm_aclk", "m_axi_s2mm_aclk";
 			clocks = <&clkc 15>, <&clkc 15>, <&clkc 15>;
 			compatible = "ctbt,vdmadriver";
+			memory-region = <&camera_reserved>;
 			interrupt-parent = <&intc>;
 			interrupts = <0 29 4>;
 			reg = <0x43000000 0x10000>;
