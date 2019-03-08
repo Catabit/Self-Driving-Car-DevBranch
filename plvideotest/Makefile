@@ -2,12 +2,11 @@ LOCAL_USERNAME = catabit
 
 BOOT_PARTITION = /media/$(LOCAL_USERNAME)/BOOT
 ROOTFS_PARTITION = /media/$(LOCAL_USERNAME)/rootfs
-SSH_IP = 10.20.30.5
+SSH_IP = 10.20.30.4
 VIVADO_PROJECT_NAME = videotest
 TOOLS = ../tools
 
 PETALINUX_APPS = \
-	rfidtest \
 	cameratest \
 
 package:

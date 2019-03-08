@@ -3,23 +3,18 @@
 
 #include "vdmadriver.h"
 #include "vdma.h"
-
-
+#include "charvideo_ioctl.h"
+//#include <linux/device.h>
 
 
 struct charvideo_dev {
 	int dev_major;
-	//struct file_operations fops;
 	struct vdmaDriver_local *lp;
 	struct cdev cdev;	  /* Char device structure		*/
+	struct class *class;
+	struct device *node;
 };
 
-
-
-static const char    g_s_Hello_World_string[] = "Hello world from kernel mode!\n\0";
-static const ssize_t g_s_Hello_World_size = sizeof(g_s_Hello_World_string);
-
-/*===============================================================================================*/
 
 ssize_t charvideo_read(struct file *fp, char __user *buf, size_t count, loff_t *f_pos)
 {
@@ -35,16 +30,6 @@ ssize_t charvideo_read(struct file *fp, char __user *buf, size_t count, loff_t *
 
 
 	//do read
-
-	printk(KERN_NOTICE "Stopping vdma\n");
-	vdma_halt(v);
-	vdma_s2mm_status_dump(v);
-
-	printk(KERN_NOTICE "Restarting vdma\n");
-	vdma_start_triple_buffering(v);
-	msleep(100);
-	vdma_s2mm_status_dump(v);
-
 	printk(KERN_NOTICE "Copying\n");
 
 	if (copy_to_user(buf, v->fb2VirtualAddress, count)) {
@@ -52,11 +37,71 @@ ssize_t charvideo_read(struct file *fp, char __user *buf, size_t count, loff_t *
 	}
 
 
-
-
-
 	*f_pos += count;
-	return 0;
+	return count;
+
+}
+
+long charvideo_ioctl(struct file *fp, unsigned int cmd, unsigned long arg) {
+	struct charvideo_dev *dev = fp->private_data;
+	struct vdmaController *v = dev->lp->vdmactrl;
+	int err = 0, tmp;
+	int retval = 0;
+
+	/*
+	 * extract the type and number bitfields, and don't decode
+	 * wrong cmds: return ENOTTY (inappropriate ioctl) before access_ok()
+	 */
+	if (_IOC_TYPE(cmd) != CHARVIDEO_IOC_MAGIC)
+		return -ENOTTY;
+	if (_IOC_NR(cmd) > CHARVIDEO_IOC_MAXNR)
+		return -ENOTTY;
+
+	/*
+	 * the direction is a bitmask, and VERIFY_WRITE catches R/W
+	 * transfers. `Type' is user-oriented, while
+	 * access_ok is kernel-oriented, so the concept of "read" and
+	 * "write" is reversed
+	 */
+	if (_IOC_DIR(cmd) & _IOC_READ)
+	err = !access_ok(VERIFY_WRITE, (void __user *)arg, _IOC_SIZE(cmd));
+	else if (_IOC_DIR(cmd) & _IOC_WRITE)
+	err = !access_ok(VERIFY_READ, (void __user *)arg, _IOC_SIZE(cmd));
+	if (err)
+		return -EFAULT;
+
+	switch (cmd) {
+
+	case CHARVIDEO_IOCHALT:
+		vdma_halt(v);
+		break;
+
+	case CHARVIDEO_IOCSTART:
+		vdma_start_triple_buffering(v);
+		break;
+
+	case CHARVIDEO_IOCSTATUS:
+		printk(KERN_NOTICE "Dumping the vdma's status:\n");
+		vdma_s2mm_status_dump(v);
+		break;
+
+	case CHARVIDEO_IOCQHEIGHT:
+		return v->height;
+
+	case CHARVIDEO_IOCQWIDTH:
+		return v->width;
+
+	case CHARVIDEO_IOCQPIXELLEN:
+		return v->pixelLength;
+
+	case CHARVIDEO_IOCQBUFSIZE:
+		return v->width * v->height * v->pixelLength;
+
+	default:
+		return -ENOTTY;
+	}
+
+	return retval;
 
 }
 
@@ -79,6 +124,7 @@ struct file_operations charvideo_fops = {
 	.read =     charvideo_read,
 	//.write =    scull_write,
 	//.unlocked_ioctl = scull_ioctl,
+	.unlocked_ioctl = charvideo_ioctl,
 	.open =     charvideo_open,
 	//.release =  scull_release,
 };
@@ -97,6 +143,9 @@ void charvideo_delete(struct charvideo_dev *dev)
 {
 	dev_t devno = MKDEV(dev->dev_major, 0);
 
+	device_destroy(dev->class, devno);  // Remove the /dev/kmem
+	class_destroy(dev->class);
+
 	cdev_del(&dev->cdev);
 
 	kfree(dev);
@@ -113,21 +162,35 @@ void charvideo_delete(struct charvideo_dev *dev)
 static int charvideo_setup_cdev(struct charvideo_dev *dev)
 {
 	int err, devno = MKDEV(dev->dev_major, 0);
+	struct device *node;
 
-	//dev->cdev = cdev_alloc();
-	//if(!dev->cdev) {
-	//	printk(KERN_NOTICE "Error on alloc cdev\n");
-	//	return -1;
-	//}
+
 	cdev_init(&dev->cdev, &charvideo_fops);
 	dev->cdev.owner = THIS_MODULE;
 	dev->cdev.ops = &charvideo_fops;
 	err = cdev_add (&dev->cdev, devno, 1);
 	/* Fail gracefully if need be */
 	if (err){
-		printk(KERN_NOTICE "Error %d adding charvideo\n", err);
+		printk(KERN_WARNING "Error %d adding charvideo\n", err);
 		return -1;
 	}
+
+	dev->class = class_create(THIS_MODULE, "video");
+	if (!dev->class) {
+		printk(KERN_WARNING "Can't create class");
+		return -1;
+	}
+
+	printk(KERN_NOTICE "Created class.\n");
+
+	// Create /dev/kmem for this char dev
+	node = device_create(dev->class, NULL, devno, NULL, "video");
+	if (!node) {
+		printk(KERN_WARNING "Can't create device /dev/video\n");
+		class_destroy(dev->class);
+		return -1;
+	}
+
 
 	return 0;
 }

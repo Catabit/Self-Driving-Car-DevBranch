@@ -11,6 +11,7 @@ SRC_URI = "file://Makefile \
            file://vdmadriver.h \
            file://vdma.h \
            file://charvideodev.h \
+           file://charvideo_ioctl.h \
 	   file://COPYING \
           "
 

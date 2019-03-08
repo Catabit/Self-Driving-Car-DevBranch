@@ -72,3 +72,6 @@ clean:
 vdmadriver:
 	petalinux-build -c vdmadriver
 	scp vdmadriver.ko root@$(SSH_IP):
+
+photo:
+	ssh root@$(SSH_IP) 'dd count=1 bs=3686400 if=/dev/video' > test && ./parse && eog outimg0.ppm

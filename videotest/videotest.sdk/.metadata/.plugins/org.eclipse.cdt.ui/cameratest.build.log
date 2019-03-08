@@ -1,0 +1,77 @@
+21:25:55 **** Auto Build of configuration Debug for project cameratest ****
+make all 
+Building file: ../src/cameratest.c
+Invoking: ARM v7 Linux gcc compiler
+arm-linux-gnueabihf-gcc -Wall -O0 -g3 -I"/home/catabit/Zybo/plvideotest/build/tmp/sysroots/plnx_arm/usr/include" -I"/home/catabit/.opt/petalinux/tools/linux-i386/gcc-arm-linux-gnueabi/arm-linux-gnueabihf/include" -I"/home/catabit/.opt/petalinux/tools/linux-i386/gcc-arm-linux-gnueabi/arm-linux-gnueabihf/libc/usr/include" -I"/home/catabit/.opt/petalinux/tools/linux-i386/gcc-arm-linux-gnueabi/lib/gcc/arm-linux-gnueabihf/6.2.1/include" -I"/home/catabit/.opt/petalinux/tools/linux-i386/gcc-arm-linux-gnueabi/lib/gcc/arm-linux-gnueabihf/6.2.1/include-fixed" -c -fmessage-length=0 -MT"src/cameratest.o" -MMD -MP -MF"src/cameratest.d" -MT"src/cameratest.o" -o "src/cameratest.o" "../src/cameratest.c"
+In file included from ../src/cameratest.c:20:0:
+../src/cameraiic.h: In function ‘cameraInit’:
+../src/cameraiic.h:504:19: warning: passing argument 2 of ‘writeConfig’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+  writeConfig(fd,  cfg_init_);
+                   ^~~~~~~~~
+../src/cameraiic.h:462:6: note: expected ‘uint16_t (*)[2] {aka short unsigned int (*)[2]}’ but argument is of type ‘const uint16_t (*)[2] {aka const short unsigned int (*)[2]}’
+ void writeConfig(int fd, uint16_t config[][2]) {
+      ^~~~~~~~~~~
+../src/cameraiic.h:508:18: warning: passing argument 2 of ‘writeConfig’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+  writeConfig(fd, cfg_720p_60fps_);
+                  ^~~~~~~~~~~~~~~
+../src/cameraiic.h:462:6: note: expected ‘uint16_t (*)[2] {aka short unsigned int (*)[2]}’ but argument is of type ‘const uint16_t (*)[2] {aka const short unsigned int (*)[2]}’
+ void writeConfig(int fd, uint16_t config[][2]) {
+      ^~~~~~~~~~~
+../src/cameraiic.h:512:18: warning: passing argument 2 of ‘writeConfig’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+  writeConfig(fd, cfg_advanced_awb_);
+                  ^~~~~~~~~~~~~~~~~
+../src/cameraiic.h:462:6: note: expected ‘uint16_t (*)[2] {aka short unsigned int (*)[2]}’ but argument is of type ‘const uint16_t (*)[2] {aka const short unsigned int (*)[2]}’
+ void writeConfig(int fd, uint16_t config[][2]) {
+      ^~~~~~~~~~~
+../src/cameratest.c: In function ‘vdma_setup’:
+../src/cameratest.c:135:32: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     handle->fb1PhysicalAddress = fb1Addr;
+                                ^
+../src/cameratest.c:142:32: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     handle->fb2PhysicalAddress = fb2Addr;
+                                ^
+../src/cameratest.c:149:32: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     handle->fb3PhysicalAddress = fb3Addr;
+                                ^
+../src/cameratest.c: In function ‘vdma_start_triple_buffering’:
+../src/cameratest.c:251:53: warning: passing argument 3 of ‘vdma_set’ makes integer from pointer without a cast [-Wint-conversion]
+     vdma_set(handle, OFFSET_VDMA_S2MM_FRAMEBUFFER1, handle->fb1PhysicalAddress);
+                                                     ^~~~~~
+../src/cameratest.c:117:6: note: expected ‘unsigned int’ but argument is of type ‘unsigned char *’
+ void vdma_set(vdma_handle *handle, int num, unsigned int val) {
+      ^~~~~~~~
+../src/cameratest.c:253:53: warning: passing argument 3 of ‘vdma_set’ makes integer from pointer without a cast [-Wint-conversion]
+     vdma_set(handle, OFFSET_VDMA_S2MM_FRAMEBUFFER2, handle->fb2PhysicalAddress);
+                                                     ^~~~~~
+../src/cameratest.c:117:6: note: expected ‘unsigned int’ but argument is of type ‘unsigned char *’
+ void vdma_set(vdma_handle *handle, int num, unsigned int val) {
+      ^~~~~~~~
+../src/cameratest.c:255:53: warning: passing argument 3 of ‘vdma_set’ makes integer from pointer without a cast [-Wint-conversion]
+     vdma_set(handle, OFFSET_VDMA_S2MM_FRAMEBUFFER3, handle->fb3PhysicalAddress);
+                                                     ^~~~~~
+../src/cameratest.c:117:6: note: expected ‘unsigned int’ but argument is of type ‘unsigned char *’
+ void vdma_set(vdma_handle *handle, int num, unsigned int val) {
+      ^~~~~~~~
+../src/cameratest.c: In function ‘main’:
+../src/cameratest.c:300:12: warning: unused variable ‘i’ [-Wunused-variable]
+     int j, i;
+            ^
+../src/cameratest.c:300:9: warning: unused variable ‘j’ [-Wunused-variable]
+     int j, i;
+         ^
+Finished building: ../src/cameratest.c
+ 
+Building target: cameratest.elf
+Invoking: ARM v7 Linux gcc linker
+arm-linux-gnueabihf-gcc -L"/home/catabit/Zybo/plvideotest/build/tmp/sysroots/plnx_arm/usr/lib" -L"/home/catabit/Zybo/plvideotest/build/tmp/sysroots/plnx_arm/lib" --sysroot="/home/catabit/Zybo/plvideotest/build/tmp/sysroots/plnx_arm" -o "cameratest.elf"  ./src/cameratest.o   -luiotools
+Finished building target: cameratest.elf
+ 
+Invoking: ARM v7 Linux Print Size
+arm-linux-gnueabihf-size cameratest.elf  |tee "cameratest.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   8953	    370	      2	   9325	   246d	cameratest.elf
+Finished building: cameratest.elf.size
+ 
+
+21:25:55 Build Finished (took 536ms)
+
