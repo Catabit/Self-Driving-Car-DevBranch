@@ -16,6 +16,7 @@ PETALINUX_APPS = \
 PETALINUX_MODULES = \
 	vdmadriver \
 	motiondriver \
+	sonardriver \
 
 package:
 	petalinux-package --boot --format BIN --fsbl ./images/linux/zynq_fsbl.elf --fpga ./images/linux/design_1_wrapper.bit --u-boot --force
