@@ -135,6 +135,7 @@ static int motiondriver_remove(struct platform_device *pdev)
 {
 	struct device *dev = &pdev->dev;
 	struct motiondriver_local *lp = dev_get_drvdata(dev);
+	free_irq(lp->irq, lp);
 	release_mem_region(lp->mem_start, lp->mem_end - lp->mem_start + 1);
 
 	//release subdevices

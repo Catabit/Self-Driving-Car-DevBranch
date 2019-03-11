@@ -10,8 +10,7 @@ struct motiondriver_local {
 	unsigned long mem_start;
 	unsigned long mem_end;
 	void __iomem *base_addr;
-	struct motors_dev *motors;
-	struct servo_dev *servo;
+	struct servo_dev *chardev;
 	struct module *this;
 };
 

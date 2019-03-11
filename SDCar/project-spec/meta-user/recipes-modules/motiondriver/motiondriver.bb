@@ -9,6 +9,7 @@ SRC_URI = "file://Makefile \
            file://motiondriver.c \
            file://motiondriver.h \
            file://motors.h \
+           file://servo.h \
            file://motion_ioctl.h \
 	   file://COPYING \
           "

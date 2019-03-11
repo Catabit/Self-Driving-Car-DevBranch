@@ -70,7 +70,7 @@ long motors_ioctl(struct file *fp, unsigned int cmd, unsigned long arg) {
 				return -EPERM;
 		if (arg > 1)
 				return -ENOTTY;
-		reg_write(base_addr, CONTROL_REG_OFFSET, (uint32_t) (arg + dir));
+		reg_write(base_addr, CONTROL_REG_OFFSET, uint32_t (arg + dir));
 		break;
 
 
@@ -79,7 +79,7 @@ long motors_ioctl(struct file *fp, unsigned int cmd, unsigned long arg) {
 			return -EPERM;
 		if (arg > 3)
 			return -ENOTTY;
-		reg_write(base_addr, CONTROL_REG_OFFSET, (uint32_t) (arg<<1 + state));
+		reg_write(base_addr, CONTROL_REG_OFFSET, uint32_t (arg<<1 + state));
 		break;
 
 	default:

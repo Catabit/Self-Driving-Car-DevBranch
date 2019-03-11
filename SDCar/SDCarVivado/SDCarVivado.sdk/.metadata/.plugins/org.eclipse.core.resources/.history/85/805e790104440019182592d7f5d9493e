@@ -53,8 +53,18 @@ MODULE_DESCRIPTION
 #define DRIVER_NAME "motiondriver"
 
 
+
+static irqreturn_t motiondriver_irq(int irq, void *lp)
+{
+	printk("motiondriver interrupt\n");
+	return IRQ_HANDLED;
+}
+
+
+
 static int motiondriver_probe(struct platform_device *pdev)
 {
+	struct resource *r_irq; /* Interrupt resources */
 	struct resource *r_mem; /* IO mem resources */
 	struct device *dev = &pdev->dev;
 	struct motiondriver_local *lp = NULL;
@@ -100,7 +110,7 @@ static int motiondriver_probe(struct platform_device *pdev)
 	if (!lp->motors){
 		dev_err(dev, "motiondriver: Could not allocate motors\n");
 		rc = -EIO;
-		goto error2;
+		goto error3;
 	}
 
 	lp->servo = servo_alloc(lp);
@@ -109,20 +119,22 @@ static int motiondriver_probe(struct platform_device *pdev)
 		rc = -EIO;
 
 		motors_delete(lp->motors);
-		goto error2;
+		goto error3;
 	}
 
 	printk(KERN_NOTICE "Motors init with major %d\n", lp->motors->dev_major);
 	printk(KERN_NOTICE "Servo init with major %d\n", lp->servo->dev_major);
 
 
-	dev_info(dev,"motiondriver at 0x%08x mapped to 0x%08x",
+	dev_info(dev,"motiondriver at 0x%08x mapped to 0x%08x, irq=%d\n",
 			(unsigned int __force)lp->mem_start,
-			(unsigned int __force)lp->base_addr);
+			(unsigned int __force)lp->base_addr,
+			lp->irq);
 
 	return 0;
 
-
+error3:
+	free_irq(lp->irq, lp);
 error2:
 	release_mem_region(lp->mem_start, lp->mem_end - lp->mem_start + 1);
 error1:
@@ -135,6 +147,7 @@ static int motiondriver_remove(struct platform_device *pdev)
 {
 	struct device *dev = &pdev->dev;
 	struct motiondriver_local *lp = dev_get_drvdata(dev);
+	free_irq(lp->irq, lp);
 	release_mem_region(lp->mem_start, lp->mem_end - lp->mem_start + 1);
 
 	//release subdevices

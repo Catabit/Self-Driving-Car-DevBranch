@@ -26,19 +26,23 @@ ssize_t motors_write(struct file *filp, const char __user *buf, size_t count,
 	struct motors_dev *dev = filp->private_data;
 	void __iomem *base_addr = dev->lp->base_addr;
 
+	ssize_t retval = -ENOMEM;
 	uint32_t value = 0;
 
 	if (count>sizeof(uint32_t)) // can only write 4 bytes
 		return -1;
 
 	if (copy_from_user(&value, buf, count)) {
-		return -EFAULT;
+		retval = -EFAULT;
+		goto out;
 	}
 
 	reg_write(base_addr, MOTOR_REG_OFFSET, value);
 
 	*f_pos += count;
-	return count;
+	retval = count;
+
+	return retval;
 }
 
 
@@ -70,7 +74,7 @@ long motors_ioctl(struct file *fp, unsigned int cmd, unsigned long arg) {
 				return -EPERM;
 		if (arg > 1)
 				return -ENOTTY;
-		reg_write(base_addr, CONTROL_REG_OFFSET, (uint32_t) (arg + dir));
+		reg_write(base_addr, CONTROL_REG_OFFSET, uint32_t (arg + dir));
 		break;
 
 
@@ -79,7 +83,7 @@ long motors_ioctl(struct file *fp, unsigned int cmd, unsigned long arg) {
 			return -EPERM;
 		if (arg > 3)
 			return -ENOTTY;
-		reg_write(base_addr, CONTROL_REG_OFFSET, (uint32_t) (arg<<1 + state));
+		reg_write(base_addr, CONTROL_REG_OFFSET, uint32_t (arg<<1 + state));
 		break;
 
 	default:
