@@ -4133,6 +4133,7 @@ CONFIG_sonarTest=y
 #
 # modules 
 #
+CONFIG_motiondriver=y
 CONFIG_vdmadriver=y
 
 #

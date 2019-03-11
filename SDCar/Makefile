@@ -13,6 +13,10 @@ PETALINUX_APPS = \
 	motionselftest \
 	motion \
 
+PETALINUX_MODULES = \
+	vdmadriver \
+	motiondriver \
+
 package:
 	petalinux-package --boot --format BIN --fsbl ./images/linux/zynq_fsbl.elf --fpga ./images/linux/design_1_wrapper.bit --u-boot --force
 
@@ -50,7 +54,10 @@ hardware-change-deploy:
 	paplay /usr/share/sounds/ubuntu/notifications/Amsterdam.ogg
 
 fixlinks:
-	$(TOOLS)/addLinks.sh $(VIVADO_PROJECT_NAME) $(PETALINUX_APPS)
+	$(TOOLS)/addLinks.sh $(VIVADO_PROJECT_NAME) apps $(PETALINUX_APPS)
+
+fixlinks-modules:
+	$(TOOLS)/addLinks.sh $(VIVADO_PROJECT_NAME) modules $(PETALINUX_MODULES)
 
 cameratest:
 	make sendelfs

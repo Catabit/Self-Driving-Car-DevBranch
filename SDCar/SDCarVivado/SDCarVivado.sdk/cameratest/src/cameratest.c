@@ -115,21 +115,6 @@ int main() {
 
 	ioctl(test, CHARVIDEO_IOCSTART);
 
-	/*ioctl(test, CHARVIDEO_IOCSTATUS);
-	printf("Stopping vdma\n");
-	ioctl(test, CHARVIDEO_IOCHALT);
-	ioctl(test, CHARVIDEO_IOCSTATUS);
-	sleep(1);
-	printf("Starting vdma\n");
-	ioctl(test, CHARVIDEO_IOCSTART);
-	ioctl(test, CHARVIDEO_IOCSTATUS);
-	*/
-
-
-
-	/****  code ****/
-
-
 
 	unsigned char buf[HEIGHT*WIDTH*4];
 	clock_t begin = clock();
@@ -160,7 +145,6 @@ int main() {
 
 			pixelSplit(pixel, 0, &r, &g, &b);
 
-			//printf("Pixel: 0x%0X\n", pixel);
 			fprintf(outimg, "%d %d %d ", r, g, b);
 		}
 		fprintf(outimg, "\n");

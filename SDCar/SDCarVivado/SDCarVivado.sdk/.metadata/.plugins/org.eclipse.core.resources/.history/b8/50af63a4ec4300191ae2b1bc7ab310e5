@@ -1,0 +1,13 @@
+#ifndef MOTIONDRIVER_H_
+#define MOTIONDRIVER_H_
+
+struct motiondriver_local {
+	int irq;
+	unsigned long mem_start;
+	unsigned long mem_end;
+	void __iomem 8base_addr;
+	struct motors_dev *chardev;
+	struct module *this;
+};
+
+#endif
