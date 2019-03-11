@@ -1,9 +1,9 @@
 #ifndef MOTIONDRIVER_H_
 #define MOTIONDRIVER_H_
 
-#define CONTROL_REG_OFFSET 0
-#define SERVO_REG_OFFSET 4
-#define MOTOR_REG_OFFSET 8
+#define CONTROL_REG_OFFSET   0
+#define SERVO_REG_OFFSET   4
+#define MOTOR_REG_OFFSET   8
 
 struct motiondriver_local {
 	int irq;

@@ -38,7 +38,10 @@
 
 #include "motiondriver.h"
 #include "motors.h"
-#include "servo.h"
+
+#define CONTROL_REG_OFFSET   0
+#define SERVO_REG_OFFSET   4
+#define MOTOR_REG_OFFSET   8
 
 #define CONFIG_OF
 #define CONFIG_OF_RESERVED_MEM

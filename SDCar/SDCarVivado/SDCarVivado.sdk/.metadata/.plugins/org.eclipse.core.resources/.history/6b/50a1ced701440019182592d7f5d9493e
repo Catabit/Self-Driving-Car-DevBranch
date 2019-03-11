@@ -38,7 +38,6 @@
 
 #include "motiondriver.h"
 #include "motors.h"
-#include "servo.h"
 
 #define CONFIG_OF
 #define CONFIG_OF_RESERVED_MEM

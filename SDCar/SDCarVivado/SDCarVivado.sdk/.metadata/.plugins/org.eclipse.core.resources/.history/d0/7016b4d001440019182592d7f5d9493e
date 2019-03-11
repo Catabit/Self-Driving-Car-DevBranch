@@ -1,8 +1,8 @@
-#ifndef MOTORS_H_
-#define MOTORS_H_
+#ifndef SERVO_H_
+#define SERVO_H_
 
-#include "motion_ioctl.h"
-#include "motiondriver.h"
+//#include "motion_ioctl.h"
+//#include "motiondriver.h"
 
 
 static inline u32 reg_read(void __iomem * base_addr, u32 reg)

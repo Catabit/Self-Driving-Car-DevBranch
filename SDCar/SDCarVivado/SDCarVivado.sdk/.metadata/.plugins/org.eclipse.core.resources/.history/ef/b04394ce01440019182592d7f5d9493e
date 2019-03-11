@@ -1,5 +1,5 @@
-#ifndef MOTORS_H_
-#define MOTORS_H_
+#ifndef SERVO_H_
+#define SERVO_H_
 
 #include "motion_ioctl.h"
 #include "motiondriver.h"
