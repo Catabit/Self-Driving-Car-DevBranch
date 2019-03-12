@@ -54,10 +54,12 @@
 
 #define WIDTH 1280
 #define HEIGHT 720
-#define PIXELLEN 4
+#define PIXELLEN 3
+//2.7MB of raw data / image
 
+// (red)(blue)(green)
+// 1b   1b    1b
 
-#define IMAGEDUMP
 
 
 struct vdmaController{
@@ -129,10 +131,7 @@ int vdma_setup(struct vdmaController *controller) {
 
 void vdma_halt(struct vdmaController *controller) {
     vdma_set(controller, OFFSET_VDMA_S2MM_CONTROL_REGISTER, VDMA_CONTROL_REGISTER_RESET);
-    //vdma_set(controller, OFFSET_VDMA_MM2S_CONTROL_REGISTER, VDMA_CONTROL_REGISTER_RESET);
-    //memunmap((void *)controller->fb1VirtualAddress);
 }
-
 
 
 void vdma_status_dump(int status) {
@@ -221,20 +220,4 @@ int vdma_idle(struct vdmaController *controller) {
     // Check whtether VDMA is transferring
     return (vdma_get(controller, OFFSET_VDMA_S2MM_STATUS_REGISTER) & VDMA_STATUS_REGISTER_FrameCountInterrupt)!=0;
 }
-
-void pixelSplit(uint32_t pixel10bit, int rLeftOffset, uint8_t *r, uint8_t *g, uint8_t *b) {
-	//(2bit unused)(8bit red)(2bit unused)(8bit blue)(2bit unused)(8bit green)(2bit unused)
-	int gLeftOffset = rLeftOffset+10;
-	int bLeftOffset = rLeftOffset+20;
-
-	uint16_t temp = ((pixel10bit<<rLeftOffset) >> (32-10-rLeftOffset));
-	*r = temp;
-
-	temp = ((pixel10bit<<gLeftOffset) >> (32-10-rLeftOffset));
-	*b = temp;
-
-	temp = ((pixel10bit<<bLeftOffset) >> (32-10-rLeftOffset));
-	*g = temp;
-}
-
 #endif

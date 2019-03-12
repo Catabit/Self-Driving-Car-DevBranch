@@ -6,22 +6,26 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="device_create" key="selection"/>
+		<item value="sonar" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="servo"/>
+			<item value="motiondriver"/>
+			<item value="irq"/>
+			<item value="vdmadriver"/>
+			<item value="charvideo"/>
 			<item value="device_create"/>
 			<item value="create"/>
 			<item value="0x3A00"/>
-			<item value="0x5587"/>
-			<item value="0x3a0f"/>
-			<item value="3503"/>
-			<item value="0x3008"/>
-			<item value="0x3a11"/>
 		</list>
 		<list key="replacehistory">
+			<item value="sonar"/>
+			<item value="sonardriver"/>
+			<item value="motiondriver"/>
+			<item value="motors"/>
 			<item value="vdmadriver"/>
 		</list>
 	</section>
@@ -29,7 +33,7 @@
 		<item value="314" key="DIALOG_WIDTH"/>
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 		<item value="441" key="DIALOG_HEIGHT"/>
-		<item value="1281" key="DIALOG_X_ORIGIN"/>
-		<item value="316" key="DIALOG_Y_ORIGIN"/>
+		<item value="1066" key="DIALOG_X_ORIGIN"/>
+		<item value="196" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

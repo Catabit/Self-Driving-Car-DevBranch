@@ -1,10 +1,10 @@
 -makelib ies_lib/xil_defaultlib -sv \
-  "/home/catabit/.opt/Xilinx/Vivado/2017.4/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
-  "/home/catabit/.opt/Xilinx/Vivado/2017.4/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv" \
-  "/home/catabit/.opt/Xilinx/Vivado/2017.4/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
+  "/opt/Xilinx/Vivado/2017.4/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
+  "/opt/Xilinx/Vivado/2017.4/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv" \
+  "/opt/Xilinx/Vivado/2017.4/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
 -endlib
 -makelib ies_lib/xpm \
-  "/home/catabit/.opt/Xilinx/Vivado/2017.4/data/ip/xpm/xpm_VCOMP.vhd" \
+  "/opt/Xilinx/Vivado/2017.4/data/ip/xpm/xpm_VCOMP.vhd" \
 -endlib
 -makelib ies_lib/axi_infrastructure_v1_1_0 \
   "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/ec67/hdl/axi_infrastructure_v1_1_vl_rfs.v" \
@@ -117,8 +117,8 @@
   "../../../bd/design_1/ipshared/e363/hdl/MIPI_CSI2_Rx.vhd" \
   "../../../bd/design_1/ipshared/e363/hdl/MIPI_CSI2_RxTop.vhd" \
   "../../../bd/design_1/ip/design_1_MIPI_CSI_2_RX_0_0/sim/design_1_MIPI_CSI_2_RX_0_0.vhd" \
-  "../../../bd/design_1/ipshared/40b8/hdl/LineBuffer.vhd" \
-  "../../../bd/design_1/ipshared/40b8/hdl/AXI_BayerToRGB.vhd" \
+  "../../../bd/design_1/ipshared/6343/hdl/LineBuffer.vhd" \
+  "../../../bd/design_1/ipshared/6343/hdl/AXI_BayerToRGB.vhd" \
   "../../../bd/design_1/ip/design_1_AXI_BayerToRGB_0_0/sim/design_1_AXI_BayerToRGB_0_0.vhd" \
 -endlib
 -makelib ies_lib/generic_baseblocks_v2_1_0 \
@@ -168,12 +168,6 @@
 -endlib
 -makelib ies_lib/xil_defaultlib \
   "../../../bd/design_1/ip/design_1_xlconstant_0_0/sim/design_1_xlconstant_0_0.v" \
--endlib
--makelib ies_lib/axi_mmu_v2_1_13 \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/07ec/hdl/axi_mmu_v2_1_vl_rfs.v" \
--endlib
--makelib ies_lib/xil_defaultlib \
-  "../../../bd/design_1/ip/design_1_s00_mmu_0/sim/design_1_s00_mmu_0.v" \
 -endlib
 -makelib ies_lib/axi_protocol_converter_v2_1_15 \
   "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/ff69/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \

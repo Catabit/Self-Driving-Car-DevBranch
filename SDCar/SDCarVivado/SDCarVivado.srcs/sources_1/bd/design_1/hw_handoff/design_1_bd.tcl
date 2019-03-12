@@ -181,13 +181,12 @@ proc create_root_design { parentCell } {
 
   # Create instance: AXI_BayerToRGB_0, and set properties
   set AXI_BayerToRGB_0 [ create_bd_cell -type ip -vlnv digilentinc.com:user:AXI_BayerToRGB:1.0 AXI_BayerToRGB_0 ]
+  set_property -dict [ list \
+   CONFIG.kAXI_OutputDataWidth {24} \
+ ] $AXI_BayerToRGB_0
 
   set_property -dict [ list \
-   CONFIG.TDATA_NUM_BYTES {5} \
- ] [get_bd_intf_pins /AXI_BayerToRGB_0/AXI_Slave_Interface]
-
-  set_property -dict [ list \
-   CONFIG.TDATA_NUM_BYTES {4} \
+   CONFIG.TDATA_NUM_BYTES {3} \
  ] [get_bd_intf_pins /AXI_BayerToRGB_0/AXI_Stream_Master]
 
   # Create instance: MIPI_CSI_2_RX_0, and set properties

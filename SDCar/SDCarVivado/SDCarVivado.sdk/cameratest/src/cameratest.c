@@ -42,9 +42,6 @@
 
 //########################################
 
-#define WIDTH 1280
-#define HEIGHT 720
-
 #define CSI_2_RX_NAME "MIPI_CSI_2_RX"
 #define D_PHY_RX_NAME "MIPI_D_PHY_RX"
 
@@ -78,6 +75,7 @@ int main() {
     //Reset the MIPI video pipeline
 	int fd;
 	void *ptr;
+	uint32_t height,width, pixellen;
 
 	fd = findDeviceByName(CSI_2_RX_NAME);
 	ptr = mmap(NULL, MIPI_MAP_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
@@ -107,18 +105,21 @@ int main() {
 		return -1;
 	}
 	printf("IOCTL TESTS:\n");
+	width = ioctl(test, CHARVIDEO_IOCQWIDTH);
+	height = ioctl(test, CHARVIDEO_IOCQHEIGHT);
+	pixellen = ioctl(test, CHARVIDEO_IOCQPIXELLEN);
 
-	printf("width: %d\n", ioctl(test, CHARVIDEO_IOCQWIDTH));
-	printf("height: %d\n", ioctl(test, CHARVIDEO_IOCQHEIGHT));
-	printf("pixellen: %d\n", ioctl(test, CHARVIDEO_IOCQPIXELLEN));
+	printf("width: %d\n", width);
+	printf("height: %d\n", height);
+	printf("pixellen: %d\n", pixellen);
 	printf("bufsize: %d\n", ioctl(test, CHARVIDEO_IOCQBUFSIZE));
 
 	ioctl(test, CHARVIDEO_IOCSTART);
 
 
-	unsigned char buf[HEIGHT*WIDTH*4];
+	unsigned char buf[height*width*pixellen];
 	clock_t begin = clock();
-	int result = read(test, buf, HEIGHT*WIDTH*4);
+	int result = read(test, buf, height*width*pixellen);
 	clock_t end = clock();
 	printf("Read %d\n", result);
 
@@ -130,25 +131,13 @@ int main() {
 	char filename[100];
 	sprintf(filename, "/home/root/outimg0.ppm");
 	FILE *outimg = fopen(filename, "w");
-	fprintf(outimg, "P3\n%d %d\n%d\n", WIDTH, HEIGHT, 255);
+	//fprintf(outimg, "P3\n%d %d\n%d\n", width, height, 255);
+	fprintf(outimg, "P6\n%d %d\n%d\n", width, height, 255);
 
 	printf("Opened %s\n", filename);
 
-	for (int line=0; line<HEIGHT; line++){
-		for (int col=0; col<WIDTH*4; col+=4)
-		{
-			uint8_t r, g, b;
-			unsigned int pixel = (buf[(line*(WIDTH)*(4)) + col+3] <<24) +
-								(buf[(line*(WIDTH)*(4)) + col+2] <<16) +
-								(buf[(line*(WIDTH)*(4)) + col+1] <<8) +
-								buf[(line*(WIDTH)*(4)) + col+0];
+	fwrite(buf, 1, width*height*pixellen, outimg);
 
-			pixelSplit(pixel, 0, &r, &g, &b);
-
-			fprintf(outimg, "%d %d %d ", r, g, b);
-		}
-		fprintf(outimg, "\n");
-	}
 	fclose(outimg);
 
 
@@ -157,7 +146,7 @@ int main() {
 	double time_spent2 = (double)(end - begin)/1000.0; //in microseconds
 
 	printf("Time spent read()ing %f ms\n", time_spent1);
-	printf("Time spent processing %f ms\n", time_spent2);
+	printf("Time spent writing file %f ms\n", time_spent2);
 
     //cam_reset(camerafd);
 	return 0;

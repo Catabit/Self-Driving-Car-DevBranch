@@ -33,8 +33,8 @@ vhdl xil_defaultlib  \
 "../../../bd/design_1/ipshared/e363/hdl/MIPI_CSI2_Rx.vhd" \
 "../../../bd/design_1/ipshared/e363/hdl/MIPI_CSI2_RxTop.vhd" \
 "../../../bd/design_1/ip/design_1_MIPI_CSI_2_RX_0_0/sim/design_1_MIPI_CSI_2_RX_0_0.vhd" \
-"../../../bd/design_1/ipshared/40b8/hdl/LineBuffer.vhd" \
-"../../../bd/design_1/ipshared/40b8/hdl/AXI_BayerToRGB.vhd" \
+"../../../bd/design_1/ipshared/6343/hdl/LineBuffer.vhd" \
+"../../../bd/design_1/ipshared/6343/hdl/AXI_BayerToRGB.vhd" \
 "../../../bd/design_1/ip/design_1_AXI_BayerToRGB_0_0/sim/design_1_AXI_BayerToRGB_0_0.vhd" \
 "../../../bd/design_1/ip/design_1_axi_iic_0_0/sim/design_1_axi_iic_0_0.vhd" \
 "../../../bd/design_1/ipshared/c740/hdl/MotionController_v1_0_S00_AXI.vhd" \

@@ -1,8 +1,8 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Thu Mar  7 23:42:37 2019
-//Host        : catabit-VirtualBox running 64-bit Ubuntu 16.04.6 LTS
+//Date        : Mon Mar 11 17:12:30 2019
+//Host        : catabit-UX430UAR running 64-bit Ubuntu 16.04.6 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
 //Purpose     : IP block netlist
@@ -112,7 +112,7 @@ module design_1
   output servo_pwm_out;
   input sonar0_pwm_in;
 
-  wire [31:0]AXI_BayerToRGB_0_AXI_Stream_Master_TDATA;
+  wire [23:0]AXI_BayerToRGB_0_AXI_Stream_Master_TDATA;
   wire AXI_BayerToRGB_0_AXI_Stream_Master_TLAST;
   wire AXI_BayerToRGB_0_AXI_Stream_Master_TREADY;
   wire AXI_BayerToRGB_0_AXI_Stream_Master_TVALID;
@@ -696,7 +696,7 @@ module design_1
         .s_axi_lite_wvalid(ps7_0_axi_periph_M00_AXI_WVALID),
         .s_axis_s2mm_aclk(clk_wiz_0_clk_out1),
         .s_axis_s2mm_tdata(AXI_BayerToRGB_0_AXI_Stream_Master_TDATA),
-        .s_axis_s2mm_tkeep({1'b1,1'b1,1'b1,1'b1}),
+        .s_axis_s2mm_tkeep({1'b1,1'b1,1'b1}),
         .s_axis_s2mm_tlast(AXI_BayerToRGB_0_AXI_Stream_Master_TLAST),
         .s_axis_s2mm_tready(AXI_BayerToRGB_0_AXI_Stream_Master_TREADY),
         .s_axis_s2mm_tuser(AXI_BayerToRGB_0_m_axis_video_tuser),

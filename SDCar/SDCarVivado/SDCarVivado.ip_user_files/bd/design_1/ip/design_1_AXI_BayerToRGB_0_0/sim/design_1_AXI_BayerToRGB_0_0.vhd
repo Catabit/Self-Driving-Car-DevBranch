@@ -47,7 +47,7 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: digilentinc.com:user:AXI_BayerToRGB:1.0
--- IP Revision: 13
+-- IP Revision: 15
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -63,7 +63,7 @@ ENTITY design_1_AXI_BayerToRGB_0_0 IS
     s_axis_video_tuser : IN STD_LOGIC;
     s_axis_video_tlast : IN STD_LOGIC;
     m_axis_video_tready : IN STD_LOGIC;
-    m_axis_video_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    m_axis_video_tdata : OUT STD_LOGIC_VECTOR(23 DOWNTO 0);
     m_axis_video_tvalid : OUT STD_LOGIC;
     m_axis_video_tuser : OUT STD_LOGIC;
     m_axis_video_tlast : OUT STD_LOGIC
@@ -89,7 +89,7 @@ ARCHITECTURE design_1_AXI_BayerToRGB_0_0_arch OF design_1_AXI_BayerToRGB_0_0 IS
       s_axis_video_tuser : IN STD_LOGIC;
       s_axis_video_tlast : IN STD_LOGIC;
       m_axis_video_tready : IN STD_LOGIC;
-      m_axis_video_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+      m_axis_video_tdata : OUT STD_LOGIC_VECTOR(23 DOWNTO 0);
       m_axis_video_tvalid : OUT STD_LOGIC;
       m_axis_video_tuser : OUT STD_LOGIC;
       m_axis_video_tlast : OUT STD_LOGIC
@@ -101,7 +101,7 @@ ARCHITECTURE design_1_AXI_BayerToRGB_0_0_arch OF design_1_AXI_BayerToRGB_0_0 IS
   ATTRIBUTE X_INTERFACE_INFO OF m_axis_video_tuser: SIGNAL IS "xilinx.com:interface:axis:1.0 AXI_Stream_Master TUSER";
   ATTRIBUTE X_INTERFACE_INFO OF m_axis_video_tvalid: SIGNAL IS "xilinx.com:interface:axis:1.0 AXI_Stream_Master TVALID";
   ATTRIBUTE X_INTERFACE_INFO OF m_axis_video_tdata: SIGNAL IS "xilinx.com:interface:axis:1.0 AXI_Stream_Master TDATA";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axis_video_tready: SIGNAL IS "XIL_INTERFACENAME AXI_Stream_Master, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 150000000, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1, LAYERED_METADATA undef";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axis_video_tready: SIGNAL IS "XIL_INTERFACENAME AXI_Stream_Master, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 150000000, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1, LAYERED_METADATA undef";
   ATTRIBUTE X_INTERFACE_INFO OF m_axis_video_tready: SIGNAL IS "xilinx.com:interface:axis:1.0 AXI_Stream_Master TREADY";
   ATTRIBUTE X_INTERFACE_INFO OF s_axis_video_tlast: SIGNAL IS "xilinx.com:interface:axis:1.0 AXI_Slave_Interface TLAST";
   ATTRIBUTE X_INTERFACE_INFO OF s_axis_video_tuser: SIGNAL IS "xilinx.com:interface:axis:1.0 AXI_Slave_Interface TUSER";
@@ -111,7 +111,7 @@ ARCHITECTURE design_1_AXI_BayerToRGB_0_0_arch OF design_1_AXI_BayerToRGB_0_0 IS
   ATTRIBUTE X_INTERFACE_INFO OF s_axis_video_tready: SIGNAL IS "xilinx.com:interface:axis:1.0 AXI_Slave_Interface TREADY";
   ATTRIBUTE X_INTERFACE_PARAMETER OF sStreamReset_n: SIGNAL IS "XIL_INTERFACENAME AXI_Stream_Reset_n, POLARITY ACTIVE_LOW";
   ATTRIBUTE X_INTERFACE_INFO OF sStreamReset_n: SIGNAL IS "xilinx.com:signal:reset:1.0 AXI_Stream_Reset_n RST";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF StreamClk: SIGNAL IS "XIL_INTERFACENAME AXI_Stream_Clk, ASSOCIATED_BUSIF AXI_Stream_Master:AXI_Slave_Interface, FREQ_HZ 150000000, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF StreamClk: SIGNAL IS "XIL_INTERFACENAME AXI_Stream_Clk, ASSOCIATED_BUSIF AXI_Stream_Master:AXI_Slave_Interface, ASSOCIATED_RESET sStreamReset_n, FREQ_HZ 150000000, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1";
   ATTRIBUTE X_INTERFACE_INFO OF StreamClk: SIGNAL IS "xilinx.com:signal:clock:1.0 AXI_Stream_Clk CLK";
 BEGIN
   U0 : AXI_BayerToRGB
@@ -119,7 +119,7 @@ BEGIN
       kBayerWidth => 10,
       kMaxSamplesPerClock => 4,
       kAXI_InputDataWidth => 40,
-      kAXI_OutputDataWidth => 32
+      kAXI_OutputDataWidth => 24
     )
     PORT MAP (
       StreamClk => StreamClk,
