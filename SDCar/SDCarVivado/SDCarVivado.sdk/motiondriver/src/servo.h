@@ -4,6 +4,8 @@
 #include "motion_ioctl.h"
 #include "motiondriver.h"
 
+#define SERVO_LEFT 220
+#define SERVO_RIGHT 380
 
 
 struct servo_dev {
@@ -33,9 +35,18 @@ ssize_t servo_write(struct file *filp, const char __user *buf, size_t count,
 		return -EFAULT;
 	}
 
-	//TODO: limit the value to 12bit
+	//printk("Got value %d\n", value);
+
+	//limit the value to 12bit
 	if (value>4096)
 		return -1;
+
+	//limit the value to the current steering config
+	//TODO: add ioctl to get the defaults
+	if(value<SERVO_LEFT || value>SERVO_RIGHT)
+		return -1;
+
+
 
 	reg_write(base_addr, SERVO_REG_OFFSET, value);
 
@@ -88,9 +99,9 @@ static int servo_setup_cdev(struct servo_dev *dev)
 	struct device *node;
 
 
-	cdev_init(&dev->cdev, &motors_fops);
+	cdev_init(&dev->cdev, &servo_fops);
 	dev->cdev.owner = THIS_MODULE;
-	dev->cdev.ops = &motors_fops;
+	dev->cdev.ops = &servo_fops;
 	err = cdev_add (&dev->cdev, devno, 1);
 	if (err){
 		printk(KERN_WARNING "Error %d adding servo\n", err);

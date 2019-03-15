@@ -1,34 +1,39 @@
 #include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <poll.h>
-#include <fcntl.h>
-#include <errno.h>
 #include <unistd.h>
+#include <string.h>
+#include <fcntl.h>
 #include <sys/mman.h>
-#include <uiotools/uiotools.h>
+#include <linux/ioctl.h>
 
+#define MOTION_IOC_MAGIC  '9'
 
-#define CUSTOM_IP_MAP_SIZE                  0x10000
-//#define CUSTOM_IP_BASEADDR	                0x40000000
-#define CONTROL_REG_OFFSET   0
-#define SERVO_REG_OFFSET   4
-#define MOTOR_REG_OFFSET   8
+#define MOTION_IOCTSETENABLE    _IO(MOTION_IOC_MAGIC, 0)
+#define MOTION_IOCTSETDIR	_IO(MOTION_IOC_MAGIC, 1)
 
+#define MOTION_IOC_MAXNR 1
+
+#define SERVO_LEFT 220
+#define SERVO_RIGHT 380
+#define SERVO_CENTER (SERVO_LEFT + (SERVO_RIGHT-SERVO_LEFT)/2)
+
+#define SERVO_TEST
 
 
 int main(void) {
-	int 		fd;
-	void 		*ptr;
+	int motors, servo;
 
-	fd = findDeviceByName("motionController");
-	if (fd < 1) {
-		fprintf(stderr,"Invalid UIO device file.\n");
+	motors = open("/dev/motors", O_WRONLY);
+	if (motors < 1) {
+		fprintf(stderr,"Can't open motors.\n");
 		return -1;
 	}
 
-	// mmap the UIO device
-	ptr = mmap(NULL, CUSTOM_IP_MAP_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+	servo = open("/dev/servo", O_WRONLY);
+	if (servo < 1) {
+		fprintf(stderr,"Can't open servo.\n");
+		return -1;
+	}
+
 
 	unsigned int enable = 0;
 	unsigned int leftDir = 0;
@@ -37,25 +42,26 @@ int main(void) {
 	unsigned short leftSpeed = 0;
 	unsigned short rightSpeed = 0;
 
-	unsigned int servoPos = 0;
+	unsigned short servoPos = SERVO_CENTER;
 
-
-
-	//*((unsigned *)(ptr + CUSTOM_IP_S00_AXI_SLV_REG0_OFFSET)) = 0;
-
-	*((unsigned *)(ptr + CONTROL_REG_OFFSET)) = (leftDir<<2) + (rightDir<<1) + enable;
-	*((unsigned *)(ptr + SERVO_REG_OFFSET)) = 340;
+	ioctl(motors, MOTION_IOCTSETENABLE, enable);
+	write(motors, &leftSpeed, 4);
+	write(servo, &servoPos, 2);
 
 	printf("Starting left motor testing\n");
 	enable = 1;
 	leftDir=0;
-	*((unsigned *)(ptr + CONTROL_REG_OFFSET)) = (leftDir<<2) + (rightDir<<1) + enable;
+	//write control
+	ioctl(motors, MOTION_IOCTSETENABLE, enable);
+	ioctl(motors, MOTION_IOCTSETDIR, ((leftDir&1)<<1) +(rightDir&1));
 
 	printf("Direction %d\n", leftDir);
 
 	for (int i=0; i<=0xFFFF; i++) {
 		leftSpeed = i;
-		*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = leftSpeed<<16;
+		//write leftspeed
+		unsigned int speed = (leftSpeed<<16) + rightSpeed;
+		write(motors, &speed, 4);
 		usleep(100);
 	}
 
@@ -63,18 +69,23 @@ int main(void) {
 
 	for (int i=0xFFFF; i>=0; i--) {
 			leftSpeed = i;
-			*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = leftSpeed<<16;
+			//write leftspeed
+			unsigned int speed = (leftSpeed<<16) + rightSpeed;
+			write(motors, &speed, 4);
 			usleep(100);
 	}
 
 	leftDir=1;
-	*((unsigned *)(ptr + CONTROL_REG_OFFSET)) = (leftDir<<2) + (rightDir<<1) + enable;
+	//write control
+	ioctl(motors, MOTION_IOCTSETDIR, ((leftDir&1)<<1) +(rightDir&1));
 
 	printf("Direction %d\n", leftDir);
 
 	for (int i=0; i<=0xFFFF; i++) {
 			leftSpeed = i;
-			*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = leftSpeed<<16;
+			//write leftspeed
+			unsigned int speed = (leftSpeed<<16) + rightSpeed;
+			write(motors, &speed, 4);
 			usleep(100);
 	}
 
@@ -82,23 +93,28 @@ int main(void) {
 
 	for (int i=0xFFFF; i>=0; i--) {
 			leftSpeed = i;
-			*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = leftSpeed<<16;
+			//write leftspeed
+			unsigned int speed = (leftSpeed<<16) + rightSpeed;
+			write(motors, &speed, 4);
 			usleep(100);
 	}
 
-	*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = 0;
+	//stop motors
 	leftDir = 0;
 
 	printf("Starting right motor testing\n");
 
 	rightDir=0;
-	*((unsigned *)(ptr + CONTROL_REG_OFFSET)) = (leftDir<<2) + (rightDir<<1) + enable;
+	//write control
+	ioctl(motors, MOTION_IOCTSETDIR, ((leftDir&1)<<1) +(rightDir&1));
 
 	printf("Direction %d\n", rightDir);
 
 	for (int i=0; i<=0xFFFF; i++) {
 		rightSpeed = i;
-		*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = rightSpeed;
+		//write rightspeed
+		unsigned int speed = (leftSpeed<<16) + rightSpeed;
+		write(motors, &speed, 4);
 		usleep(100);
 	}
 
@@ -106,18 +122,23 @@ int main(void) {
 
 	for (int i=0xFFFF; i>=0; i--) {
 		rightSpeed = i;
-		*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = rightSpeed;
+		//write rightspeed
+		unsigned int speed = (leftSpeed<<16) + rightSpeed;
+		write(motors, &speed, 4);
 		usleep(100);
 	}
 
 	rightDir=1;
-	*((unsigned *)(ptr + CONTROL_REG_OFFSET)) = (leftDir<<2) + (rightDir<<1) + enable;
+	//write control
+	ioctl(motors, MOTION_IOCTSETDIR, ((leftDir&1)<<1) +(rightDir&1));
 
 	printf("Direction %d\n", rightDir);
 
 	for (int i=0; i<=0xFFFF; i++) {
 		rightSpeed = i;
-		*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = rightSpeed;
+		//write rightspeed
+		unsigned int speed = (leftSpeed<<16) + rightSpeed;
+		write(motors, &speed, 4);
 		usleep(100);
 	}
 
@@ -125,40 +146,52 @@ int main(void) {
 
 	for (int i=0xFFFF; i>=0; i--) {
 		rightSpeed = i;
-		*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = rightSpeed;
+		//write rightspeed
+		unsigned int speed = (leftSpeed<<16) + rightSpeed;
+		write(motors, &speed, 4);
 		usleep(100);
 	}
 
-	*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = 0;
+	//stop motors
+	unsigned int speed = 0;
+	write(motors, &speed, 4);
+	usleep(100000);
+	enable = 0;
+	ioctl(motors, MOTION_IOCTSETENABLE, enable);
 
+
+	enable = 1;
+	ioctl(motors, MOTION_IOCTSETENABLE, enable);
 	printf("Starting servo testing\n");
 
-	printf("Centering servo\n");
-	*((unsigned *)(ptr + SERVO_REG_OFFSET)) = 340;
+	printf("Centering servo %d\n", SERVO_CENTER);
+	servoPos = SERVO_CENTER;
+	write(servo, &servoPos, 2);
 	usleep(10000);
 
 	for (int reps =0; reps<10; reps++){
-		for (int i= 280; i<=400; i++) {
+		for (int i= SERVO_LEFT; i<=SERVO_RIGHT; i++) {
 			servoPos = i;
-			*((unsigned *)(ptr + SERVO_REG_OFFSET)) = servoPos;
+			write(servo, &servoPos, 2);
 			usleep(10000);
 		}
-		for (int i= 400; i>=280; i--) {
+		for (int i= SERVO_RIGHT; i>=SERVO_LEFT; i--) {
 			servoPos = i;
-			*((unsigned *)(ptr + SERVO_REG_OFFSET)) = servoPos;
+			write(servo, &servoPos, 2);
 			usleep(10000);
 		}
 	}
 
 	printf("Centering servo\n");
-	*((unsigned *)(ptr + SERVO_REG_OFFSET)) = 340;
-	usleep(10000);
+	servoPos = SERVO_CENTER;
+	write(servo, &servoPos, 2);
+	usleep(100000);
 
-	*((unsigned *)(ptr + CONTROL_REG_OFFSET)) = 0;
-	*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = 0;
+	ioctl(motors, MOTION_IOCTSETENABLE, 0);
 
 
-	munmap(ptr, CUSTOM_IP_MAP_SIZE);
+	close(motors);
+	close(servo);
 	return 0;
 }
 

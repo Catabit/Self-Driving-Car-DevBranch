@@ -6,19 +6,22 @@
 #include <errno.h>
 #include <unistd.h>
 #include <sys/mman.h>
-#include <uiotools/uiotools.h>
 
 
-#define CUSTOM_IP_MAP_SIZE                  0x10000
-//#define CUSTOM_IP_BASEADDR	                0x40000000
-#define CONTROL_REG_OFFSET   0
-#define SERVO_REG_OFFSET   4
-#define MOTOR_REG_OFFSET   8
+#include <linux/ioctl.h>
 
-#define SERVOLEFT 280
-#define SERVORIGHT 400
-#define SERVOCENTER (SERVOLEFT+SERVORIGHT)/2
+#define MOTION_IOC_MAGIC  '9'
 
+#define MOTION_IOCTSETENABLE    _IO(MOTION_IOC_MAGIC, 0)
+#define MOTION_IOCTSETDIR	_IO(MOTION_IOC_MAGIC, 1)
+
+#define MOTION_IOC_MAXNR 1
+
+#define SERVO_LEFT 220
+#define SERVO_RIGHT 380
+#define SERVO_CENTER (SERVO_LEFT + (SERVO_RIGHT-SERVO_LEFT)/2)
+
+#define SERVO_TEST
 
 
 int main(int argc, char *argv[]) {
@@ -27,17 +30,20 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-	int 		fd;
-	void 		*ptr;
+	int motors, servo;
 
-	fd = findDeviceByName("motionController");
-	if (fd < 1) {
-		fprintf(stderr,"Invalid UIO device file.\n");
+	motors = open("/dev/motors", O_WRONLY);
+	if (motors < 1) {
+		fprintf(stderr,"Can't open motors.\n");
 		return -1;
 	}
 
-	// mmap the UIO device
-	ptr = mmap(NULL, CUSTOM_IP_MAP_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+	servo = open("/dev/servo", O_WRONLY);
+	if (servo < 1) {
+		fprintf(stderr,"Can't open servo.\n");
+		return -1;
+	}
+
 
 	unsigned int enable = 1;
 	unsigned int leftDir = 1;
@@ -47,11 +53,7 @@ int main(int argc, char *argv[]) {
 	unsigned short rightSpeed = 0;
 
 	unsigned option = strtoul(argv[1],NULL,0); //0 for motors, 1 for steering
-
-
-	unsigned oldServo = *((unsigned *)(ptr + SERVO_REG_OFFSET));
-	if (oldServo<SERVOLEFT || oldServo > SERVORIGHT)
-		*((unsigned *)(ptr + SERVO_REG_OFFSET)) = SERVOCENTER;
+	ioctl(motors, MOTION_IOCTSETENABLE, enable);
 
 	if (option==0){ // motion 0 dir speed time
 		if (argc<5){
@@ -66,32 +68,34 @@ int main(int argc, char *argv[]) {
 
 			int sleeptime = strtoul(argv[4],NULL,0);
 
-			*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = (leftSpeed<<16)+rightSpeed;
-			*((unsigned *)(ptr + CONTROL_REG_OFFSET)) = (leftDir<<2) + (rightDir<<1) + enable;
+
+			unsigned int speed = (leftSpeed<<16)+rightSpeed;
+			write(motors, &speed, 4);
+			ioctl(motors, MOTION_IOCTSETDIR, ((leftDir&1)<<1)+(rightDir&1));
+
 			usleep(sleeptime);
 			//*((unsigned *)(ptr + CONTROL_REG_OFFSET)) = 0;
-			*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = 0;
+			speed = 0;
+			write(motors, &speed, 4);
 		}
 	} else if(option==1){ // motion 1 position
 		if (argc<3){
 			printf("Usage:motion 1 position\n");
-			printf("Servo limits are [%d, %d]\n", SERVOLEFT, SERVORIGHT);
+			printf("Servo limits are [%d, %d]\n", SERVO_LEFT, SERVO_RIGHT);
 		}else{
 			unsigned newServo = strtoul(argv[2],NULL,0);
-			if (newServo<SERVOLEFT)
-				newServo = SERVOLEFT+5;
-			else if(newServo > SERVORIGHT)
-				newServo = SERVORIGHT-5;
+			if (newServo<SERVO_LEFT)
+				newServo = SERVO_LEFT+5;
+			else if(newServo > SERVO_RIGHT)
+				newServo = SERVO_RIGHT-5;
 
-			*((unsigned *)(ptr + SERVO_REG_OFFSET)) = newServo;
-			*((unsigned *)(ptr + CONTROL_REG_OFFSET)) = (leftDir<<2) + (rightDir<<1) + enable;
+			write(servo, &newServo, 2);
 			usleep(100000);
 			//*((unsigned *)(ptr + CONTROL_REG_OFFSET)) = 0;
-			*((unsigned *)(ptr + MOTOR_REG_OFFSET)) = 0;
+			unsigned int speed = 0;
+			write(motors, &speed, 4);
 			}
 	}
-
-	munmap(ptr, CUSTOM_IP_MAP_SIZE);
 	return 0;
 }
 
