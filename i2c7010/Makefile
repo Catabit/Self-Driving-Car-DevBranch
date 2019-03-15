@@ -2,13 +2,12 @@ LOCAL_USERNAME = catabit
 
 BOOT_PARTITION = /media/$(LOCAL_USERNAME)/BOOT
 ROOTFS_PARTITION = /media/$(LOCAL_USERNAME)/rootfs
-SSH_IP = 192.168.0.101
+SSH_IP = 192.168.0.106
 VIVADO_PROJECT_NAME = videotest
 TOOLS = ../tools
 
 PETALINUX_APPS = \
-	rfidtest \
-	cameratest \
+	acltest \
 
 package:
 	petalinux-package --boot --format BIN --fsbl ./images/linux/zynq_fsbl.elf --fpga ./images/linux/design_1_wrapper.bit --u-boot --force

@@ -6,7 +6,7 @@
 #include <sys/mman.h>
 #include <sys/ioctl.h>
 #include <linux/i2c-dev.h>
-#include <stdio.h>
+
 
 /* PmodACL.h -- PmodACL Driver Definitions                                    */
 
@@ -132,6 +132,11 @@ int writeData(int fd, uint8_t *data, uint8_t length){
 	}
 }
 
+
+
+
+
+
 /* ------------------------------------------------------------ */
 /*** void ACL_ReadI2C(int fd, uint8_t reg, uint8_t *rData, int nData)
 **
@@ -155,15 +160,13 @@ void ACL_ReadI2C(int fd, uint8_t reg, uint8_t *rData, int nData) {
    //    bit 6 =    1 if more than one bytes is written, 0 if a single byte is
    //               written
    //    bits 5-0 - the address
-   uint8_t request, data;
-   int i;
+   uint8_t request;
+   //int i;
 
-   request = ((nData > 1) ? 0xC0 : 0x80) | (reg & 0x3F);
-   writeData(fd, &request, 1);
-   for (i = 0; i < nData; i++) {
-	  readData(fd, &data, 1);
-      rData[i] = data;
-   }
+   //request = ((nData > 1) ? 0xC0 : 0x80) | (reg & 0x3F);
+   writeData(fd, &reg, 1);
+   readData(fd, rData, nData);
+
 
    /*
    uint8_t bytearray[nData + 1];
@@ -475,6 +478,207 @@ void ReadAccel(int fd, int16_t *aclX, int16_t *aclY, int16_t *aclZ) {
    *aclY = rgwRegVals[1];
    *aclZ = rgwRegVals[2];
 }
+
+
+
+
+/* ------------------------------------------------------------ */
+/*** void ACL_SetOffsetG(PmodACL *InstancePtr, u8 bAxisParam, float dOffset)
+**
+**   Parameters:
+**      InstancePtr: the PmodACL device to communicate with
+**      bAxisParam:  byte indicating the axis whose offset will be set. Can be
+**                   one of:
+**                      ACL_PAR_AXIS_X - indicating X-axis
+**                      ACL_PAR_AXIS_Y - indicating Y-axis
+**                      ACL_PAR_AXIS_Z - indicating Z-axis
+**      dOffsetX:    the offset for X-axis in "g"
+**
+**   Return Value:
+**      None
+**
+**   Description:
+**      This function sets the specified axis offset, the value being given in
+**      "g". The accepted argument values are between -2g and +2g.
+**
+**      If argument is within the accepted values range, its value is quantified
+**      in the 8-bit offset register using a scale factor of 15.6 mg/LSB and
+**      ACL_ERR_SUCCESS is returned.
+**
+**      If value is outside this range or if bAxisParam parameter is outside the
+**      0 - 3 range, the function does nothing.
+*/
+void ACL_SetOffsetG(int fd, uint8_t bAxisParam, float dOffset) {
+   int8_t bOffsetVal = (uint8_t) (dOffset / (float) ACL_CONV_OFFSET_G_LSB);
+   switch (bAxisParam) {
+   case ACL_PAR_AXIS_X:
+      ACL_WriteI2C(fd, ACL_REG_OFSX, (uint8_t *) &bOffsetVal, 1);
+      break;
+   case ACL_PAR_AXIS_Y:
+      ACL_WriteI2C(fd, ACL_REG_OFSY, (uint8_t *) &bOffsetVal, 1);
+      break;
+   case ACL_PAR_AXIS_Z:
+      ACL_WriteI2C(fd, ACL_REG_OFSZ, (uint8_t *) &bOffsetVal, 1);
+      break;
+   }
+}
+
+/* ------------------------------------------------------------ */
+/*** float ACL_GetOffsetG(PmodACL *InstancePtr, u8 bAxisParam)
+**
+**   Parameters:
+**      InstancePtr: the PmodACL device to communicate with
+**      bAxisParam:  byte indicating the axis whose acceleration will be read.
+**                   Can be one of:
+**                      ACL_PAR_AXIS_X - indicating X-axis
+**                      ACL_PAR_AXIS_Y - indicating Y-axis
+**                      ACL_PAR_AXIS_Z - indicating Z-axis
+**
+**   Return Value:
+**      The offset for X-axis in "g".
+**
+**   Description:
+**      This function returns the offset, in "g", for the specified axis.
+**      It converts the 8-bit value quantified in the offset register into a
+**      value expressed in "g", using a scale factor of 15.6 mg/LSB.
+*/
+float ACL_GetOffsetG(int fd, uint8_t bAxisParam) {
+   int8_t bOffsetVal;
+   float dResult;
+   switch (bAxisParam) {
+   case ACL_PAR_AXIS_X:
+      ACL_ReadI2C(fd, ACL_REG_OFSX, (uint8_t*) &bOffsetVal, 1);
+      break;
+   case ACL_PAR_AXIS_Y:
+      ACL_ReadI2C(fd, ACL_REG_OFSY, (uint8_t*) &bOffsetVal, 1);
+      break;
+   case ACL_PAR_AXIS_Z:
+      ACL_ReadI2C(fd, ACL_REG_OFSZ, (uint8_t*) &bOffsetVal, 1);
+      break;
+   }
+   dResult = (float) bOffsetVal * (float) ACL_CONV_OFFSET_G_LSB;
+   return dResult;
+}
+
+/* ------------------------------------------------------------ */
+/*** void ACL_CalibrateOneAxisGravitational(PmodACL *InstancePtr, u8 bAxisInfo)
+**
+**   Parameters:
+**      InstancePtr: the PmodACL device to communicate with
+**      bAxisInfo:   Parameter specifying axes orientation. Can be one of the
+**                   following:
+**         0   ACL_PAR_AXIS_XP - X-axis oriented in the gravitational direction
+**         1   ACL_PAR_AXIS_XN - X-axis oriented opposite the gravitational
+**                                  direction
+**         2   ACL_PAR_AXIS_YP - Y-axis oriented in the gravitational direction
+**         3   ACL_PAR_AXIS_YN - Y-axis oriented opposite the gravitational
+**                                  direction
+**         4   ACL_PAR_AXIS_ZP - Z-axis oriented in the gravitational direction
+**         5   ACL_PAR_AXIS_ZN - Z-axis oriented opposite the gravitational
+**                                  direction
+**
+**   Return Value:
+**      None
+**
+**   Description:
+**      The accepted argument values are between 0 and +5.
+**      This function performs the calibration of the accelerometer by setting
+**      the offset registers in the following manner:
+**          Computes the correction factor that must be loaded in the offset
+**          registers so that the acceleration readings are:
+**              1 for the gravitational axis, if positive orientation
+**             -1 for the gravitational axis, if negative orientation
+**              0 for the other axes
+**      The accepted argument values are between 0 and 5.
+**      If the argument value is outside this range, the function does nothing.
+**      The user should wait
+*/
+void ACL_CalibrateOneAxisGravitational(int fd, uint8_t bAxisInfo) {
+   // Perform calibration
+   float dX, dSumX = 0, dY, dSumY = 0, dZ, dSumZ = 0;
+   // Set the offset registers to 0
+   // Put the device into standby mode to configure it.
+   ACL_SetMeasure(fd, 0);
+   ACL_SetOffsetG(fd, ACL_PAR_AXIS_X, 0);
+   ACL_SetOffsetG(fd, ACL_PAR_AXIS_Y, 0);
+   ACL_SetOffsetG(fd, ACL_PAR_AXIS_Z, 0);
+   ACL_SetMeasure(fd, 1);
+
+   // Read average acceleration on the three axes
+   int idxAvg;
+
+   int nCntMeasurements = 128;
+   // Consume some readings
+   for (idxAvg = 0; idxAvg < nCntMeasurements; idxAvg++) {
+      ACL_ReadAccelG(fd, &dX, &dY, &dZ);
+   }
+
+   // Compute average values
+   for (idxAvg = 0; idxAvg < nCntMeasurements; idxAvg++) {
+      ACL_ReadAccelG(fd, &dX, &dY, &dZ);
+      dSumX = dSumX + dX;
+      dSumY = dSumY + dY;
+      dSumZ = dSumZ + dZ;
+   }
+
+   dX = dSumX / nCntMeasurements;
+   dY = dSumY / nCntMeasurements;
+   dZ = dSumZ / nCntMeasurements;
+
+   // Computes the correction that must be put in the offset registers so that
+   // the acceleration readings are:
+   //   1 for the gravitational axis, if positive
+   //  -1 for the gravitational axis, if negative
+   //   0 for the other axes
+   switch (bAxisInfo) {
+   case ACL_PAR_AXIS_XP:
+      dX = 1.0 - dX;
+      dY = 0.0 - dY;
+      dZ = 0.0 - dZ;
+      break;
+   case ACL_PAR_AXIS_XN:
+      dX = -1.0 - dX;
+      dY = 0.0 - dY;
+      dZ = 0.0 - dZ;
+      break;
+   case ACL_PAR_AXIS_YP:
+      dY = 1.0 - dY;
+      dX = 0.0 - dX;
+      dZ = 0.0 - dZ;
+      break;
+   case ACL_PAR_AXIS_YN:
+      dY = -1.0 - dY;
+      dX = 0.0 - dX;
+      dZ = 0.0 - dZ;
+      break;
+   case ACL_PAR_AXIS_ZP:
+      dZ = 1.0 - dZ;
+      dY = 0.0 - dY;
+      dX = 0.0 - dX;
+      break;
+   case ACL_PAR_AXIS_ZN:
+      dZ = -1.0 - dZ;
+      dY = 0.0 - dY;
+      dX = 0.0 - dX;
+      break;
+   }
+
+   // Put the device into standby mode to configure it.
+   ACL_SetMeasure(fd, 0);
+
+   // Set the offset data to registers
+   ACL_SetOffsetG(fd, ACL_PAR_AXIS_X, dX);
+   ACL_SetOffsetG(fd, ACL_PAR_AXIS_Y, dY);
+   ACL_SetOffsetG(fd, ACL_PAR_AXIS_Z, dZ);
+   ACL_SetMeasure(fd, 1);
+}
+
+
+
+
+
+
+
 
 
 

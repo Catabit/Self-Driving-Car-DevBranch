@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="/home/catabit/Zybo/i2c7010/videotest/videotest.sdk/acltest"/>
 		<item value="/home/catabit/Zybo/plvideotest/videotest/videotest.sdk"/>
 	</list>
 	<section name="WORKBENCH_SETTINGS">
@@ -10,8 +11,8 @@
 	<section name="NewWizardAction">
 	</section>
 	<section name="ChooseWorkspaceDialogSettings">
-		<item value="573" key="DIALOG_X_ORIGIN"/>
-		<item value="277" key="DIALOG_Y_ORIGIN"/>
+		<item value="0" key="DIALOG_X_ORIGIN"/>
+		<item value="267" key="DIALOG_Y_ORIGIN"/>
 	</section>
 	<section name="BasicNewProjectResourceWizard">
 	</section>

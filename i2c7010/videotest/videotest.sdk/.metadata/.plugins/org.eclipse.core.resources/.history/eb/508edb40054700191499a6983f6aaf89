@@ -1,0 +1,26 @@
+#include "acltest.h"
+
+int fd;
+
+void DemoRun() {
+   float x, y, z;
+
+   printf("ACL Demo Launched");
+
+   while (1) {
+      ACL_ReadAccelG(&acl, &x, &y, &z);
+      printf("X=%f\tY=%f\tZ=%f\n\r", x, y, z);
+      usleep(100000);
+   }
+}
+
+
+int main()
+{
+	fd = init();
+    printf("Hello World\n");
+
+    return 0;
+}
+
+
