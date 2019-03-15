@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<bd:repository xmlns:bd="http://www.xilinx.com/bd" bd:BoundaryCRC="0xC967ADB405F50E29" bd:device="xc7z020clg400-1" bd:isValidated="true" bd:synthFlowMode="Hierarchical" bd:tool_version="2017.4" bd:top="design_1" bd:version="1.00.a">
+<bd:repository xmlns:bd="http://www.xilinx.com/bd" bd:BoundaryCRC="0xDFB1C5E848DECAE4" bd:device="xc7z020clg400-1" bd:isValidated="true" bd:synthFlowMode="Hierarchical" bd:tool_version="2017.4" bd:top="design_1" bd:version="1.00.a">
 
   <spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
     <spirit:vendor>xilinx.com</spirit:vendor>
@@ -300,6 +300,18 @@
         </spirit:port>
         <spirit:port>
           <spirit:name>motionEnableLed</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>camera_enable_sw</spirit:name>
+          <spirit:wire>
+            <spirit:direction>in</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>cameraEnableLed</spirit:name>
           <spirit:wire>
             <spirit:direction>out</spirit:direction>
           </spirit:wire>
@@ -779,13 +791,6 @@
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
-        <spirit:instanceName>xlconstant_0</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="xlconstant" spirit:vendor="xilinx.com" spirit:version="1.1"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_xlconstant_0_0</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
         <spirit:instanceName>sonarDriver_0</spirit:instanceName>
         <spirit:componentRef spirit:library="user" spirit:name="sonarDriver" spirit:vendor="user.org" spirit:version="1.0"/>
         <spirit:configurableElementValues>
@@ -835,16 +840,6 @@
         <spirit:activeInterface spirit:busRef="rx_mipi_ppi" spirit:componentRef="MIPI_CSI_2_RX_0"/>
       </spirit:interconnection>
       <spirit:interconnection>
-        <spirit:name>MIPI_CSI_2_RX_0_m_axis_video</spirit:name>
-        <spirit:activeInterface spirit:busRef="m_axis_video" spirit:componentRef="MIPI_CSI_2_RX_0"/>
-        <spirit:activeInterface spirit:busRef="AXI_Slave_Interface" spirit:componentRef="AXI_BayerToRGB_0"/>
-      </spirit:interconnection>
-      <spirit:interconnection>
-        <spirit:name>AXI_BayerToRGB_0_AXI_Stream_Master</spirit:name>
-        <spirit:activeInterface spirit:busRef="AXI_Stream_Master" spirit:componentRef="AXI_BayerToRGB_0"/>
-        <spirit:activeInterface spirit:busRef="S_AXIS_S2MM" spirit:componentRef="axi_vdma_0"/>
-      </spirit:interconnection>
-      <spirit:interconnection>
         <spirit:name>ps7_0_axi_periph_M01_AXI</spirit:name>
         <spirit:activeInterface spirit:busRef="M01_AXI" spirit:componentRef="ps7_0_axi_periph"/>
         <spirit:activeInterface spirit:busRef="S_AXI_LITE" spirit:componentRef="MIPI_D_PHY_RX_0"/>
@@ -868,6 +863,16 @@
         <spirit:name>ps7_0_axi_periph_M05_AXI</spirit:name>
         <spirit:activeInterface spirit:busRef="S00_AXI" spirit:componentRef="sonarDriver_0"/>
         <spirit:activeInterface spirit:busRef="M05_AXI" spirit:componentRef="ps7_0_axi_periph"/>
+      </spirit:interconnection>
+      <spirit:interconnection>
+        <spirit:name>MIPI_CSI_2_RX_0_m_axis_video</spirit:name>
+        <spirit:activeInterface spirit:busRef="m_axis_video" spirit:componentRef="MIPI_CSI_2_RX_0"/>
+        <spirit:activeInterface spirit:busRef="AXI_Slave_Interface" spirit:componentRef="AXI_BayerToRGB_0"/>
+      </spirit:interconnection>
+      <spirit:interconnection>
+        <spirit:name>AXI_BayerToRGB_0_AXI_Stream_Master</spirit:name>
+        <spirit:activeInterface spirit:busRef="AXI_Stream_Master" spirit:componentRef="AXI_BayerToRGB_0"/>
+        <spirit:activeInterface spirit:busRef="S_AXIS_S2MM" spirit:componentRef="axi_vdma_0"/>
       </spirit:interconnection>
     </spirit:interconnections>
     <spirit:adHocConnections>
@@ -1043,15 +1048,16 @@
         <spirit:internalPortReference spirit:componentRef="sonarDriver_0" spirit:portRef="pwm_in"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>xlconstant_0_dout</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="xlconstant_0" spirit:portRef="dout"/>
-        <spirit:externalPortReference spirit:portRef="camera_enable"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
         <spirit:name>motion_enable_sw_1</spirit:name>
         <spirit:externalPortReference spirit:portRef="motion_enable_sw"/>
         <spirit:externalPortReference spirit:portRef="motionEnableLed"/>
         <spirit:internalPortReference spirit:componentRef="MotionController_0" spirit:portRef="enable"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>camera_enable_sw_1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="camera_enable_sw"/>
+        <spirit:externalPortReference spirit:portRef="camera_enable"/>
+        <spirit:externalPortReference spirit:portRef="cameraEnableLed"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>

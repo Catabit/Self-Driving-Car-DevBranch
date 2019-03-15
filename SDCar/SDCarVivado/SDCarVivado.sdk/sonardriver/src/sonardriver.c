@@ -92,7 +92,6 @@ static int sonardriver_probe(struct platform_device *pdev)
 		goto error2;
 	}
 
-
 	//init subdevices
 
 	lp->sonar = sonar_alloc(lp);

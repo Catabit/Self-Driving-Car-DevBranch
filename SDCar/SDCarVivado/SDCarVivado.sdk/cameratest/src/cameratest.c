@@ -114,7 +114,9 @@ int main() {
 	printf("pixellen: %d\n", pixellen);
 	printf("bufsize: %d\n", ioctl(test, CHARVIDEO_IOCQBUFSIZE));
 
-	ioctl(test, CHARVIDEO_IOCSTART);
+	ioctl(test, CHARVIDEO_IOCSTATUS);
+
+	//ioctl(test, CHARVIDEO_IOCSTART);
 
 
 	unsigned char buf[height*width*pixellen];
@@ -130,11 +132,18 @@ int main() {
 
 	char filename[100];
 	sprintf(filename, "/home/root/outimg0.ppm");
-	FILE *outimg = fopen(filename, "w");
+	FILE *outimg = fopen(filename, "wt");
 	//fprintf(outimg, "P3\n%d %d\n%d\n", width, height, 255);
 	fprintf(outimg, "P6\n%d %d\n%d\n", width, height, 255);
 
 	printf("Opened %s\n", filename);
+
+	for (int i=0; i<width*height*pixellen; i+=3){
+		uint8_t aux = buf[i+2];
+		buf[i+2] = buf[i];
+		buf[i] = aux;
+		//printf("(%d, %d, %d)\n", buf[i], buf[i+1], buf[i+2]);
+	}
 
 	fwrite(buf, 1, width*height*pixellen, outimg);
 

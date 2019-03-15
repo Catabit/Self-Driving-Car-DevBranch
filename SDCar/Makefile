@@ -62,9 +62,9 @@ fixlinks-modules:
 
 cameratest:
 	make sendelfs
-	ssh $(SSH_IP) ./cameratest.elf
-	scp root@$(SSH_IP):outimg0.ppm ./sshoutput/
-	eog ./sshoutput/outimg0.ppm
+	ssh root@$(SSH_IP) ./cameratest.elf
+	scp root@$(SSH_IP):outimg0.ppm .
+	eog outimg0.ppm
 
 sendelfs:
 	scp `find $(VIVADO_PROJECT_NAME)/ -name *.elf -path */Debug/*` root@$(SSH_IP):
@@ -80,6 +80,3 @@ clean:
 vdmadriver:
 	petalinux-build -c vdmadriver
 	scp vdmadriver.ko root@$(SSH_IP):
-
-photo:
-	ssh root@$(SSH_IP) 'dd count=1 bs=3686400 if=/dev/video' > test && ./parse && eog outimg0.ppm

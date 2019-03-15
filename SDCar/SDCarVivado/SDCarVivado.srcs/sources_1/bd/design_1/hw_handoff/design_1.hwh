@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Mar 11 17:12:32 2019" VIVADOVERSION="2017.4">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Mar 14 22:08:28 2019" VIVADOVERSION="2017.4">
 
   <SYSTEMINFO ARCH="zynq" BOARD="digilentinc.com:zybo-z7-20:part0:1.0" DEVICE="7z020" NAME="design_1" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -99,9 +99,9 @@
         <CONNECTION INSTANCE="sonarDriver_0" PORT="pwm_in"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" LEFT="0" NAME="camera_enable" RIGHT="0" SIGIS="undef" SIGNAME="xlconstant_0_dout">
+    <PORT DIR="O" LEFT="0" NAME="camera_enable" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_camera_enable_sw">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="xlconstant_0" PORT="dout"/>
+        <CONNECTION INSTANCE="External_Ports" PORT="camera_enable_sw"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="I" NAME="motion_enable_sw" SIGIS="undef" SIGNAME="External_Ports_motion_enable_sw">
@@ -113,6 +113,17 @@
     <PORT DIR="O" NAME="motionEnableLed" SIGIS="undef" SIGNAME="External_Ports_motion_enable_sw">
       <CONNECTIONS>
         <CONNECTION INSTANCE="External_Ports" PORT="motion_enable_sw"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="camera_enable_sw" SIGIS="undef" SIGNAME="External_Ports_camera_enable_sw">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="External_Ports" PORT="camera_enable"/>
+        <CONNECTION INSTANCE="External_Ports" PORT="cameraEnableLed"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="cameraEnableLed" SIGIS="undef" SIGNAME="External_Ports_camera_enable_sw">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="External_Ports" PORT="camera_enable_sw"/>
       </CONNECTIONS>
     </PORT>
   </EXTERNALPORTS>
@@ -8810,23 +8821,6 @@
         <PORT DIR="O" LEFT="1" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="xlconcat_0_dout">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="IRQ_F2P"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES/>
-    </MODULE>
-    <MODULE FULLNAME="/xlconstant_0" HWVERSION="1.1" INSTANCE="xlconstant_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconstant" VLNV="xilinx.com:ip:xlconstant:1.1">
-      <DOCUMENTS/>
-      <PARAMETERS>
-        <PARAMETER NAME="CONST_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="CONST_VAL" VALUE="0x1"/>
-        <PARAMETER NAME="Component_Name" VALUE="design_1_xlconstant_0_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT DIR="O" LEFT="0" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="xlconstant_0_dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="camera_enable"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>

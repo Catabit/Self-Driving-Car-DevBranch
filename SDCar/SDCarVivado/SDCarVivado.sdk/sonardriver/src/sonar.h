@@ -24,10 +24,10 @@ ssize_t sonar_read(struct file *fp, char __user *buf, size_t count, loff_t *f_po
 	if (count>4)
 		return -1;
 
-	uint32_t sonarTicks = reg_read(dev->lp->base_addr, 0);
+	volatile uint32_t sonarTicks = reg_read(dev->lp->base_addr, 0);
 
 
-	if (copy_to_user(buf, sonarTicks, count)) {
+	if (copy_to_user(buf, &sonarTicks, count)) {
 		return -EFAULT;
 	}
 

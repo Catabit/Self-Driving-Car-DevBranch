@@ -1,8 +1,8 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Mon Mar 11 17:12:31 2019
-//Host        : catabit-UX430UAR running 64-bit Ubuntu 16.04.6 LTS
+//Date        : Thu Mar 14 22:08:25 2019
+//Host        : catabit-VirtualBox running 64-bit Ubuntu 16.04.6 LTS
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
 //Purpose     : IP block netlist
@@ -33,7 +33,9 @@ module design_1_wrapper
     FIXED_IO_ps_srstb,
     cam_iic_scl_io,
     cam_iic_sda_io,
+    cameraEnableLed,
     camera_enable,
+    camera_enable_sw,
     dphy_clk_lp_n,
     dphy_clk_lp_p,
     dphy_data_hs_n,
@@ -75,7 +77,9 @@ module design_1_wrapper
   inout FIXED_IO_ps_srstb;
   inout cam_iic_scl_io;
   inout cam_iic_sda_io;
+  output cameraEnableLed;
   output [0:0]camera_enable;
+  input camera_enable_sw;
   input dphy_clk_lp_n;
   input dphy_clk_lp_p;
   input [1:0]dphy_data_hs_n;
@@ -124,7 +128,9 @@ module design_1_wrapper
   wire cam_iic_sda_io;
   wire cam_iic_sda_o;
   wire cam_iic_sda_t;
+  wire cameraEnableLed;
   wire [0:0]camera_enable;
+  wire camera_enable_sw;
   wire dphy_clk_lp_n;
   wire dphy_clk_lp_p;
   wire [1:0]dphy_data_hs_n;
@@ -188,7 +194,9 @@ module design_1_wrapper
         .cam_iic_sda_i(cam_iic_sda_i),
         .cam_iic_sda_o(cam_iic_sda_o),
         .cam_iic_sda_t(cam_iic_sda_t),
+        .cameraEnableLed(cameraEnableLed),
         .camera_enable(camera_enable),
+        .camera_enable_sw(camera_enable_sw),
         .dphy_clk_lp_n(dphy_clk_lp_n),
         .dphy_clk_lp_p(dphy_clk_lp_p),
         .dphy_data_hs_n(dphy_data_hs_n),

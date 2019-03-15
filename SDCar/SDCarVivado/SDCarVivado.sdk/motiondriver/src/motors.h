@@ -144,7 +144,7 @@ static int motors_setup_cdev(struct motors_dev *dev)
 		return -1;
 	}
 
-	dev->class = class_create(THIS_MODULE, "servo");
+	dev->class = class_create(THIS_MODULE, "motors");
 	if (!dev->class) {
 		printk(KERN_WARNING "Can't create class");
 		return -1;

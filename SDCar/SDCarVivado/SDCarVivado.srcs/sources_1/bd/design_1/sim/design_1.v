@@ -1,15 +1,15 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Mon Mar 11 17:12:31 2019
-//Host        : catabit-UX430UAR running 64-bit Ubuntu 16.04.6 LTS
+//Date        : Thu Mar 14 22:08:25 2019
+//Host        : catabit-VirtualBox running 64-bit Ubuntu 16.04.6 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
 //Purpose     : IP block netlist
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=28,numReposBlks=16,numNonXlnxBlks=5,numHierBlks=12,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=6,da_board_cnt=1,da_clkrst_cnt=6,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
+(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=27,numReposBlks=15,numNonXlnxBlks=5,numHierBlks=12,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=6,da_board_cnt=1,da_clkrst_cnt=6,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
 module design_1
    (DDR_addr,
     DDR_ba,
@@ -38,7 +38,9 @@ module design_1
     cam_iic_sda_i,
     cam_iic_sda_o,
     cam_iic_sda_t,
+    cameraEnableLed,
     camera_enable,
+    camera_enable_sw,
     dphy_clk_lp_n,
     dphy_clk_lp_p,
     dphy_data_hs_n,
@@ -88,7 +90,9 @@ module design_1
   (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 cam_iic SDA_I" *) input cam_iic_sda_i;
   (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 cam_iic SDA_O" *) output cam_iic_sda_o;
   (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 cam_iic SDA_T" *) output cam_iic_sda_t;
+  output cameraEnableLed;
   output [0:0]camera_enable;
+  input camera_enable_sw;
   input dphy_clk_lp_n;
   input dphy_clk_lp_p;
   input [1:0]dphy_data_hs_n;
@@ -198,6 +202,7 @@ module design_1
   wire [7:0]axi_vdma_0_M_AXI_S2MM_WSTRB;
   wire axi_vdma_0_M_AXI_S2MM_WVALID;
   wire axi_vdma_0_s2mm_introut;
+  wire camera_enable_sw_1;
   wire clk_wiz_0_clk_out1;
   wire clk_wiz_0_clk_out2;
   wire clk_wiz_0_locked;
@@ -391,7 +396,6 @@ module design_1
   wire [0:0]rst_ps7_0_50M_peripheral_aresetn;
   wire [0:0]rst_ps7_0_50M_peripheral_reset;
   wire [1:0]xlconcat_0_dout;
-  wire [0:0]xlconstant_0_dout;
 
   assign axi_iic_0_IIC_SCL_I = ps_iic_scl_i;
   assign axi_iic_0_IIC_SDA_I = ps_iic_sda_i;
@@ -399,7 +403,9 @@ module design_1
   assign cam_iic_scl_t = processing_system7_0_IIC_0_SCL_T;
   assign cam_iic_sda_o = processing_system7_0_IIC_0_SDA_O;
   assign cam_iic_sda_t = processing_system7_0_IIC_0_SDA_T;
-  assign camera_enable[0] = xlconstant_0_dout;
+  assign cameraEnableLed = camera_enable_sw_1;
+  assign camera_enable[0] = camera_enable_sw_1;
+  assign camera_enable_sw_1 = camera_enable_sw;
   assign dphy_clk_lp_n_1 = dphy_clk_lp_n;
   assign dphy_clk_lp_p_1 = dphy_clk_lp_p;
   assign dphy_data_hs_n_1 = dphy_data_hs_n[1:0];
@@ -1016,8 +1022,6 @@ module design_1
        (.In0(axi_vdma_0_s2mm_introut),
         .In1(axi_iic_0_iic2intc_irpt),
         .dout(xlconcat_0_dout));
-  design_1_xlconstant_0_0 xlconstant_0
-       (.dout(xlconstant_0_dout));
 endmodule
 
 module design_1_axi_interconnect_0_0
