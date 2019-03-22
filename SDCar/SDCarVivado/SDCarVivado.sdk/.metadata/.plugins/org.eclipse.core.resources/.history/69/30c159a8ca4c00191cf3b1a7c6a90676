@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
 
 	if (option==0){ // motion 0 dir speed time
 		if (argc<5){
-			printf("Usage:motion 0 dir speed time [stopdist]\n");
+			printf("Usage:motion 0 dir speed time stopdist\n");
 			printf("Speed is u16 [0, 65535]. Time is in us. Stopdist is in cm.\n");
 		}else{
 			leftDir = strtoul(argv[2],NULL,0);
@@ -78,23 +78,23 @@ int main(int argc, char *argv[]) {
 			leftSpeed = strtoul(argv[3],NULL,0);
 			rightSpeed = leftSpeed;
 
-			unsigned int sleeptime = strtoul(argv[4],NULL,0);
+			int sleeptime = strtoul(argv[4],NULL,0);
 
-			if(argv[5]!=NULL)
-				stopDist = strtoul(argv[5], NULL, 0);
+			stopDist = strtoul(argv[5], NULL, 0);
 
 
 			unsigned int speed = (leftSpeed<<16)+rightSpeed;
 			write(motors, &speed, 4);
 			ioctl(motors, MOTION_IOCTSETDIR, ((leftDir&1)<<1)+(rightDir&1));
 
-			for (int i=0; i<sleeptime/1000; i++) {
+			for (int i=0; i<100; i++) {
 				read(sonar, &clk_edges, 4);
 				dist = clk_edges * clk_to_cm;
 				if (dist<stopDist)
 					break;
-				usleep(1000);
+				usleep(sleeptime/100);
 			}
+			//*((unsigned *)(ptr + CONTROL_REG_OFFSET)) = 0;
 			speed = 0;
 			write(motors, &speed, 4);
 		}

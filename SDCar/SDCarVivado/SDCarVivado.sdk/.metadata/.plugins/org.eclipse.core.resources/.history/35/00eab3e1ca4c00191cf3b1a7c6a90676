@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
 			leftSpeed = strtoul(argv[3],NULL,0);
 			rightSpeed = leftSpeed;
 
-			unsigned int sleeptime = strtoul(argv[4],NULL,0);
+			int sleeptime = strtoul(argv[4],NULL,0);
 
 			if(argv[5]!=NULL)
 				stopDist = strtoul(argv[5], NULL, 0);

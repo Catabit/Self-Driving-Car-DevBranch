@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
 			leftSpeed = strtoul(argv[3],NULL,0);
 			rightSpeed = leftSpeed;
 
-			unsigned int sleeptime = strtoul(argv[4],NULL,0);
+			int sleeptime = strtoul(argv[4],NULL,0);
 
 			if(argv[5]!=NULL)
 				stopDist = strtoul(argv[5], NULL, 0);
@@ -88,12 +88,12 @@ int main(int argc, char *argv[]) {
 			write(motors, &speed, 4);
 			ioctl(motors, MOTION_IOCTSETDIR, ((leftDir&1)<<1)+(rightDir&1));
 
-			for (int i=0; i<sleeptime/1000; i++) {
+			for (int i=0; i<100; i++) {
 				read(sonar, &clk_edges, 4);
 				dist = clk_edges * clk_to_cm;
 				if (dist<stopDist)
 					break;
-				usleep(1000);
+				usleep(sleeptime/100);
 			}
 			speed = 0;
 			write(motors, &speed, 4);
