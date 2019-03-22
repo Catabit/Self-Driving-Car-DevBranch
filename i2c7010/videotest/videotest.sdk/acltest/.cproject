@@ -3,6 +3,9 @@
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="xilinx.gnu.armv7.linux.exe.debug.185639475">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="xilinx.gnu.armv7.linux.exe.debug.185639475" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<macros>
+					<stringMacro name="Math.h" type="VALUE_TEXT" value="-lm"/>
+				</macros>
 				<externalSettings/>
 				<extensions>
 					<extension id="com.xilinx.sdk.managedbuilder.XELF.arm.a53.x32.linux" point="org.eclipse.cdt.core.BinaryParser"/>
@@ -44,6 +47,9 @@
 									<listOptionValue builtIn="false" value="&quot;/home/catabit/Zybo/build/tmp/sysroots/plnx_arm/usr/lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/home/catabit/Zybo/build/tmp/sysroots/plnx_arm/lib&quot;"/>
 								</option>
+								<option id="xilinx.gnu.c.link.option.libs.61512424" name="Libraries (-l)" superClass="xilinx.gnu.c.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="m"/>
+								</option>
 								<inputType id="xilinx.gnu.linker.input.1053491682" superClass="xilinx.gnu.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -61,6 +67,9 @@
 		</cconfiguration>
 		<cconfiguration id="xilinx.gnu.armv7.linux.exe.release.818420882">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="xilinx.gnu.armv7.linux.exe.release.818420882" moduleId="org.eclipse.cdt.core.settings" name="Release">
+				<macros>
+					<stringMacro name="Math.h" type="VALUE_TEXT" value="-lm"/>
+				</macros>
 				<externalSettings/>
 				<extensions>
 					<extension id="com.xilinx.sdk.managedbuilder.XELF.arm.a53.x32.linux" point="org.eclipse.cdt.core.BinaryParser"/>

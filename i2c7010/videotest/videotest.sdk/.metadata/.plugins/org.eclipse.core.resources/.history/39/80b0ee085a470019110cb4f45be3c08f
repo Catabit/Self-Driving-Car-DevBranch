@@ -1,0 +1,45 @@
+#include "acltest.h"
+
+void Run(int fd) {
+   //int16_t x, y, z;
+   float x, y, z;
+
+   printf("ACL Demo Launched");
+
+   while (1) {
+	  //ReadAccel(fd, &x, &y, &z);
+	  ACL_ReadAccelG(fd, &x, &y, &z);
+      printf("X=%f\tY=%f\tZ=%f\n\r", x, y, z);
+
+      float speedX, speedY;
+
+
+
+
+      //printf("X=%d\tY=%d\tZ=%d\n\r", x, y, z);
+      usleep(100000);
+   }
+}
+
+void Initialize(int fd) {
+   ACL_SetMeasure(fd, 0);
+   ACL_SetGRange(fd, ACL_PAR_GRANGE_PM4G);
+   ACL_SetMeasure(fd, 1);
+   ACL_CalibrateOneAxisGravitational(fd, ACL_PAR_AXIS_ZP);
+   sleep(1); // After calibration, some delay is required for the new settings
+             // to take effect.
+   printf("Initialize worked\n");
+}
+
+
+int main()
+{
+	int fd = init();
+    printf("Let's start\n");
+    Initialize(fd);
+    Run(fd);
+
+    return 0;
+}
+
+
