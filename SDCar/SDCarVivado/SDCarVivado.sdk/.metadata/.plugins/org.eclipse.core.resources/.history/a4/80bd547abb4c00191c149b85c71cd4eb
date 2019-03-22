@@ -26,6 +26,7 @@ ssize_t charvideo_read(struct file *fp, char __user *buf, size_t count, loff_t *
 		*f_pos = 0;
 
 
+
 	//do read
 	printk(KERN_NOTICE "Copying\n");
 

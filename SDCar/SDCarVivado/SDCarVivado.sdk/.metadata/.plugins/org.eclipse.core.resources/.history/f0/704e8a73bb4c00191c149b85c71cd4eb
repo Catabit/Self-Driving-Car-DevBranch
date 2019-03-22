@@ -23,7 +23,9 @@ ssize_t charvideo_read(struct file *fp, char __user *buf, size_t count, loff_t *
 	int maxRead = v->height * v->width * v->pixelLength;
 
 	if (*f_pos >= maxRead)
-		*f_pos = 0;
+		return 0;
+	if (*f_pos + count > maxRead)
+		count = maxRead - *f_pos;
 
 
 	//do read

@@ -19,7 +19,7 @@ ssize_t sonar_read(struct file *fp, char __user *buf, size_t count, loff_t *f_po
 
 
 	if (*f_pos >= 4)
-		*f_pos=0;
+		return 0;
 
 	if (count>4)
 		return -1;
@@ -31,7 +31,7 @@ ssize_t sonar_read(struct file *fp, char __user *buf, size_t count, loff_t *f_po
 		return -EFAULT;
 	}
 
-	*f_pos += count;
+	*f_pos =0;
 	return count;
 
 }

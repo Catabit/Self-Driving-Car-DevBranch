@@ -34,7 +34,7 @@ int main(void) {
 	while (1) {
 
 
-		read(fd, &clk_edges, 4);
+		read(fd, &clk_edges, 1);
 
 		dist = clk_edges * clk_to_cm;
 
