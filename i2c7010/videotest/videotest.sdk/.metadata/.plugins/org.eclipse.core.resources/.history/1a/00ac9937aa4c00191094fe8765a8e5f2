@@ -9,7 +9,6 @@ void Run(int fd) {
 
 	while(1){
 		Pmon_VoltageCurrentRead(fd, &voltage, &current);
-		printf("Voltage= %f      Current= %f \n");
 		usleep(100000);
 	}
 
