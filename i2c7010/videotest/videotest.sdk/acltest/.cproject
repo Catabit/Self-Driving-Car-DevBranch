@@ -33,7 +33,7 @@
 									<listOptionValue builtIn="false" value="&quot;/home/catabit/.opt/petalinux/tools/linux-i386/gcc-arm-linux-gnueabi/arm-linux-gnueabihf/libc/usr/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/home/catabit/.opt/petalinux/tools/linux-i386/gcc-arm-linux-gnueabi/lib/gcc/arm-linux-gnueabihf/6.2.1/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/home/catabit/.opt/petalinux/tools/linux-i386/gcc-arm-linux-gnueabi/lib/gcc/arm-linux-gnueabihf/6.2.1/include-fixed&quot;"/>
-									<listOptionValue builtIn="false" value="/home/catabit/Zybo/build/tmp/sysroots/plnx_arm/usr/include"/>
+									<listOptionValue builtIn="false" value="/home/catabit/Zybo/i2c7010/build/tmp/sysroots/plnx_arm/usr/include"/>
 								</option>
 								<inputType id="xilinx.gnu.armv7.linux.c.compiler.input.339503655" name="C source files" superClass="xilinx.gnu.armv7.linux.c.compiler.input"/>
 							</tool>
@@ -44,12 +44,13 @@
 							<tool id="xilinx.gnu.armv7.linux.toolchain.archiver.1639460383" name="ARM v7 Linux archiver" superClass="xilinx.gnu.armv7.linux.toolchain.archiver"/>
 							<tool id="xilinx.gnu.armv7.linux.c.toolchain.linker.debug.90216778" name="ARM v7 Linux gcc linker" superClass="xilinx.gnu.armv7.linux.c.toolchain.linker.debug">
 								<option id="xilinx.gnu.c.link.option.paths.1945843698" name="Library search path (-L)" superClass="xilinx.gnu.c.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;/home/catabit/Zybo/build/tmp/sysroots/plnx_arm/usr/lib&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;/home/catabit/Zybo/build/tmp/sysroots/plnx_arm/lib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/home/catabit/Zybo/i2c7010/build/tmp/sysroots/plnx_arm/usr/lib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/home/catabit/Zybo/i2c7010/build/tmp/sysroots/plnx_arm/lib&quot;"/>
 								</option>
 								<option id="xilinx.gnu.c.link.option.libs.61512424" name="Libraries (-l)" superClass="xilinx.gnu.c.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="m"/>
 								</option>
+								<option id="xilinx.gnu.c.link.option.ldflags.2038461230" name="Linker Flags" superClass="xilinx.gnu.c.link.option.ldflags" value="--sysroot=&quot;/home/catabit/Zybo/i2c7010/build/tmp/sysroots/plnx_arm&quot;" valueType="string"/>
 								<inputType id="xilinx.gnu.linker.input.1053491682" superClass="xilinx.gnu.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -153,4 +154,5 @@
 			<resource resourceType="PROJECT" workspacePath="/acltest"/>
 		</configuration>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>
