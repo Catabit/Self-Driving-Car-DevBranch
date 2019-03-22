@@ -98,6 +98,10 @@ int main() {
 
 
 	printf("Successfully setup the camera!\n");
+	close(camerafd);
+	return 0;
+
+	//STOP HERE, JUST SETUP THE CAMERA
 
 	int test = open("/dev/video", O_RDONLY);
 	if(!test){

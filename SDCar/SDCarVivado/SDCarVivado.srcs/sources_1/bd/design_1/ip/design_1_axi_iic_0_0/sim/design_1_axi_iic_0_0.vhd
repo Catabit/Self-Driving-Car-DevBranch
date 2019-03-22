@@ -175,7 +175,7 @@ BEGIN
       C_FAMILY => "zynq",
       C_S_AXI_ADDR_WIDTH => 9,
       C_S_AXI_DATA_WIDTH => 32,
-      C_IIC_FREQ => 100000,
+      C_IIC_FREQ => 400000,
       C_TEN_BIT_ADR => 0,
       C_GPO_WIDTH => 1,
       C_S_AXI_ACLK_FREQ_HZ => 50000000,

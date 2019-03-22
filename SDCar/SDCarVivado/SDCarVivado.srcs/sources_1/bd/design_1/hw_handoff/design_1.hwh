@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Mar 14 22:08:28 2019" VIVADOVERSION="2017.4">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Mar 22 15:50:30 2019" VIVADOVERSION="2017.4">
 
   <SYSTEMINFO ARCH="zynq" BOARD="digilentinc.com:zybo-z7-20:part0:1.0" DEVICE="7z020" NAME="design_1" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -99,11 +99,6 @@
         <CONNECTION INSTANCE="sonarDriver_0" PORT="pwm_in"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" LEFT="0" NAME="camera_enable" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_camera_enable_sw">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="External_Ports" PORT="camera_enable_sw"/>
-      </CONNECTIONS>
-    </PORT>
     <PORT DIR="I" NAME="motion_enable_sw" SIGIS="undef" SIGNAME="External_Ports_motion_enable_sw">
       <CONNECTIONS>
         <CONNECTION INSTANCE="External_Ports" PORT="motionEnableLed"/>
@@ -117,8 +112,13 @@
     </PORT>
     <PORT DIR="I" NAME="camera_enable_sw" SIGIS="undef" SIGNAME="External_Ports_camera_enable_sw">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="External_Ports" PORT="camera_enable"/>
         <CONNECTION INSTANCE="External_Ports" PORT="cameraEnableLed"/>
+        <CONNECTION INSTANCE="External_Ports" PORT="camera_enable"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="0" NAME="camera_enable" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_camera_enable_sw">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="External_Ports" PORT="camera_enable_sw"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="O" NAME="cameraEnableLed" SIGIS="undef" SIGNAME="External_Ports_camera_enable_sw">
@@ -2017,7 +2017,7 @@
         <PARAMETER NAME="C_FAMILY" VALUE="zynq"/>
         <PARAMETER NAME="C_S_AXI_ADDR_WIDTH" VALUE="9"/>
         <PARAMETER NAME="C_S_AXI_DATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_IIC_FREQ" VALUE="100000"/>
+        <PARAMETER NAME="C_IIC_FREQ" VALUE="400000"/>
         <PARAMETER NAME="C_TEN_BIT_ADR" VALUE="0"/>
         <PARAMETER NAME="C_GPO_WIDTH" VALUE="1"/>
         <PARAMETER NAME="C_S_AXI_ACLK_FREQ_HZ" VALUE="50000000"/>
@@ -2029,7 +2029,7 @@
         <PARAMETER NAME="Component_Name" VALUE="design_1_axi_iic_0_0"/>
         <PARAMETER NAME="TEN_BIT_ADR" VALUE="7_bit"/>
         <PARAMETER NAME="AXI_ACLK_FREQ_MHZ" VALUE="50.0"/>
-        <PARAMETER NAME="IIC_FREQ_KHZ" VALUE="100"/>
+        <PARAMETER NAME="IIC_FREQ_KHZ" VALUE="400"/>
         <PARAMETER NAME="USE_BOARD_FLOW" VALUE="false"/>
         <PARAMETER NAME="IIC_BOARD_INTERFACE" VALUE="Custom"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
@@ -5537,11 +5537,11 @@
             <CONNECTION INSTANCE="axi_vdma_0" PORT="s_axis_s2mm_aclk"/>
             <CONNECTION INSTANCE="processing_system7_0" PORT="S_AXI_HP0_ACLK"/>
             <CONNECTION INSTANCE="MIPI_CSI_2_RX_0" PORT="video_aclk"/>
+            <CONNECTION INSTANCE="AXI_BayerToRGB_0" PORT="StreamClk"/>
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="ACLK"/>
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="S00_ACLK"/>
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="M00_ACLK"/>
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="M01_ACLK"/>
-            <CONNECTION INSTANCE="AXI_BayerToRGB_0" PORT="StreamClk"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="200000000" DIR="O" NAME="clk_out2" SIGIS="clk" SIGNAME="clk_wiz_0_clk_out2">
@@ -8568,6 +8568,7 @@
             <CONNECTION INSTANCE="axi_iic_0" PORT="s_axi_aresetn"/>
             <CONNECTION INSTANCE="sonarDriver_0" PORT="s00_axi_aresetn"/>
             <CONNECTION INSTANCE="MotionController_0" PORT="s00_axi_aresetn"/>
+            <CONNECTION INSTANCE="AXI_BayerToRGB_0" PORT="sStreamReset_n"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M00_ARESETN"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="S00_ARESETN"/>
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="S00_ARESETN"/>
@@ -8578,7 +8579,6 @@
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M03_ARESETN"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M04_ARESETN"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M05_ARESETN"/>
-            <CONNECTION INSTANCE="AXI_BayerToRGB_0" PORT="sStreamReset_n"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>

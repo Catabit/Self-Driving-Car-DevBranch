@@ -116,19 +116,24 @@ int requestData(int fd, int8_t address, uint8_t *output, uint8_t length){
 	}
 }
 
+
 int8_t readAckFrame(int fd) {
 	const uint8_t PN532_ACK[] = {0, 0, 0xFF, 0, 0xFF, 0};
 	uint8_t ackBuf[sizeof(PN532_ACK)+1];
 
-	DEBUG(2);
-
 	uint16_t time = 0;
 	do {
-		if (requestData(fd, PN532_I2C_ADDRESS, ackBuf, 7)) {
+		if (requestData(fd, PN532_I2C_ADDRESS, ackBuf, 7)==7) {
 			if (ackBuf[0] & 1) {  // check first byte --- status
 				break;         // PN532 is ready
 			}
 		}
+		/*printf("ACK: ");
+		for (int i=0; i<7; i++){
+			printf(" 0x%x", ackBuf[i]);
+		}
+		printf("\n");
+		*/
 
 		usleep(1000);
 		time++;
@@ -141,9 +146,10 @@ int8_t readAckFrame(int fd) {
 	//requestData(fd, PN532_I2C_ADDRESS, ackBuf+1, 6);
 
 	int ok=1;
-	for (int i=0; i<sizeof(PN532_ACK); i++)
+	for (int i=0; i<sizeof(PN532_ACK); i++){
 		if (ackBuf[1+i]!=PN532_ACK[i])
 			ok=0;
+	}
 
 
 	//if (memcmp(ackBuf+1, PN532_ACK, sizeof(PN532_ACK))) {
@@ -202,8 +208,6 @@ int8_t writeCommand(int fd, const uint8_t *header, uint8_t hlen, const uint8_t *
 	if(write(fd, iicbuf, 8+hlen)!=8+hlen)
 		return -1;
 
-	DEBUG(1);
-
 	return readAckFrame(fd);
 
 }
@@ -213,7 +217,6 @@ int16_t getResponseLength(int fd, uint16_t timeout) {
 	uint16_t time = 0;
 	uint8_t iicbuf[7];
 
-	DEBUG(4);
 
 	do {
 		if (requestData(fd, PN532_I2C_ADDRESS, iicbuf, 7)) {
@@ -231,7 +234,6 @@ int16_t getResponseLength(int fd, uint16_t timeout) {
 		}
 	} while (1);
 
-	DEBUG(10);
 
 	if (0x00 != iicbuf[1]      ||       // PREAMBLE
 			0x00 != iicbuf[2]  ||       // STARTCODE1
@@ -261,24 +263,18 @@ int16_t getResponseLength(int fd, uint16_t timeout) {
 int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 	uint16_t time = 0;
 	int8_t length;
+	uint8_t iicbuf[64];
 
-	DEBUG(3);
+	//requestData(fd, PN532_I2C_ADDRESS, iicbuf, sizeof(iicbuf));
+	//length = iicbuf[3];
 
-	length = getResponseLength(fd, timeout);
 
 
-	if (length<1){
-		printf("Could not get response length. %d\n", length);
-		return -1;
-	}
 
-	DEBUG(42);
-
-	uint8_t iicbuf[6 + length + 2];
 
 	// [RDY] 00 00 FF LEN LCS (TFI PD0 ... PDn) DCS 00
 	do {
-		if (requestData(fd, PN532_I2C_ADDRESS, iicbuf, 6 + length + 2)) {
+		if (requestData(fd, PN532_I2C_ADDRESS, iicbuf, sizeof(iicbuf))) {
 			if (iicbuf[0] & 1) {  // check first byte --- status
 				break;         // PN532 is ready
 			}
@@ -292,6 +288,17 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 		}
 	} while (1);
 
+	//###############################
+
+	/*for (int i=0; i<30; i++){
+		printf(" 0x%x", iicbuf[i]);
+	}
+	printf("\n");
+	*/
+
+	//###############################
+
+
 	if (0x00 != iicbuf[1]      ||       // PREAMBLE
 			0x00 != iicbuf[2]  ||       // STARTCODE1
 			0xFF != iicbuf[3]           // STARTCODE2
@@ -301,6 +308,12 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 	}
 
 	length = iicbuf[4];
+
+	if (length<1){
+		printf("Could not get response length. %d\n", length);
+		return -1;
+	}
+
 
 	if (0 != (uint8_t)(length + iicbuf[5])) {   // checksum of length
 		return PN532_INVALID_FRAME;
@@ -331,6 +344,7 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 	return length;
 }
 
+
 //#############################################################################
 
 
@@ -352,8 +366,6 @@ uint32_t getFirmwareVersion(int fd)
         return 0;
     }
 
-    printf("DEBUG Written\n");
-
 
     // read data packet
     int16_t status = readResponse(fd, pn532_packetbuffer, sizeof(pn532_packetbuffer), 1000);
@@ -361,7 +373,6 @@ uint32_t getFirmwareVersion(int fd)
         return 0;
     }
 
-    DEBUG(5);
 
     response = pn532_packetbuffer[0];
     response <<= 8;
@@ -478,7 +489,6 @@ uint8_t readPassiveTargetID(int fd, uint8_t cardbaudrate, uint8_t *uid, uint8_t 
 
     if (writeCommand(fd, pn532_packetbuffer, 3, NULL, 0))
 		return 0;
-    printf("smth\n");
 
     // read data packet
     if (readResponse(fd, pn532_packetbuffer, sizeof(pn532_packetbuffer), timeout) < 0) {
@@ -595,10 +605,8 @@ uint8_t mifareclassic_AuthenticateBlock (int fd, uint8_t *uid, uint8_t uidLen, u
     if (writeCommand(fd, pn532_packetbuffer, 10 + _uidLen, NULL, 0))
         return 0;
 
-    printf("smth\n");
     // Read the response packet
     readResponse(fd, pn532_packetbuffer, sizeof(pn532_packetbuffer), 1000);
-    printf("nice\n");
 
     // Check if the response is valid and we are authenticated???
     // for an auth success it should be bytes 5-7: 0xD5 0x41 0x00
@@ -688,7 +696,6 @@ uint8_t mifareclassic_WriteDataBlock (int fd, uint8_t blockNumber, uint8_t *data
 
 
 int init(){
-
 	int fd;
 	command = 0;
 	if ((fd = open("/dev/i2c-1", O_RDWR)) < 0) {
@@ -707,3 +714,4 @@ int init(){
 	printf("Opened device \n");
 	return fd;
 }
+

@@ -188,6 +188,10 @@ proc create_root_design { parentCell } {
  ] $AXI_BayerToRGB_0
 
   set_property -dict [ list \
+   CONFIG.TDATA_NUM_BYTES {5} \
+ ] [get_bd_intf_pins /AXI_BayerToRGB_0/AXI_Slave_Interface]
+
+  set_property -dict [ list \
    CONFIG.TDATA_NUM_BYTES {3} \
  ] [get_bd_intf_pins /AXI_BayerToRGB_0/AXI_Stream_Master]
 
@@ -210,6 +214,9 @@ proc create_root_design { parentCell } {
 
   # Create instance: axi_iic_0, and set properties
   set axi_iic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.0 axi_iic_0 ]
+  set_property -dict [ list \
+   CONFIG.IIC_FREQ_KHZ {400} \
+ ] $axi_iic_0
 
   # Create instance: axi_interconnect_0, and set properties
   set axi_interconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_interconnect_0 ]
