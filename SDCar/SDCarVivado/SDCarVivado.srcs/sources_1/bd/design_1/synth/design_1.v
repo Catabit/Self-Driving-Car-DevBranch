@@ -1,8 +1,8 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Fri Mar 22 15:50:28 2019
-//Host        : catabit-UX430UAR running 64-bit Ubuntu 16.04.6 LTS
+//Date        : Wed Mar 27 19:35:21 2019
+//Host        : catabit-VirtualBox running 64-bit Ubuntu 16.04.6 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
 //Purpose     : IP block netlist
@@ -145,12 +145,6 @@ module design_1
   wire MotionController_0_motor_right_dir_out;
   wire MotionController_0_motor_right_pwm_out;
   wire MotionController_0_servo_pwm_out;
-  wire axi_iic_0_IIC_SCL_I;
-  wire axi_iic_0_IIC_SCL_O;
-  wire axi_iic_0_IIC_SCL_T;
-  wire axi_iic_0_IIC_SDA_I;
-  wire axi_iic_0_IIC_SDA_O;
-  wire axi_iic_0_IIC_SDA_T;
   wire axi_iic_0_iic2intc_irpt;
   wire [31:0]axi_interconnect_0_M00_AXI_ARADDR;
   wire [1:0]axi_interconnect_0_M00_AXI_ARBURST;
@@ -244,6 +238,12 @@ module design_1
   wire processing_system7_0_IIC_0_SDA_I;
   wire processing_system7_0_IIC_0_SDA_O;
   wire processing_system7_0_IIC_0_SDA_T;
+  wire processing_system7_0_IIC_1_SCL_I;
+  wire processing_system7_0_IIC_1_SCL_O;
+  wire processing_system7_0_IIC_1_SCL_T;
+  wire processing_system7_0_IIC_1_SDA_I;
+  wire processing_system7_0_IIC_1_SDA_O;
+  wire processing_system7_0_IIC_1_SDA_T;
   wire [31:0]processing_system7_0_M_AXI_GP0_ARADDR;
   wire [1:0]processing_system7_0_M_AXI_GP0_ARBURST;
   wire [3:0]processing_system7_0_M_AXI_GP0_ARCACHE;
@@ -397,8 +397,6 @@ module design_1
   wire [0:0]rst_ps7_0_50M_peripheral_reset;
   wire [1:0]xlconcat_0_dout;
 
-  assign axi_iic_0_IIC_SCL_I = ps_iic_scl_i;
-  assign axi_iic_0_IIC_SDA_I = ps_iic_sda_i;
   assign cam_iic_scl_o = processing_system7_0_IIC_0_SCL_O;
   assign cam_iic_scl_t = processing_system7_0_IIC_0_SCL_T;
   assign cam_iic_sda_o = processing_system7_0_IIC_0_SDA_O;
@@ -422,10 +420,12 @@ module design_1
   assign motor_right_pwm_out = MotionController_0_motor_right_pwm_out;
   assign processing_system7_0_IIC_0_SCL_I = cam_iic_scl_i;
   assign processing_system7_0_IIC_0_SDA_I = cam_iic_sda_i;
-  assign ps_iic_scl_o = axi_iic_0_IIC_SCL_O;
-  assign ps_iic_scl_t = axi_iic_0_IIC_SCL_T;
-  assign ps_iic_sda_o = axi_iic_0_IIC_SDA_O;
-  assign ps_iic_sda_t = axi_iic_0_IIC_SDA_T;
+  assign processing_system7_0_IIC_1_SCL_I = ps_iic_scl_i;
+  assign processing_system7_0_IIC_1_SDA_I = ps_iic_sda_i;
+  assign ps_iic_scl_o = processing_system7_0_IIC_1_SCL_O;
+  assign ps_iic_scl_t = processing_system7_0_IIC_1_SCL_T;
+  assign ps_iic_sda_o = processing_system7_0_IIC_1_SDA_O;
+  assign ps_iic_sda_t = processing_system7_0_IIC_1_SDA_T;
   assign pwm_in_0_1 = sonar0_pwm_in;
   assign servo_pwm_out = MotionController_0_servo_pwm_out;
   design_1_AXI_BayerToRGB_0_0 AXI_BayerToRGB_0
@@ -589,12 +589,8 @@ module design_1
         .s_axi_wready(ps7_0_axi_periph_M03_AXI_WREADY),
         .s_axi_wstrb(ps7_0_axi_periph_M03_AXI_WSTRB),
         .s_axi_wvalid(ps7_0_axi_periph_M03_AXI_WVALID),
-        .scl_i(axi_iic_0_IIC_SCL_I),
-        .scl_o(axi_iic_0_IIC_SCL_O),
-        .scl_t(axi_iic_0_IIC_SCL_T),
-        .sda_i(axi_iic_0_IIC_SDA_I),
-        .sda_o(axi_iic_0_IIC_SDA_O),
-        .sda_t(axi_iic_0_IIC_SDA_T));
+        .scl_i(1'b0),
+        .sda_i(1'b0));
   design_1_axi_interconnect_0_0 axi_interconnect_0
        (.ACLK(clk_wiz_0_clk_out1),
         .ARESETN(rst_ps7_0_50M_interconnect_aresetn),
@@ -738,6 +734,12 @@ module design_1
         .I2C0_SDA_I(processing_system7_0_IIC_0_SDA_I),
         .I2C0_SDA_O(processing_system7_0_IIC_0_SDA_O),
         .I2C0_SDA_T(processing_system7_0_IIC_0_SDA_T),
+        .I2C1_SCL_I(processing_system7_0_IIC_1_SCL_I),
+        .I2C1_SCL_O(processing_system7_0_IIC_1_SCL_O),
+        .I2C1_SCL_T(processing_system7_0_IIC_1_SCL_T),
+        .I2C1_SDA_I(processing_system7_0_IIC_1_SDA_I),
+        .I2C1_SDA_O(processing_system7_0_IIC_1_SDA_O),
+        .I2C1_SDA_T(processing_system7_0_IIC_1_SDA_T),
         .IRQ_F2P(xlconcat_0_dout),
         .MIO(FIXED_IO_mio[53:0]),
         .M_AXI_GP0_ACLK(processing_system7_0_FCLK_CLK0),

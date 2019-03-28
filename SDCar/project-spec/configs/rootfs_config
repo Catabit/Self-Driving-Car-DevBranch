@@ -142,9 +142,9 @@
 # i2c-tools 
 #
 CONFIG_i2c-tools=y
-# CONFIG_i2c-tools-dev is not set
+CONFIG_i2c-tools-dev=y
 # CONFIG_i2c-tools-dbg is not set
-# CONFIG_i2c-tools-misc is not set
+CONFIG_i2c-tools-misc=y
 
 #
 # init-ifupdown 
@@ -3705,8 +3705,8 @@ CONFIG_bridge-utils=y
 #
 # wpa-supplicant 
 #
-# CONFIG_wpa-supplicant is not set
-# CONFIG_wpa-supplicant-passphrase is not set
+CONFIG_wpa-supplicant=y
+CONFIG_wpa-supplicant-passphrase=y
 # CONFIG_wpa-supplicant-cli is not set
 # CONFIG_wpa-supplicant-dev is not set
 # CONFIG_wpa-supplicant-dbg is not set
@@ -4134,6 +4134,7 @@ CONFIG_sonarTest=y
 # modules 
 #
 CONFIG_motiondriver=y
+CONFIG_mt7601u=y
 CONFIG_sonardriver=y
 CONFIG_vdmadriver=y
 

@@ -24,6 +24,14 @@
 		disable-wp;
 	};
 
+	usb_phy0: usb_phy@0{
+		compatible = "usb-nop-xceiv";
+		#phy-cells = <0>;
+		//reg = <0xe0002000 0x1000>;
+		//view-port=<0x0170>;
+		//drv-vbus;
+	};
+
 	amba_pl: amba_pl {
 		MIPI_CSI_2_RX_0: MIPI_CSI_2_RX@43c10000 {
 			compatible = "generic-uio";
@@ -69,3 +77,10 @@
 		};
 	};
 };
+
+	&usb0 {
+		dr_mode = "host";
+		status = "okay";
+		usb-phy = <&usb_phy0>;
+	};
+

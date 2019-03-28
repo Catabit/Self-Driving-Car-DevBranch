@@ -5,7 +5,10 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
-#include <linux/i2c-dev.h>
+//#include <linux/i2c.h>
+//#include <linux/i2c-dev.h>
+#include <linux/i2c-dev-user.h>
+
 
 #define DEBUG(x) printf("DEBUG %d\n", x)
 
@@ -79,6 +82,8 @@
 
 uint8_t command; //last command sent
 
+
+
 void PrintHex(const uint8_t *data, const uint32_t numBytes)
 {
     for (uint8_t i = 0; i < numBytes; i++) {
@@ -107,6 +112,8 @@ void PrintHexChar(const uint8_t *data, const uint32_t numBytes)
 
 int requestData(int fd, int8_t address, uint8_t *output, uint8_t length){
 	int result = read(fd,output,length);
+
+	//i2c_smbus_read_block_data(fd, 1, output);
 
 	if (result != length) {
 		//printf("Failed to read %d bytes from the i2c bus. Read %d bytes instead.\n", length, result);

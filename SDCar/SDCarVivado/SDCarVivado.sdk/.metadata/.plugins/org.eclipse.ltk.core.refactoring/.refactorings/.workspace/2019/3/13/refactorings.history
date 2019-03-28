@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;rfidtest/src/PN532_spi.h&apos;" deleteContents="false" description="Delete resource &apos;rfidtest/src/PN532_spi.h&apos;" element1="/rfidtest/src/PN532_spi.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1553722710193"/>
+</session>
