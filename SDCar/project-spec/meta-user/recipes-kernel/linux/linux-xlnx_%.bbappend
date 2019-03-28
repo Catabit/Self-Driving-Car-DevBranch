@@ -11,6 +11,10 @@ SRC_URI += "file://user_2019-01-15-15-31-00.cfg \
             file://user_2019-03-28-14-48-00.cfg \
             file://user_2019-03-28-14-55-00.cfg \
             file://user_2019-03-28-15-08-00.cfg \
+            file://user_2019-03-28-19-53-00.cfg \
+            file://wifi.patch \
+            file://user_2019-03-28-20-12-00.cfg \
+            file://user_2019-03-28-20-58-00.cfg \
             "
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"

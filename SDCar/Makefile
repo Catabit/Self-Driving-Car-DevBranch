@@ -2,7 +2,7 @@ LOCAL_USERNAME = catabit
 
 BOOT_PARTITION = /media/$(LOCAL_USERNAME)/BOOT
 ROOTFS_PARTITION = /media/$(LOCAL_USERNAME)/rootfs
-SSH_IP = 10.20.30.4
+SSH_IP = 1.1.1.2
 VIVADO_PROJECT_NAME = SDCarVivado
 TOOLS = ../tools
 
@@ -34,7 +34,6 @@ deploy-rootfs:
 	sudo cp ./images/linux/rootfs.cpio $(ROOTFS_PARTITION)
 	cd $(ROOTFS_PARTITION); \
 	sudo pax -rvf rootfs.cpio &>/dev/null
-	
 
 unmount:
 	sync

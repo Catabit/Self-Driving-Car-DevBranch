@@ -4134,7 +4134,6 @@ CONFIG_sonarTest=y
 # modules 
 #
 CONFIG_motiondriver=y
-CONFIG_mt7601u=y
 CONFIG_sonardriver=y
 CONFIG_vdmadriver=y
 
