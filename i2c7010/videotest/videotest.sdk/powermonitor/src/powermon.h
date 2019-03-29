@@ -14,7 +14,7 @@
 /*                  Definitions                                 */
 /* ------------------------------------------------------------ */
 #define PMON_NO_BITS           10
-#define PMON_I2C_ADDR          0x1D  //TODO
+#define PMON_I2C_ADDR          0x2f  //TODO
 #define PMON_CONV_OFFSET_G_LSB (15.6 * 0.001) // Convert offset (g) to LSB,
 											 // 15.6 mg/LSB
 
@@ -23,10 +23,14 @@
 /*                  Parameters Definitions                      */
 /* ------------------------------------------------------------ */
 
-#define CONVERT_CONTINUOUSLY 0xC2 /*Set to convert current continuously. If readback is attempted before the first
-conversion is complete, the ADM1191 asserts an acknowledge and returns all 0s in the returned data*/
-#define STATUS_READ 0xC6 /* Status Read. When this bit is set, the data byte read back from the ADM1191 is the status byte.
-It contains the status of the device alerts.*/
+#define CONVERT_VOLTAGE_CONTINUOUSLY 0
+#define CONVERT_VOLTAGE_ONCE 1
+#define CONVERT_CURRENT_CONTINUOUSLY 2
+#define CONVERT_CURRENT_ONCE 3
+#define VRANGE 4
+#define STATUS_READ 6
+#define NONE 0
+
 
 
 
@@ -80,34 +84,59 @@ int writeData(int fd, uint8_t *data, uint8_t length) {
 	}
 }
 
-float ConvertADCtoVoltage(int8_t msb, int8_t lsb) {
+float ConvertADCtoVoltage(uint8_t msb, uint8_t lsb) {
 	float result;
-	uint16_t voltageCode = ((uint16_t) msb << 4) | ((uint16_t)lsb >> 4);
+	uint16_t MSB = msb;
+	/*uint8_t msb_reverse =0, lsb_reverse = 0;
 
-	result =  (26.52 / 4096) * voltageCode;
+	for(int i = 0;i<8;i++){
+		if((msb & (1 << i)))
+			msb_reverse |= 1 << ((8 - 1) - i);
+
+		if((lsb & (1 << i)))
+			lsb_reverse |= 1 << ((8 - 1) - i);
+	}*/
+
+	uint16_t voltageCode = (MSB << 4) | ((lsb >> 4) & 0x0F);
+	float fullscale = 26.25;
+	float range = 4096;
+
+
+	result =  (voltageCode / range) * fullscale;
 	return result;
 }
 
-float ConvertADCtoCurrent(int8_t msb, int8_t lsb) {
+float ConvertADCtoCurrent(uint8_t msb, uint8_t lsb) {
 	float result;
-	lsb &= 0b00001111;
-	uint16_t currentCode = ((uint16_t) msb << 4) | (uint16_t)lsb;
+	uint16_t MSB = msb;
+	uint16_t currentCode = (MSB << 4) | (lsb & 0x0F);
+	float fullscale = 0.10584;
+	float range = 4096;
+	float resistance = 0.1;
 
-	result =  ((105.84 / 4096) * currentCode) / 0.1;
+	result =  ((currentCode / range)* fullscale) / resistance;
 	return result;
 }
 
 
 void Pmon_VoltageCurrentRead(int fd, float *voltage, float *current) {
-	uint8_t dataBytes[3];
+	uint8_t dataBytes[4];
+	dataBytes[0] = 0;
+	dataBytes[1] = 0;
+	dataBytes[2] = 0;
+	dataBytes[3] = 0;
 	readData(fd, (uint8_t *)dataBytes, 3);
+	printf("Before converting: %d %d %d %d da\n",dataBytes[0], dataBytes[1], dataBytes[2], dataBytes[3]);
 
 	*voltage = ConvertADCtoVoltage(dataBytes[0], dataBytes[2]);
 	*current = ConvertADCtoCurrent(dataBytes[1], dataBytes[2]);
 }
 
-void SetContConversion(int fd){
-	writeData(fd, CONVERT_CONTINUOUSLY, 1);
+void checIfAlive(int fd){
+	uint8_t data = NONE;
+	if( writeData(fd, &data, 0) == 0) {
+		printf("Pmon is alive! \n");
+	}
 }
 
 

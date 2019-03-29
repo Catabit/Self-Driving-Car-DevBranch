@@ -23,7 +23,7 @@
 								<inputType id="xilinx.gnu.assembler.input.1039219849" superClass="xilinx.gnu.assembler.input"/>
 							</tool>
 							<tool id="xilinx.gnu.armv7.linux.c.toolchain.compiler.debug.2080735498" name="ARM v7 Linux gcc compiler" superClass="xilinx.gnu.armv7.linux.c.toolchain.compiler.debug">
-								<option defaultValue="gnu.c.optimization.level.none" id="xilinx.gnu.compiler.option.optimization.level.1477921165" name="Optimization Level" superClass="xilinx.gnu.compiler.option.optimization.level" valueType="enumerated"/>
+								<option defaultValue="gnu.c.optimization.level.none" id="xilinx.gnu.compiler.option.optimization.level.1477921165" name="Optimization Level" superClass="xilinx.gnu.compiler.option.optimization.level" value="gnu.c.optimization.level.optimize" valueType="enumerated"/>
 								<option id="xilinx.gnu.compiler.option.debugging.level.1774369341" name="Debug Level" superClass="xilinx.gnu.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="xilinx.gnu.compiler.dircategory.includes.864401340" name="Include Paths" superClass="xilinx.gnu.compiler.dircategory.includes" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;/home/catabit/Zybo/i2c7010/build/tmp/sysroots/plnx_arm/usr/include&quot;"/>
@@ -44,7 +44,7 @@
 									<listOptionValue builtIn="false" value="&quot;/home/catabit/Zybo/i2c7010/build/tmp/sysroots/plnx_arm/usr/lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/home/catabit/Zybo/i2c7010/build/tmp/sysroots/plnx_arm/lib&quot;"/>
 								</option>
-								<option id="xilinx.gnu.c.link.option.ldflags.795086626" superClass="xilinx.gnu.c.link.option.ldflags" value="--sysroot=&quot;/home/catabit/Zybo/i2c7010/build/tmp/sysroots/plnx_arm&quot;" valueType="string"/>
+								<option id="xilinx.gnu.c.link.option.ldflags.795086626" name="Linker Flags" superClass="xilinx.gnu.c.link.option.ldflags" value="--sysroot=&quot;/home/catabit/Zybo/i2c7010/build/tmp/sysroots/plnx_arm&quot;" valueType="string"/>
 								<inputType id="xilinx.gnu.linker.input.205462119" superClass="xilinx.gnu.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -136,5 +136,12 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.xilinx.managedbuilder.ui.ARMA53X32LinuxGCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/powermonitor"/>
+		</configuration>
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/powermonitor"/>
+		</configuration>
+	</storageModule>
 </cproject>

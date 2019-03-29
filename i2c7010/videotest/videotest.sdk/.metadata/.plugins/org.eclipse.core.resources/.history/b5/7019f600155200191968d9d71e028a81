@@ -1,0 +1,36 @@
+#include "powermon.h"
+
+
+void Run(int fd) {
+	//int16_t x, y, z;
+	float current = 0, voltage = 0;
+
+	printf("Pmon Demo Launched");
+
+	for (int i=0; i<10; i++){
+		Pmon_VoltageCurrentRead(fd, &voltage, &current);
+		printf("Voltage= %f      Current= %f \n");
+		usleep(100000);
+	}
+
+}
+
+void Initialize(int fd) {
+	uint8_t data = 0;
+	data |= (1<<CONVERT_CURRENT_CONTINUOUSLY);
+	data |= (1<<CONVERT_VOLTAGE_CONTINUOUSLY);
+	data |= (0<<VRANGE);
+	writeData(fd, &data, 1);
+	printf("Initialize worked\n");
+}
+
+
+int main()
+{
+	int fd = init();
+	printf("Let's start\n");
+	//Initialize(fd);
+	Run(fd);
+
+	return 0;
+}

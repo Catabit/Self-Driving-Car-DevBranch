@@ -3,6 +3,7 @@ LOCAL_USERNAME = catabit
 BOOT_PARTITION = /media/$(LOCAL_USERNAME)/BOOT
 ROOTFS_PARTITION = /media/$(LOCAL_USERNAME)/rootfs
 SSH_IP = 192.168.0.106
+LAPTOP_IP = 172.19.6.107
 VIVADO_PROJECT_NAME = videotest
 TOOLS = ../tools
 
@@ -57,6 +58,9 @@ cameratest:
 
 sendelfs:
 	scp `find $(VIVADO_PROJECT_NAME)/ -name *.elf -path */Debug/*` root@$(SSH_IP):
+
+createelfs:
+	sudo cp `find $(VIVADO_PROJECT_NAME)/ -name *.elf -path */Debug/*` /media/sf_Zybo/
 
 resetssh:
 	ssh-keygen -f "/home/$(LOCAL_USERNAME)/.ssh/known_hosts" -R $(SSH_IP)
