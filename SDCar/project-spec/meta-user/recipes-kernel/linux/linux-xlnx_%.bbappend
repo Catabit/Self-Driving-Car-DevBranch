@@ -15,6 +15,13 @@ SRC_URI += "file://user_2019-01-15-15-31-00.cfg \
             file://wifi.patch \
             file://user_2019-03-28-20-12-00.cfg \
             file://user_2019-03-28-20-58-00.cfg \
+            file://user_2019-03-29-14-54-00.cfg \
+            file://user_2019-03-29-16-47-00.cfg \
+            file://user_2019-03-29-17-23-00.cfg \
+            file://user_2019-03-29-17-42-00.cfg \
+            file://user_2019-03-29-18-02-00.cfg \
+            file://user_2019-03-29-18-23-00.cfg \
+            file://0001-Updating-the-rtl8188eu-driver.patch \
             "
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
