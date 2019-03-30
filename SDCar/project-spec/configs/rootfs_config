@@ -945,7 +945,7 @@ CONFIG_pciutils=y
 #
 # make 
 #
-# CONFIG_make is not set
+CONFIG_make=y
 # CONFIG_make-dbg is not set
 # CONFIG_make-dev is not set
 
@@ -3196,7 +3196,7 @@ CONFIG_packagegroup-core-ssh-dropbear=y
 #
 # rpm 
 #
-# CONFIG_rpm is not set
+CONFIG_rpm=y
 # CONFIG_rpm-build is not set
 # CONFIG_rpm-dev is not set
 # CONFIG_python-rpm is not set
@@ -4141,6 +4141,7 @@ CONFIG_vdmadriver=y
 # user packages 
 #
 CONFIG_uiotools=y
+# CONFIG_kernel-devsrc is not set
 
 #
 # PetaLinux RootFS Settings
