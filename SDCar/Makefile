@@ -8,7 +8,7 @@ TOOLS = ../tools
 
 PETALINUX_APPS = \
 	rfidtest \
-	cameratest \
+	initcamera \
 	sonarTest \
 	motionselftest \
 	motion \
@@ -63,9 +63,9 @@ fixlinks:
 fixlinks-modules:
 	$(TOOLS)/addLinks.sh $(VIVADO_PROJECT_NAME) modules $(PETALINUX_MODULES)
 
-cameratest:
+initcamera:
 	make sendelfs
-	ssh root@$(SSH_IP) ./cameratest.elf
+	ssh root@$(SSH_IP) ./initcamera.elf
 	scp root@$(SSH_IP):outimg0.ppm .
 	eog outimg0.ppm
 

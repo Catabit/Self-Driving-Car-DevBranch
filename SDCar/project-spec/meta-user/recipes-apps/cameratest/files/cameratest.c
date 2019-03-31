@@ -1,1 +1,0 @@
-../../../../../SDCarVivado/SDCarVivado.sdk/cameratest/src/cameratest.c

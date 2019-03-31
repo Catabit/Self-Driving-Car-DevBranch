@@ -3196,7 +3196,7 @@ CONFIG_packagegroup-core-ssh-dropbear=y
 #
 # rpm 
 #
-CONFIG_rpm=y
+# CONFIG_rpm is not set
 # CONFIG_rpm-build is not set
 # CONFIG_rpm-dev is not set
 # CONFIG_python-rpm is not set
@@ -4122,13 +4122,17 @@ CONFIG_wpa-supplicant-passphrase=y
 #
 # apps 
 #
-CONFIG_cameratest=y
+CONFIG_initcamera=y
 # CONFIG_gpio-demo is not set
+CONFIG_init-camera-boot=y
+CONFIG_init-wpa-supplicant-conf=y
 CONFIG_motion=y
-CONFIG_motionselftest=y
+# CONFIG_motionselftest is not set
 CONFIG_peekpoke=y
 CONFIG_rfidtest=y
-CONFIG_sonarTest=y
+CONFIG_rtl8188eu=y
+CONFIG_rtl8188eufw=y
+# CONFIG_sonarTest is not set
 
 #
 # modules 
@@ -4141,7 +4145,6 @@ CONFIG_vdmadriver=y
 # user packages 
 #
 CONFIG_uiotools=y
-# CONFIG_kernel-devsrc is not set
 
 #
 # PetaLinux RootFS Settings

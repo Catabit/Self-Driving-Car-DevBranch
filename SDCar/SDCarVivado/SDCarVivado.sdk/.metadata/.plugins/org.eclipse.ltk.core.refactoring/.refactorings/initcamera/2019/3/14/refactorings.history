@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;initcamera/src/cameratest.c&apos; to &apos;initcamera.c&apos;" description="Rename resource &apos;cameratest.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/cameratest.c" name="initcamera.c" stamp="1554040839465" updateReferences="true"/>
+</session>
