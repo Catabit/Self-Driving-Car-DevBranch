@@ -4130,13 +4130,13 @@ CONFIG_motion=y
 # CONFIG_motionselftest is not set
 CONFIG_peekpoke=y
 CONFIG_rfidtest=y
-CONFIG_rtl8188eu=y
 CONFIG_rtl8188eufw=y
 # CONFIG_sonarTest is not set
 
 #
 # modules 
 #
+CONFIG_8188eu=y
 CONFIG_motiondriver=y
 CONFIG_sonardriver=y
 CONFIG_vdmadriver=y
