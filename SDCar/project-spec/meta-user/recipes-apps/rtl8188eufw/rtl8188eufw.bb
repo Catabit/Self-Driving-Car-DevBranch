@@ -15,8 +15,8 @@ S = "${WORKDIR}"
 
 
 do_install_append() {
-	install -d ${D}/lib/firmware
-	install -m 0644 ${S}/rtl8188eufw.bin ${D}/lib/firmware/rtl8188eufw.bin
+	install -d ${D}/lib/firmware/rtlwifi/
+	install -m 0644 ${S}/rtl8188eufw.bin ${D}/lib/firmware/rtlwifi/rtl8188eufw.bin
 }
 
 FILES_${PN} += "/lib/*"

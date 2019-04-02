@@ -23,7 +23,7 @@
 								<inputType id="xilinx.gnu.assembler.input.318982186" superClass="xilinx.gnu.assembler.input"/>
 							</tool>
 							<tool command="arm-linux-gnueabihf-gcc" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="xilinx.gnu.armv7.linux.c.toolchain.compiler.debug.663907060" name="ARM v7 Linux gcc compiler" superClass="xilinx.gnu.armv7.linux.c.toolchain.compiler.debug">
-								<option defaultValue="gnu.c.optimization.level.none" id="xilinx.gnu.compiler.option.optimization.level.410610611" name="Optimization Level" superClass="xilinx.gnu.compiler.option.optimization.level" value="gnu.c.optimization.level.none" valueType="enumerated"/>
+								<option defaultValue="gnu.c.optimization.level.none" id="xilinx.gnu.compiler.option.optimization.level.410610611" name="Optimization Level" superClass="xilinx.gnu.compiler.option.optimization.level" value="gnu.c.optimization.level.optimize" valueType="enumerated"/>
 								<option id="xilinx.gnu.compiler.option.debugging.level.1902827379" name="Debug Level" superClass="xilinx.gnu.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="xilinx.gnu.compiler.dircategory.includes.98892477" name="Include Paths" superClass="xilinx.gnu.compiler.dircategory.includes" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;/home/catabit/Zybo/SDCar/build/tmp/sysroots/plnx_arm/usr/include&quot;"/>
@@ -45,7 +45,7 @@
 									<listOptionValue builtIn="false" value="&quot;/home/catabit/Zybo/SDCar/build/tmp/sysroots/plnx_arm/lib&quot;"/>
 								</option>
 								<option id="xilinx.gnu.c.link.option.ldflags.608401198" name="Linker Flags" superClass="xilinx.gnu.c.link.option.ldflags" value="--sysroot=&quot;/home/catabit/Zybo/SDCar/build/tmp/sysroots/plnx_arm&quot;" valueType="string"/>
-								<option id="xilinx.gnu.c.link.option.libs.1773278457" name="Libraries (-l)" superClass="xilinx.gnu.c.link.option.libs" valueType="libs"/>
+								<option id="xilinx.gnu.c.link.option.libs.1773278457" name="Libraries (-l)" superClass="xilinx.gnu.c.link.option.libs"/>
 								<inputType id="xilinx.gnu.linker.input.130740224" superClass="xilinx.gnu.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

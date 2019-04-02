@@ -4122,10 +4122,10 @@ CONFIG_wpa-supplicant-passphrase=y
 #
 # apps 
 #
-CONFIG_initcamera=y
 # CONFIG_gpio-demo is not set
 CONFIG_init-camera-boot=y
 CONFIG_init-wpa-supplicant-conf=y
+CONFIG_initcamera=y
 CONFIG_motion=y
 # CONFIG_motionselftest is not set
 CONFIG_peekpoke=y

@@ -275,10 +275,6 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 	//requestData(fd, PN532_I2C_ADDRESS, iicbuf, sizeof(iicbuf));
 	//length = iicbuf[3];
 
-
-
-
-
 	// [RDY] 00 00 FF LEN LCS (TFI PD0 ... PDn) DCS 00
 	do {
 		if (requestData(fd, PN532_I2C_ADDRESS, iicbuf, sizeof(iicbuf))) {

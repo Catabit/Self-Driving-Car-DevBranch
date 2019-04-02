@@ -1,11 +1,26 @@
 #include "PN532_rfid.h"
 
+#define TIMEOUT 1000
+
+struct card {
+	uint8_t type;
+	uint32_t UID;
+};
+
+void printcard(struct card card){
+	printf("Card UID: %d, type: %d\n", card.UID, card.type);
+}
+
 int main() {
 	int fd = init();
+	if(!fd) {
+		printf("Error opening device");
+		return -1;
+	}
 	uint32_t versiondata = getFirmwareVersion(fd);
 	if (! versiondata) {
 		printf("Didn't find PN53x board\n");
-		return 0; // halt
+		return -1; // halt
 	}
 
 	printf("Found chip PN5"); printf("%x\n", (versiondata>>24) & 0xFF);
@@ -17,63 +32,42 @@ int main() {
 	printf("Configured SAM\n");
 
 	uint8_t success;
-	uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
+	uint8_t uid[6];
 	uint8_t uidLength;
-	uint16_t runtime = 10;
+
+	uint8_t keya[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }; //default key
+	uint8_t block = 4;
+
+	struct card lastcard;
 
 	sleep(1);
 	printf("You can now use cards\n");
 
-
-	success = 0;
-	while (runtime>0) {
-		success = readPassiveTargetID(fd, PN532_MIFARE_ISO14443A, uid, &uidLength, 1000);
-		if (success)
-		{
-			runtime=10;
+	while (1){
+		printf("Waiting for card\n");
+		memset(uid, 0, 6);
+		success = readPassiveTargetID(fd, PN532_MIFARE_ISO14443A, uid, &uidLength, 0);
+		if(success) {
 			printf("Found an ISO14443A card\n\tUID Length: %d bytes\n\tUID Value: ", uidLength);
-			PrintHex(uid, uidLength);
-			printf("\n");
+			if(uidLength != 4)
+				continue;
 
-			int block = 4;
-			if (uidLength == 4)
-			{
-				uint8_t keya[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
-				success = mifareclassic_AuthenticateBlock(fd, uid, uidLength, block, 0, keya);
+			success = mifareclassic_AuthenticateBlock(fd, uid, uidLength, block, 0, keya);
+			if (success) {
+				uint8_t data[16];
 
+				success = mifareclassic_ReadDataBlock(fd, block, data);
 				if (success) {
-					//write
-					uint8_t data[16] = { 'a', 'd', 'a', 'f', 'r', 'u', 'i', 't', '.', 'c', 'o', 'm', 0, 0, 0, 0};
-					//success = mifareclassic_WriteDataBlock(fd, block, data);
-
-					//read
-					success = mifareclassic_ReadDataBlock(fd, block, data);
-
-					if (success) {
-						// Data seems to have been read ... spit it out
-						printf("Reading Block 4:\n");
-						PrintHexChar(data, 16);
-
-						// Wait a bit before reading the card again
-
-					}
-					else
-						printf("Ooops ... unable to read the requested block.  Try another key?\n");
-
+					lastcard.type=data[0];
+					memcpy(&lastcard.UID, uid, 4);
+					printcard(lastcard);
 				}
 				else
-					printf("Ooops ... authentication failed: Try another key?\n");
-			}
-			sleep(1);
+					printf("Read block failed.\n");
+			} else
+				printf("Block auth failed.\n");
 		}
-		else{
-			sleep(1);
-			runtime-=1;
-		}
-
 	}
-
-
 	close(fd);
 }
 

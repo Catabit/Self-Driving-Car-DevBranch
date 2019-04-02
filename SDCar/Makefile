@@ -2,7 +2,7 @@ LOCAL_USERNAME = catabit
 
 BOOT_PARTITION = /media/$(LOCAL_USERNAME)/BOOT
 ROOTFS_PARTITION = /media/$(LOCAL_USERNAME)/rootfs
-SSH_IP = 1.1.1.2
+SSH_IP = 172.19.9.190
 VIVADO_PROJECT_NAME = SDCarVivado
 TOOLS = ../tools
 
@@ -70,7 +70,7 @@ initcamera:
 	eog outimg0.ppm
 
 sendelfs:
-	scp `find $(VIVADO_PROJECT_NAME)/ -name *.elf -path */Debug/*` root@$(SSH_IP):
+	scp `find $(VIVADO_PROJECT_NAME)/ -name rfidtest.elf -path */Debug/*` root@$(SSH_IP):
 
 resetssh:
 	ssh-keygen -f "/home/$(LOCAL_USERNAME)/.ssh/known_hosts" -R $(SSH_IP)
