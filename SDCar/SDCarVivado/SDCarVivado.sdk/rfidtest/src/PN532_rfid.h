@@ -1,3 +1,5 @@
+#ifndef PN532_RFID_H
+#define PN532_RFID_H
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
@@ -9,8 +11,8 @@
 //#include <linux/i2c-dev.h>
 #include <linux/i2c-dev-user.h>
 
+//#define RFID_DEBUG
 
-#define DEBUG(x) printf("DEBUG %d\n", x)
 
 #define PN532_PREAMBLE                (0x00)
 #define PN532_STARTCODE1              (0x00)
@@ -706,15 +708,48 @@ int init(){
 		printf("Failed to open the i2c bus\n");
 		return -1;
 	}
+#ifdef RFID_DEBUG
 	printf("Opened the bus\n");
+#endif
 
 	if (ioctl(fd,I2C_SLAVE_FORCE ,PN532_I2C_ADDRESS) < 0 ) {
 		printf("Failed to acquire bus access and/or talk to slave.\n");
 		/* ERROR HANDLING; you can check errno to see what went wrong */
 		return -1;
 	}
-
+#ifdef RFID_DEBUG
 	printf("Opened device \n");
+#endif
 	return fd;
 }
 
+
+int initRFID() {
+	int fd = init();
+	if (!fd) {
+		printf("Error opening device");
+		return -1;
+	}
+	uint32_t versiondata = getFirmwareVersion(fd);
+	if (!versiondata) {
+		printf("Didn't find PN53x board\n");
+		return -1; // halt
+	}
+
+#ifdef RFID_DEBUG
+	printf("Found chip PN5");
+	printf("%x\n", (versiondata >> 24) & 0xFF);
+	printf("Firmware ver. ");
+	printf("%d", (versiondata >> 16) & 0xFF);
+	printf(".");
+	printf("%d\n", (versiondata >> 8) & 0xFF);
+#endif
+
+	if (SAMConfig(fd) != 0)
+		return -1;
+
+	return fd;
+
+}
+
+#endif

@@ -1,0 +1,30 @@
+#include "PN532_rfid.h"
+
+
+int initRFID() {
+	int fd = init();
+	if (!fd) {
+		printf("Error opening device");
+		return -1;
+	}
+	uint32_t versiondata = getFirmwareVersion(fd);
+	if (!versiondata) {
+		printf("Didn't find PN53x board\n");
+		return -1; // halt
+	}
+
+#ifdef RFID_DEBUG
+	printf("Found chip PN5");
+	printf("%x\n", (versiondata >> 24) & 0xFF);
+	printf("Firmware ver. ");
+	printf("%d", (versiondata >> 16) & 0xFF);
+	printf(".");
+	printf("%d\n", (versiondata >> 8) & 0xFF);
+#endif
+
+	if (SAMConfig(fd) != 0)
+		return -1;
+
+	return fd;
+
+}

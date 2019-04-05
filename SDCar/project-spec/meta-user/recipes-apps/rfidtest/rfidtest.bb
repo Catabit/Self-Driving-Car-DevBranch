@@ -9,6 +9,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 SRC_URI = "file://rfidtest.c \
 	   file://PN532_rfid.h \
+	   file://cardQueue.h \
+	   file://cards.h \
 	   file://Makefile \
 		  "
 

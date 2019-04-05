@@ -1,0 +1,94 @@
+#include "PN532_rfid.h"
+#include "cardQueue.h"
+
+#define TIMEOUT 1000
+#define MAXCARDS 10
+
+void printcard(struct card card) {
+	printf("Card UID: %d, type: %d\n", card.UID, card.type);
+}
+
+int initRFID() {
+	int fd = init();
+	if (!fd) {
+		printf("Error opening device");
+		return -1;
+	}
+	uint32_t versiondata = getFirmwareVersion(fd);
+	if (!versiondata) {
+		printf("Didn't find PN53x board\n");
+		return -1; // halt
+	}
+
+	printf("Found chip PN5");
+	printf("%x\n", (versiondata >> 24) & 0xFF);
+	printf("Firmware ver. ");
+	printf("%d", (versiondata >> 16) & 0xFF);
+	printf(".");
+	printf("%d\n", (versiondata >> 8) & 0xFF);
+
+	if (SAMConfig(fd) < 1)
+		return -1;
+
+	return fd;
+
+}
+
+void runRFID(int fd, struct cardQueue *queue) {
+
+	uint8_t success;
+	uint8_t uid[6];
+	uint8_t uidLength;
+
+	uint8_t keya[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }; //default key
+	uint8_t block = 4;
+	uint8_t numCards = 0;
+
+	while (numCards < MAXCARDS) {
+		printf("Waiting for card\n");
+		memset(uid, 0, 6);
+		success = readPassiveTargetID(fd, PN532_MIFARE_ISO14443A, uid,
+				&uidLength, 0);
+		if (success) {
+			printf(
+					"Found an ISO14443A card\n\tUID Length: %d bytes\n\tUID Value: ",
+					uidLength);
+			if (uidLength != 4)
+				continue;
+
+			success = mifareclassic_AuthenticateBlock(fd, uid, uidLength, block,
+					0, keya);
+			if (success) {
+				uint8_t data[16];
+
+				success = mifareclassic_ReadDataBlock(fd, block, data);
+				if (success) {
+					struct card *card = malloc(sizeof(card));
+					card->type = data[0];
+					memcpy(&card->UID, uid, 4);
+					insertCard(queue, card);
+					numCards++;
+				} else
+					printf("Read block failed.\n");
+			} else
+				printf("Block auth failed.\n");
+		}
+	}
+}
+
+int main() {
+	int fd = initRFID();
+	if (fd<0)
+		return -1;
+
+	struct cardQueue *queue;
+	createCardQueue(&queue);
+
+	runRFID(fd, queue);
+
+	freeCardQueue(queue);
+	free(queue);
+
+	close(fd);
+}
+

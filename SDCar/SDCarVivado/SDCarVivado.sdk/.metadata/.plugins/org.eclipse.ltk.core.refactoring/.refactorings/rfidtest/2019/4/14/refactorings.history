@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;rfidtest/src/queue.h&apos; to &apos;cardQueue.h&apos;" description="Rename resource &apos;queue.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/queue.h" name="cardQueue.h" stamp="1554474269733" updateReferences="true"/>
+</session>

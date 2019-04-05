@@ -1,0 +1,77 @@
+#include "powermon.h"
+
+#include <linux/i2c-core>
+
+void Run(int fd) {
+	//int16_t x, y, z;
+	float current = 0, voltage = 0;
+
+	printf("Pmon Demo Launched");
+
+	for (int i=0; i<10; i++){
+		//SetContConversion(fd);
+		usleep(100000);
+		Pmon_VoltageCurrentRead(fd, &voltage, &current);
+		//readV(fd);
+		//readStatus(fd);
+		printf("Voltage= %f      Current= %f \n");
+
+	}
+
+}
+
+void Initialize(int fd) {
+	SetContConversion(fd);
+	printf("Initialize worked\n");
+}
+
+struct adm1192_st {
+	int major;
+	struct cdev classdev;
+	struct class *class;
+	struct i2c_client *i2c_client;
+} adm1192;
+
+struct i2c_device_id adm1192_id[] = {
+	{"adm1192",  0},
+	{}
+};
+
+
+static ssize_t adm_read(struct file *file, char __user *buf,
+			 size_t count, loff_t *ppos)
+{
+	unsigned char data[3];
+	int i;
+
+	if (!adm1192.i2c_client)
+		return -ENODEV;
+
+	/* Enable the current/voltage continuous conversion */
+	data[0] = 0x15;
+	i2c_master_send(adm1192.i2c_client, data, 1);
+
+	/* 400 us delay is required for adm to store cur/vol
+	 * values into registers */
+	udelay(400);
+	i2c_master_recv(adm1192.i2c_client, data, 3);
+
+	for (i = 0; i < 3; i++) {
+		if (put_user(data[i], (unsigned char __user *)buf+i))
+			break;
+	}
+
+	return i;
+}
+
+
+int main()
+{
+	int fd = init();
+	printf("Let's start\n");
+
+
+
+	close(fd);
+	return 0;
+}
