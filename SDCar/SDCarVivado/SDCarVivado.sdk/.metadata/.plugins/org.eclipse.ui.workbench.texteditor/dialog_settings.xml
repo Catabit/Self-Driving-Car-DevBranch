@@ -6,12 +6,13 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="printf" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="write"/>
 			<item value="printf"/>
 			<item value="servo"/>
 			<item value="motiondriver"/>
@@ -19,7 +20,6 @@
 			<item value="vdmadriver"/>
 			<item value="charvideo"/>
 			<item value="device_create"/>
-			<item value="create"/>
 		</list>
 		<list key="replacehistory">
 			<item value="sonar"/>
