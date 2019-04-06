@@ -20,6 +20,7 @@ struct Node {
 struct cardQueue {
 	struct Node *head;
 	struct Node *last;
+	uint32_t lastUID;
 };
 
 /**
@@ -28,7 +29,7 @@ struct cardQueue {
 int insertCard(struct cardQueue *q, struct card *card) {
 #ifdef CHECKDUPLICATES
 	if (q->last != NULL){
-		if (card->UID == q->last->card->UID){
+		if (card->UID == q->lastUID){
 #ifdef RFID_DEBUG
 			printf("##### DUPLICATE\n");
 #endif
@@ -43,10 +44,12 @@ int insertCard(struct cardQueue *q, struct card *card) {
 	if (q->head == NULL) {
 		q->head = newnode;
 		q->last = newnode;
+		q->lastUID = newnode->card->UID;
 		return 1;
 	}
 	q->last->next = newnode;
 	q->last = newnode;
+	q->lastUID = newnode->card->UID;
 	return 1;
 }
 
@@ -63,6 +66,8 @@ struct card *popCard(struct cardQueue *q) {
 
 	struct Node *result = q->head;
 	q->head = q->head->next;
+	if (q->head == NULL)
+		q->lastUID = 0;
 	return result->card;
 }
 
@@ -73,6 +78,7 @@ void createCardQueue(struct cardQueue **q) {
 	(*q) = malloc(sizeof(struct cardQueue));
 	(*q)->head = NULL;
 	(*q)->last = NULL;
+	(*q)->lastUID = 0;
 }
 
 static void freeNodes(struct Node *node){
