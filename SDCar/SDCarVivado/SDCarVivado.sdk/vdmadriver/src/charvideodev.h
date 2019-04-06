@@ -27,7 +27,7 @@ ssize_t charvideo_read(struct file *fp, char __user *buf, size_t count, loff_t *
 
 
 	//do read
-	printk(KERN_NOTICE "Copying\n");
+//	printk(KERN_NOTICE "Copying\n");
 
 	if (copy_to_user(buf, v->fb2VirtualAddress, count)) {
 		return -EFAULT;

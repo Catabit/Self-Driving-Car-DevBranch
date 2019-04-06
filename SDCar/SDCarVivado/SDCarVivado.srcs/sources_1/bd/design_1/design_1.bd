@@ -301,12 +301,6 @@
           </spirit:wire>
         </spirit:port>
         <spirit:port>
-          <spirit:name>cameraEnableLed</spirit:name>
-          <spirit:wire>
-            <spirit:direction>out</spirit:direction>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
           <spirit:name>camera_enable</spirit:name>
           <spirit:wire>
             <spirit:direction>out</spirit:direction>
@@ -314,6 +308,12 @@
               <spirit:left>0</spirit:left>
               <spirit:right>0</spirit:right>
             </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>cameraEnableLed</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
           </spirit:wire>
         </spirit:port>
       </spirit:ports>
@@ -772,7 +772,7 @@
         <spirit:componentRef spirit:library="ip" spirit:name="xlconcat" spirit:vendor="xilinx.com" spirit:version="2.1"/>
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_xlconcat_0_0</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="NUM_PORTS">2</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="NUM_PORTS">1</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
@@ -782,14 +782,6 @@
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_MIPI_CSI_2_RX_0_0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="kGenerateAXIL">true</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="kDebug">false</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
-        <spirit:instanceName>axi_iic_0</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="axi_iic" spirit:vendor="xilinx.com" spirit:version="2.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">design_1_axi_iic_0_0</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="IIC_FREQ_KHZ">400</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
@@ -852,11 +844,6 @@
         <spirit:activeInterface spirit:busRef="S_AXI_LITE" spirit:componentRef="MIPI_CSI_2_RX_0"/>
       </spirit:interconnection>
       <spirit:interconnection>
-        <spirit:name>ps7_0_axi_periph_M03_AXI</spirit:name>
-        <spirit:activeInterface spirit:busRef="S_AXI" spirit:componentRef="axi_iic_0"/>
-        <spirit:activeInterface spirit:busRef="M03_AXI" spirit:componentRef="ps7_0_axi_periph"/>
-      </spirit:interconnection>
-      <spirit:interconnection>
         <spirit:name>ps7_0_axi_periph_M04_AXI</spirit:name>
         <spirit:activeInterface spirit:busRef="S00_AXI" spirit:componentRef="MotionController_0"/>
         <spirit:activeInterface spirit:busRef="M04_AXI" spirit:componentRef="ps7_0_axi_periph"/>
@@ -902,7 +889,6 @@
         <spirit:internalPortReference spirit:componentRef="axi_vdma_0" spirit:portRef="axi_resetn"/>
         <spirit:internalPortReference spirit:componentRef="MIPI_D_PHY_RX_0" spirit:portRef="s_axi_lite_aresetn"/>
         <spirit:internalPortReference spirit:componentRef="MIPI_CSI_2_RX_0" spirit:portRef="s_axi_lite_aresetn"/>
-        <spirit:internalPortReference spirit:componentRef="axi_iic_0" spirit:portRef="s_axi_aresetn"/>
         <spirit:internalPortReference spirit:componentRef="sonarDriver_0" spirit:portRef="s00_axi_aresetn"/>
         <spirit:internalPortReference spirit:componentRef="MotionController_0" spirit:portRef="s00_axi_aresetn"/>
         <spirit:internalPortReference spirit:componentRef="AXI_BayerToRGB_0" spirit:portRef="sStreamReset_n"/>
@@ -982,7 +968,6 @@
         <spirit:internalPortReference spirit:componentRef="rst_ps7_0_50M" spirit:portRef="slowest_sync_clk"/>
         <spirit:internalPortReference spirit:componentRef="MIPI_D_PHY_RX_0" spirit:portRef="s_axi_lite_aclk"/>
         <spirit:internalPortReference spirit:componentRef="MIPI_CSI_2_RX_0" spirit:portRef="s_axi_lite_aclk"/>
-        <spirit:internalPortReference spirit:componentRef="axi_iic_0" spirit:portRef="s_axi_aclk"/>
         <spirit:internalPortReference spirit:componentRef="sonarDriver_0" spirit:portRef="s00_axi_aclk"/>
         <spirit:internalPortReference spirit:componentRef="MotionController_0" spirit:portRef="s00_axi_aclk"/>
         <spirit:internalPortReference spirit:componentRef="ps7_0_axi_periph" spirit:portRef="ACLK"/>
@@ -1013,11 +998,6 @@
         <spirit:name>AXI_BayerToRGB_0_m_axis_video_tuser</spirit:name>
         <spirit:internalPortReference spirit:componentRef="AXI_BayerToRGB_0" spirit:portRef="m_axis_video_tuser"/>
         <spirit:internalPortReference spirit:componentRef="axi_vdma_0" spirit:portRef="s_axis_s2mm_tuser"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>axi_iic_0_iic2intc_irpt</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="axi_iic_0" spirit:portRef="iic2intc_irpt"/>
-        <spirit:internalPortReference spirit:componentRef="xlconcat_0" spirit:portRef="In1"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>MotionController_0_motor_left_dir_out</spirit:name>
@@ -1058,8 +1038,8 @@
       <spirit:adHocConnection>
         <spirit:name>camera_enable_sw_1</spirit:name>
         <spirit:externalPortReference spirit:portRef="camera_enable_sw"/>
-        <spirit:externalPortReference spirit:portRef="camera_enable"/>
         <spirit:externalPortReference spirit:portRef="cameraEnableLed"/>
+        <spirit:externalPortReference spirit:portRef="camera_enable"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -4205,12 +4185,6 @@
             <spirit:name>SEG_MotionController_0_S00_AXI_reg</spirit:name>
             <spirit:displayName>/MotionController_0/S00_AXI/S00_AXI_reg</spirit:displayName>
             <spirit:addressOffset>0x43C20000</spirit:addressOffset>
-            <spirit:range>64K</spirit:range>
-          </spirit:segment>
-          <spirit:segment>
-            <spirit:name>SEG_axi_iic_0_Reg</spirit:name>
-            <spirit:displayName>/axi_iic_0/S_AXI/Reg</spirit:displayName>
-            <spirit:addressOffset>0x41600000</spirit:addressOffset>
             <spirit:range>64K</spirit:range>
           </spirit:segment>
           <spirit:segment>
