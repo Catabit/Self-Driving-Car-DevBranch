@@ -1,3 +1,0 @@
-# This file is automatically written.  Do not modify.
-proc gen_USERPARAMETER_kAddDelayData1_ps_ENABLEMENT {kNoOfDataLanes } {expr $kNoOfDataLanes > 1}
-proc gen_USERPARAMETER_kLPFromLane0_ENABLEMENT {kNoOfDataLanes } {expr $kNoOfDataLanes > 1}
