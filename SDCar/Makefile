@@ -12,6 +12,7 @@ PETALINUX_APPS = \
 	sonarTest \
 	motionselftest \
 	motion \
+	cvthread \
 
 PETALINUX_MODULES = \
 	vdmadriver \
