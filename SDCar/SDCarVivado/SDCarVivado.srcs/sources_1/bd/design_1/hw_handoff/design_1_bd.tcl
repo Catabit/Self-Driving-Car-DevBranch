@@ -216,6 +216,8 @@ proc create_root_design { parentCell } {
   set axi_interconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_interconnect_0 ]
   set_property -dict [ list \
    CONFIG.ENABLE_ADVANCED_OPTIONS {0} \
+   CONFIG.NUM_MI {1} \
+   CONFIG.NUM_SI {2} \
  ] $axi_interconnect_0
 
   # Create instance: axi_vdma_0, and set properties
@@ -229,6 +231,24 @@ proc create_root_design { parentCell } {
    CONFIG.c_s2mm_linebuffer_depth {1024} \
    CONFIG.c_use_s2mm_fsync {2} \
  ] $axi_vdma_0
+
+  # Create instance: axi_vdma_1, and set properties
+  set axi_vdma_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_vdma:6.3 axi_vdma_1 ]
+  set_property -dict [ list \
+   CONFIG.c_include_mm2s {0} \
+   CONFIG.c_include_s2mm {1} \
+   CONFIG.c_include_s2mm_dre {0} \
+   CONFIG.c_mm2s_genlock_mode {0} \
+   CONFIG.c_s2mm_genlock_mode {2} \
+   CONFIG.c_s2mm_linebuffer_depth {1024} \
+   CONFIG.c_use_s2mm_fsync {2} \
+ ] $axi_vdma_1
+
+  # Create instance: axis_broadcaster_0, and set properties
+  set axis_broadcaster_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_broadcaster:1.1 axis_broadcaster_0 ]
+
+  # Create instance: canny_edge_detection_0, and set properties
+  set canny_edge_detection_0 [ create_bd_cell -type ip -vlnv xilinx.com:hls:canny_edge_detection:1.0 canny_edge_detection_0 ]
 
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:5.4 clk_wiz_0 ]
@@ -245,16 +265,22 @@ proc create_root_design { parentCell } {
    CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {200.000} \
    CONFIG.CLKOUT2_USED {true} \
    CONFIG.CLKOUT3_DRIVES {BUFG} \
+   CONFIG.CLKOUT3_JITTER {249.313} \
+   CONFIG.CLKOUT3_PHASE_ERROR {155.997} \
+   CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {50} \
+   CONFIG.CLKOUT3_USED {false} \
    CONFIG.CLKOUT4_DRIVES {BUFG} \
    CONFIG.CLKOUT5_DRIVES {BUFG} \
    CONFIG.CLKOUT6_DRIVES {BUFG} \
    CONFIG.CLKOUT7_DRIVES {BUFG} \
+   CONFIG.CLK_OUT3_PORT {passthrough} \
    CONFIG.ENABLE_CLOCK_MONITOR {false} \
    CONFIG.MMCM_CLKFBOUT_MULT_F {12.000} \
    CONFIG.MMCM_CLKIN1_PERIOD {20.0} \
    CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
    CONFIG.MMCM_CLKOUT0_DIVIDE_F {4.000} \
    CONFIG.MMCM_CLKOUT1_DIVIDE {3} \
+   CONFIG.MMCM_CLKOUT2_DIVIDE {1} \
    CONFIG.MMCM_DIVCLK_DIVIDE {1} \
    CONFIG.NUM_OUT_CLKS {2} \
    CONFIG.PRIMITIVE {MMCM} \
@@ -265,6 +291,12 @@ proc create_root_design { parentCell } {
    CONFIG.USE_PHASE_ALIGNMENT {false} \
    CONFIG.USE_RESET {false} \
  ] $clk_wiz_0
+
+  # Create instance: proc_sys_reset_0, and set properties
+  set proc_sys_reset_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 proc_sys_reset_0 ]
+
+  # Create instance: proc_sys_reset_1, and set properties
+  set proc_sys_reset_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 proc_sys_reset_1 ]
 
   # Create instance: processing_system7_0, and set properties
   set processing_system7_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0 ]
@@ -776,15 +808,19 @@ proc create_root_design { parentCell } {
   # Create instance: xlconcat_0, and set properties
   set xlconcat_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0 ]
   set_property -dict [ list \
-   CONFIG.NUM_PORTS {1} \
+   CONFIG.NUM_PORTS {2} \
  ] $xlconcat_0
 
   # Create interface connections
-  connect_bd_intf_net -intf_net AXI_BayerToRGB_0_AXI_Stream_Master [get_bd_intf_pins AXI_BayerToRGB_0/AXI_Stream_Master] [get_bd_intf_pins axi_vdma_0/S_AXIS_S2MM]
+  connect_bd_intf_net -intf_net AXI_BayerToRGB_0_AXI_Stream_Master [get_bd_intf_pins AXI_BayerToRGB_0/AXI_Stream_Master] [get_bd_intf_pins axis_broadcaster_0/S_AXIS]
   connect_bd_intf_net -intf_net MIPI_CSI_2_RX_0_m_axis_video [get_bd_intf_pins AXI_BayerToRGB_0/AXI_Slave_Interface] [get_bd_intf_pins MIPI_CSI_2_RX_0/m_axis_video]
   connect_bd_intf_net -intf_net MIPI_D_PHY_RX_0_D_PHY_PPI [get_bd_intf_pins MIPI_CSI_2_RX_0/rx_mipi_ppi] [get_bd_intf_pins MIPI_D_PHY_RX_0/D_PHY_PPI]
   connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins axi_interconnect_0/M00_AXI] [get_bd_intf_pins processing_system7_0/S_AXI_HP0]
   connect_bd_intf_net -intf_net axi_vdma_0_M_AXI_S2MM [get_bd_intf_pins axi_interconnect_0/S00_AXI] [get_bd_intf_pins axi_vdma_0/M_AXI_S2MM]
+  connect_bd_intf_net -intf_net axi_vdma_1_M_AXI_S2MM [get_bd_intf_pins axi_interconnect_0/S01_AXI] [get_bd_intf_pins axi_vdma_1/M_AXI_S2MM]
+  connect_bd_intf_net -intf_net axis_broadcaster_0_M00_AXIS [get_bd_intf_pins axi_vdma_0/S_AXIS_S2MM] [get_bd_intf_pins axis_broadcaster_0/M00_AXIS]
+  connect_bd_intf_net -intf_net axis_broadcaster_0_M01_AXIS [get_bd_intf_pins axis_broadcaster_0/M01_AXIS] [get_bd_intf_pins canny_edge_detection_0/axis_in]
+  connect_bd_intf_net -intf_net canny_edge_detection_0_axis_out [get_bd_intf_pins axi_vdma_1/S_AXIS_S2MM] [get_bd_intf_pins canny_edge_detection_0/axis_out]
   connect_bd_intf_net -intf_net dphy_hs_clock_1 [get_bd_intf_ports dphy_hs_clock] [get_bd_intf_pins MIPI_D_PHY_RX_0/dphy_hs_clock]
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
   connect_bd_intf_net -intf_net processing_system7_0_FIXED_IO [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7_0/FIXED_IO]
@@ -794,12 +830,12 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M00_AXI [get_bd_intf_pins axi_vdma_0/S_AXI_LITE] [get_bd_intf_pins ps7_0_axi_periph/M00_AXI]
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M01_AXI [get_bd_intf_pins MIPI_D_PHY_RX_0/S_AXI_LITE] [get_bd_intf_pins ps7_0_axi_periph/M01_AXI]
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M02_AXI [get_bd_intf_pins MIPI_CSI_2_RX_0/S_AXI_LITE] [get_bd_intf_pins ps7_0_axi_periph/M02_AXI]
+  connect_bd_intf_net -intf_net ps7_0_axi_periph_M03_AXI [get_bd_intf_pins axi_vdma_1/S_AXI_LITE] [get_bd_intf_pins ps7_0_axi_periph/M03_AXI]
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M04_AXI [get_bd_intf_pins MotionController_0/S00_AXI] [get_bd_intf_pins ps7_0_axi_periph/M04_AXI]
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M05_AXI [get_bd_intf_pins ps7_0_axi_periph/M05_AXI] [get_bd_intf_pins sonarDriver_0/S00_AXI]
 
   # Create port connections
-  connect_bd_net -net AXI_BayerToRGB_0_m_axis_video_tuser [get_bd_pins AXI_BayerToRGB_0/m_axis_video_tuser] [get_bd_pins axi_vdma_0/s_axis_s2mm_tuser]
-  connect_bd_net -net MIPI_CSI_2_RX_0_m_axis_video_tuser [get_bd_pins AXI_BayerToRGB_0/s_axis_video_tuser] [get_bd_pins MIPI_CSI_2_RX_0/m_axis_video_tuser]
+  connect_bd_net -net ARESETN_1 [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins rst_ps7_0_50M/interconnect_aresetn]
   connect_bd_net -net MIPI_D_PHY_RX_0_RxByteClkHS [get_bd_pins MIPI_CSI_2_RX_0/RxByteClkHS] [get_bd_pins MIPI_D_PHY_RX_0/RxByteClkHS]
   connect_bd_net -net MotionController_0_motor_left_dir_out [get_bd_ports motor_left_dir_out] [get_bd_pins MotionController_0/motor_left_dir_out]
   connect_bd_net -net MotionController_0_motor_left_pwm_out [get_bd_ports motor_left_pwm_out] [get_bd_pins MotionController_0/motor_left_pwm_out]
@@ -807,10 +843,11 @@ proc create_root_design { parentCell } {
   connect_bd_net -net MotionController_0_motor_right_pwm_out [get_bd_ports motor_right_pwm_out] [get_bd_pins MotionController_0/motor_right_pwm_out]
   connect_bd_net -net MotionController_0_servo_pwm_out [get_bd_ports servo_pwm_out] [get_bd_pins MotionController_0/servo_pwm_out]
   connect_bd_net -net axi_vdma_0_s2mm_introut [get_bd_pins axi_vdma_0/s2mm_introut] [get_bd_pins xlconcat_0/In0]
+  connect_bd_net -net axi_vdma_1_s2mm_introut [get_bd_pins axi_vdma_1/s2mm_introut] [get_bd_pins xlconcat_0/In1]
   connect_bd_net -net camera_enable_sw_1 [get_bd_ports cameraEnableLed] [get_bd_ports camera_enable] [get_bd_ports camera_enable_sw]
-  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins AXI_BayerToRGB_0/StreamClk] [get_bd_pins MIPI_CSI_2_RX_0/video_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/M01_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_vdma_0/m_axi_s2mm_aclk] [get_bd_pins axi_vdma_0/s_axis_s2mm_aclk] [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK]
-  connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_pins MIPI_D_PHY_RX_0/RefClk] [get_bd_pins clk_wiz_0/clk_out2]
-  connect_bd_net -net clk_wiz_0_locked [get_bd_pins clk_wiz_0/locked] [get_bd_pins rst_ps7_0_50M/dcm_locked]
+  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins AXI_BayerToRGB_0/StreamClk] [get_bd_pins MIPI_CSI_2_RX_0/video_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_0/S01_ACLK] [get_bd_pins axi_vdma_0/m_axi_s2mm_aclk] [get_bd_pins axi_vdma_0/s_axis_s2mm_aclk] [get_bd_pins axi_vdma_1/m_axi_s2mm_aclk] [get_bd_pins axi_vdma_1/s_axis_s2mm_aclk] [get_bd_pins axis_broadcaster_0/aclk] [get_bd_pins canny_edge_detection_0/ap_clk] [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK]
+  connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_pins MIPI_D_PHY_RX_0/RefClk] [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins proc_sys_reset_1/slowest_sync_clk]
+  connect_bd_net -net clk_wiz_0_locked [get_bd_pins clk_wiz_0/locked] [get_bd_pins proc_sys_reset_0/dcm_locked] [get_bd_pins proc_sys_reset_1/dcm_locked] [get_bd_pins rst_ps7_0_50M/dcm_locked]
   connect_bd_net -net dphy_clk_lp_n_1 [get_bd_ports dphy_clk_lp_n] [get_bd_pins MIPI_D_PHY_RX_0/dphy_clk_lp_n]
   connect_bd_net -net dphy_clk_lp_p_1 [get_bd_ports dphy_clk_lp_p] [get_bd_pins MIPI_D_PHY_RX_0/dphy_clk_lp_p]
   connect_bd_net -net dphy_data_hs_n_1 [get_bd_ports dphy_data_hs_n] [get_bd_pins MIPI_D_PHY_RX_0/dphy_data_hs_n]
@@ -818,20 +855,23 @@ proc create_root_design { parentCell } {
   connect_bd_net -net dphy_data_lp_n_1 [get_bd_ports dphy_data_lp_n] [get_bd_pins MIPI_D_PHY_RX_0/dphy_data_lp_n]
   connect_bd_net -net dphy_data_lp_p_1 [get_bd_ports dphy_data_lp_p] [get_bd_pins MIPI_D_PHY_RX_0/dphy_data_lp_p]
   connect_bd_net -net motion_enable_sw_1 [get_bd_ports motionEnableLed] [get_bd_ports motion_enable_sw] [get_bd_pins MotionController_0/enable]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins MIPI_CSI_2_RX_0/s_axi_lite_aclk] [get_bd_pins MIPI_D_PHY_RX_0/s_axi_lite_aclk] [get_bd_pins MotionController_0/s00_axi_aclk] [get_bd_pins axi_vdma_0/s_axi_lite_aclk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/M01_ACLK] [get_bd_pins ps7_0_axi_periph/M02_ACLK] [get_bd_pins ps7_0_axi_periph/M03_ACLK] [get_bd_pins ps7_0_axi_periph/M04_ACLK] [get_bd_pins ps7_0_axi_periph/M05_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps7_0_50M/slowest_sync_clk] [get_bd_pins sonarDriver_0/s00_axi_aclk]
-  connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_ps7_0_50M/ext_reset_in]
+  connect_bd_net -net proc_sys_reset_0_interconnect_aresetn [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins proc_sys_reset_0/interconnect_aresetn]
+  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins AXI_BayerToRGB_0/sStreamReset_n] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_interconnect_0/S01_ARESETN] [get_bd_pins axis_broadcaster_0/aresetn] [get_bd_pins canny_edge_detection_0/ap_rst_n] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
+  connect_bd_net -net proc_sys_reset_1_peripheral_reset [get_bd_pins MIPI_D_PHY_RX_0/aRst] [get_bd_pins proc_sys_reset_1/peripheral_reset]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins MIPI_CSI_2_RX_0/s_axi_lite_aclk] [get_bd_pins MIPI_D_PHY_RX_0/s_axi_lite_aclk] [get_bd_pins MotionController_0/s00_axi_aclk] [get_bd_pins axi_vdma_0/s_axi_lite_aclk] [get_bd_pins axi_vdma_1/s_axi_lite_aclk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/M01_ACLK] [get_bd_pins ps7_0_axi_periph/M02_ACLK] [get_bd_pins ps7_0_axi_periph/M03_ACLK] [get_bd_pins ps7_0_axi_periph/M04_ACLK] [get_bd_pins ps7_0_axi_periph/M05_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps7_0_50M/slowest_sync_clk] [get_bd_pins sonarDriver_0/s00_axi_aclk]
+  connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins proc_sys_reset_1/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_ps7_0_50M/ext_reset_in]
   connect_bd_net -net pwm_in_0_1 [get_bd_ports sonar0_pwm_in] [get_bd_pins sonarDriver_0/pwm_in]
-  connect_bd_net -net rst_ps7_0_50M_interconnect_aresetn [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins rst_ps7_0_50M/interconnect_aresetn]
-  connect_bd_net -net rst_ps7_0_50M_peripheral_aresetn [get_bd_pins AXI_BayerToRGB_0/sStreamReset_n] [get_bd_pins MIPI_CSI_2_RX_0/s_axi_lite_aresetn] [get_bd_pins MIPI_D_PHY_RX_0/s_axi_lite_aresetn] [get_bd_pins MotionController_0/s00_axi_aresetn] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/M01_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_vdma_0/axi_resetn] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/M01_ARESETN] [get_bd_pins ps7_0_axi_periph/M02_ARESETN] [get_bd_pins ps7_0_axi_periph/M03_ARESETN] [get_bd_pins ps7_0_axi_periph/M04_ARESETN] [get_bd_pins ps7_0_axi_periph/M05_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps7_0_50M/peripheral_aresetn] [get_bd_pins sonarDriver_0/s00_axi_aresetn]
-  connect_bd_net -net rst_ps7_0_50M_peripheral_reset [get_bd_pins MIPI_D_PHY_RX_0/aRst] [get_bd_pins rst_ps7_0_50M/peripheral_reset]
+  connect_bd_net -net rst_ps7_0_50M_peripheral_aresetn [get_bd_pins MIPI_CSI_2_RX_0/s_axi_lite_aresetn] [get_bd_pins MIPI_D_PHY_RX_0/s_axi_lite_aresetn] [get_bd_pins MotionController_0/s00_axi_aresetn] [get_bd_pins axi_vdma_0/axi_resetn] [get_bd_pins axi_vdma_1/axi_resetn] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/M01_ARESETN] [get_bd_pins ps7_0_axi_periph/M02_ARESETN] [get_bd_pins ps7_0_axi_periph/M03_ARESETN] [get_bd_pins ps7_0_axi_periph/M04_ARESETN] [get_bd_pins ps7_0_axi_periph/M05_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps7_0_50M/peripheral_aresetn] [get_bd_pins sonarDriver_0/s00_axi_aresetn]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins processing_system7_0/IRQ_F2P] [get_bd_pins xlconcat_0/dout]
 
   # Create address segments
   create_bd_addr_seg -range 0x40000000 -offset 0x00000000 [get_bd_addr_spaces axi_vdma_0/Data_S2MM] [get_bd_addr_segs processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM] SEG_processing_system7_0_HP0_DDR_LOWOCM
+  create_bd_addr_seg -range 0x40000000 -offset 0x00000000 [get_bd_addr_spaces axi_vdma_1/Data_S2MM] [get_bd_addr_segs processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM] SEG_processing_system7_0_HP0_DDR_LOWOCM
   create_bd_addr_seg -range 0x00010000 -offset 0x43C10000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs MIPI_CSI_2_RX_0/S_AXI_LITE/S_AXI_LITE_reg] SEG_MIPI_CSI_2_RX_0_S_AXI_LITE_reg
   create_bd_addr_seg -range 0x00010000 -offset 0x43C00000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs MIPI_D_PHY_RX_0/S_AXI_LITE/S_AXI_LITE_reg] SEG_MIPI_D_PHY_RX_0_S_AXI_LITE_reg
   create_bd_addr_seg -range 0x00010000 -offset 0x43C20000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs MotionController_0/S00_AXI/S00_AXI_reg] SEG_MotionController_0_S00_AXI_reg
   create_bd_addr_seg -range 0x00010000 -offset 0x43000000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs axi_vdma_0/S_AXI_LITE/Reg] SEG_axi_vdma_0_Reg
+  create_bd_addr_seg -range 0x00010000 -offset 0x43010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs axi_vdma_1/S_AXI_LITE/Reg] SEG_axi_vdma_1_Reg
   create_bd_addr_seg -range 0x00010000 -offset 0x43C30000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs sonarDriver_0/S00_AXI/S00_AXI_reg] SEG_sonarDriver_0_S00_AXI_reg
 
 

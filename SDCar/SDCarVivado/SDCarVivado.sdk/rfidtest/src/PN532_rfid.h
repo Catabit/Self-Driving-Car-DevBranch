@@ -7,9 +7,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
-//#include <linux/i2c.h>
-//#include <linux/i2c-dev.h>
-#include <linux/i2c-dev-user.h>
+#include <linux/i2c-dev.h>
 
 //#define RFID_DEBUG
 

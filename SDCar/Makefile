@@ -2,7 +2,7 @@ LOCAL_USERNAME = catabit
 
 BOOT_PARTITION = /media/$(LOCAL_USERNAME)/BOOT
 ROOTFS_PARTITION = /media/$(LOCAL_USERNAME)/rootfs
-SSH_IP = 172.19.11.94
+SSH_IP = 172.19.9.248
 VIVADO_PROJECT_NAME = SDCarVivado
 TOOLS = ../tools
 
@@ -16,6 +16,7 @@ PETALINUX_APPS = \
 
 PETALINUX_MODULES = \
 	vdmadriver \
+	HLSvdmadriver \
 	motiondriver \
 	sonardriver \
 
@@ -71,7 +72,7 @@ initcamera:
 	eog outimg0.ppm
 
 sendelfs:
-	scp `find $(VIVADO_PROJECT_NAME)/ -name rfidtest.elf -path */Debug/*` root@$(SSH_IP):
+	scp `find $(VIVADO_PROJECT_NAME)/ -name videotest.elf -path */Debug/*` root@$(SSH_IP):
 
 resetssh:
 	ssh-keygen -f "/home/$(LOCAL_USERNAME)/.ssh/known_hosts" -R $(SSH_IP)

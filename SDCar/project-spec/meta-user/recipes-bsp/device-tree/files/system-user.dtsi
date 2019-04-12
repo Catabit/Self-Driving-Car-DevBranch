@@ -9,7 +9,13 @@
 		#size-cells = <1>;
 		ranges;
 
-		camera_reserved: buffer@0 {
+		camera_reserved: buffer_camera@0 {
+			compatible = "shared-dma-pool";
+			no-map;
+			size = <0x04000000>;
+		};
+
+		hls_reserved: buffer_hls@0 {
 			compatible = "shared-dma-pool";
 			no-map;
 			size = <0x04000000>;
@@ -63,6 +69,28 @@
 				xlnx,genlock-mode ;
 			};
 		};
+		axi_vdma_1: dma@43010000 {
+			#dma-cells = <1>;
+			clock-names = "s_axi_lite_aclk", "m_axi_s2mm_aclk", "m_axi_s2mm_aclk";
+			clocks = <&clkc 15>, <&clkc 15>, <&clkc 15>;
+			compatible = "ctbt,HLSvdmadriver";
+			memory-region = <&hls_reserved>;
+			interrupt-parent = <&intc>;
+			interrupts = <0 30 4>;
+			reg = <0x43010000 0x10000>;
+			xlnx,addrwidth = <0x20>;
+			xlnx,flush-fsync = <0x1>;
+			xlnx,num-fstores = <0x3>;
+			dma-channel@43010030 {
+				compatible = "ctbt,HLSvdmadriver";
+				memory-region = <&hls_reserved>;
+				interrupts = <0 30 4>;
+				xlnx,datawidth = <0x18>;
+				xlnx,device-id = <0x1>;
+				xlnx,genlock-mode ;
+			};
+		};
+
 		MotionController_0: MotionController@43c20000 {
 			compatible = "ctbt,motiondriver";
 			reg = <0x43c20000 0x10000>;

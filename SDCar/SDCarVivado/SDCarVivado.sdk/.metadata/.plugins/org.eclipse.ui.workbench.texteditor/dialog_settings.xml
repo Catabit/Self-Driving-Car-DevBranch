@@ -6,20 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="io_re" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="IO_RE"/>
+			<item value="IORESOURCE"/>
+			<item value="ioctl"/>
 			<item value="write"/>
 			<item value="printf"/>
 			<item value="servo"/>
 			<item value="motiondriver"/>
 			<item value="irq"/>
-			<item value="vdmadriver"/>
-			<item value="charvideo"/>
-			<item value="device_create"/>
 		</list>
 		<list key="replacehistory">
 			<item value="sonar"/>
@@ -32,7 +32,7 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="314" key="DIALOG_WIDTH"/>
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
-		<item value="441" key="DIALOG_HEIGHT"/>
+		<item value="469" key="DIALOG_HEIGHT"/>
 		<item value="1066" key="DIALOG_X_ORIGIN"/>
 		<item value="196" key="DIALOG_Y_ORIGIN"/>
 	</section>
