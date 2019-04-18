@@ -2,7 +2,7 @@ LOCAL_USERNAME = catabit
 
 BOOT_PARTITION = /media/$(LOCAL_USERNAME)/BOOT
 ROOTFS_PARTITION = /media/$(LOCAL_USERNAME)/rootfs
-SSH_IP = 172.19.9.248
+SSH_IP = 172.19.10.136
 VIVADO_PROJECT_NAME = SDCarVivado
 TOOLS = ../tools
 
@@ -16,9 +16,11 @@ PETALINUX_APPS = \
 
 PETALINUX_MODULES = \
 	vdmadriver \
-	HLSvdmadriver \
+	hlsvdmadriver \
 	motiondriver \
 	sonardriver \
+
+deploy: package deploy-kernel deploy-rootfs
 
 package:
 	petalinux-package --boot --format BIN --fsbl ./images/linux/zynq_fsbl.elf --fpga ./images/linux/design_1_wrapper.bit --u-boot --force
@@ -65,14 +67,8 @@ fixlinks:
 fixlinks-modules:
 	$(TOOLS)/addLinks.sh $(VIVADO_PROJECT_NAME) modules $(PETALINUX_MODULES)
 
-initcamera:
-	make sendelfs
-	ssh root@$(SSH_IP) ./initcamera.elf
-	scp root@$(SSH_IP):outimg0.ppm .
-	eog outimg0.ppm
-
 sendelfs:
-	scp `find $(VIVADO_PROJECT_NAME)/ -name videotest.elf -path */Debug/*` root@$(SSH_IP):
+	scp `find $(VIVADO_PROJECT_NAME)/ -name rfidtest.elf -path */Debug/*` root@$(SSH_IP):
 
 resetssh:
 	ssh-keygen -f "/home/$(LOCAL_USERNAME)/.ssh/known_hosts" -R $(SSH_IP)

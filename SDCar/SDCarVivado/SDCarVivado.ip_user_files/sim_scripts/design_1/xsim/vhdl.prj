@@ -1,0 +1,53 @@
+vhdl fifo_generator_v13_2_1  \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/5c35/hdl/fifo_generator_v13_2_rfs.vhd" \
+
+vhdl xil_defaultlib  \
+"../../../bd/design_1/ip/design_1_axi_vdma_0_0/sim/design_1_axi_vdma_0_0.vhd" \
+"../../../bd/design_1/ip/design_1_rst_ps7_0_50M_1/sim/design_1_rst_ps7_0_50M_1.vhd" \
+"../../../bd/design_1/ip/design_1_MIPI_D_PHY_RX_0_0/hdl/ila_sfen_rxclk/sim/ila_sfen_rxclk.vhd" \
+"../../../bd/design_1/ip/design_1_MIPI_D_PHY_RX_0_0/hdl/ila_scnn_refclk/sim/ila_scnn_refclk.vhd" \
+"../../../bd/design_1/ip/design_1_MIPI_D_PHY_RX_0_0/hdl/ila_sfen_refclk/sim/ila_sfen_refclk.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/SyncAsync.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/DPHY_Pkg.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/SyncAsyncReset.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/DebugLib.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/HS_Deserializer.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/GlitchFilter.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/HS_Clocking.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/InputBuffer.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/DPHY_LaneSFEN.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/DPHY_LaneSCNN.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/S_AXI_Lite.vhd" \
+"../../../bd/design_1/ipshared/f21f/hdl/MIPI_DPHY_Receiver.vhd" \
+"../../../bd/design_1/ip/design_1_MIPI_D_PHY_RX_0_0/sim/design_1_MIPI_D_PHY_RX_0_0.vhd" \
+"../../../bd/design_1/ip/design_1_MIPI_CSI_2_RX_0_0/hdl/ila_rxclk_lane/sim/ila_rxclk_lane.vhd" \
+"../../../bd/design_1/ip/design_1_MIPI_CSI_2_RX_0_0/hdl/ila_rxclk/sim/ila_rxclk.vhd" \
+"../../../bd/design_1/ip/design_1_MIPI_CSI_2_RX_0_0/hdl/ila_vidclk/sim/ila_vidclk.vhd" \
+"../../../bd/design_1/ipshared/e363/hdl/SimpleFIFO.vhd" \
+"../../../bd/design_1/ipshared/e363/hdl/CRC16_behavioral.vhd" \
+"../../../bd/design_1/ipshared/e363/hdl/ECC.vhd" \
+"../../../bd/design_1/ipshared/e363/hdl/DebugLib.vhd" \
+"../../../bd/design_1/ipshared/e363/hdl/LM.vhd" \
+"../../../bd/design_1/ipshared/e363/hdl/LLP.vhd" \
+"../../../bd/design_1/ipshared/e363/hdl/MIPI_CSI_2_RX_v1_0_S_AXI_LITE.vhd" \
+"../../../bd/design_1/ipshared/e363/hdl/MIPI_CSI2_Rx.vhd" \
+"../../../bd/design_1/ipshared/e363/hdl/MIPI_CSI2_RxTop.vhd" \
+"../../../bd/design_1/ip/design_1_MIPI_CSI_2_RX_0_0/sim/design_1_MIPI_CSI_2_RX_0_0.vhd" \
+"../../../bd/design_1/ipshared/a13b/hdl/LineBuffer.vhd" \
+"../../../bd/design_1/ipshared/a13b/hdl/AXI_BayerToRGB.vhd" \
+"../../../bd/design_1/ip/design_1_AXI_BayerToRGB_0_0/sim/design_1_AXI_BayerToRGB_0_0.vhd" \
+"../../../bd/design_1/ipshared/c740/hdl/MotionController_v1_0_S00_AXI.vhd" \
+"../../../bd/design_1/ipshared/c740/hdl/PWM_Driver.vhd" \
+"../../../bd/design_1/ipshared/c740/hdl/MotionController_v1_0.vhd" \
+"../../../bd/design_1/ip/design_1_MotionController_0_0/sim/design_1_MotionController_0_0.vhd" \
+"../../../bd/design_1/ipshared/e906/hdl/sonarDriver_v1_0_S00_AXI.vhd" \
+"../../../bd/design_1/ipshared/e906/hdl/sonarDriver_v1_0.vhd" \
+"../../../bd/design_1/ip/design_1_sonarDriver_0_0/sim/design_1_sonarDriver_0_0.vhd" \
+"../../../bd/design_1/ip/design_1_axi_vdma_0_1/sim/design_1_axi_vdma_0_1.vhd" \
+"../../../bd/design_1/ip/design_1_proc_sys_reset_0_0/sim/design_1_proc_sys_reset_0_0.vhd" \
+"../../../bd/design_1/ip/design_1_proc_sys_reset_1_0/sim/design_1_proc_sys_reset_1_0.vhd" \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/ip/canny_edge_detection_ap_sitofp_4_no_dsp_32.vhd" \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/ip/canny_edge_detection_ap_fsqrt_10_no_dsp_32.vhd" \
+"../../../bd/design_1/ip/design_1_canny_edge_detection_0_0/sim/design_1_canny_edge_detection_0_0.vhd" \
+
+nosort

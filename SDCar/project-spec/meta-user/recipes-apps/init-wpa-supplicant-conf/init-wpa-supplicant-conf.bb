@@ -14,5 +14,5 @@ S = "${WORKDIR}"
 
 do_install() {
 	     install -d ${D}/${sysconfdir}
-	     install -m 0755 ${S}/wpa_supplicant_WIFI0.conf ${D}/${sysconfdir}
+	     install -m 0644 ${S}/wpa_supplicant_WIFI0.conf ${D}/${sysconfdir}
 }

@@ -134,7 +134,7 @@ set_property -dict { PACKAGE_PIN W14   IOSTANDARD LVCMOS33     } [get_ports { se
                                                                                                                                  
                                                                                                                                  
 ##Pmod Header JD                                                                                                                  
-#set_property -dict { PACKAGE_PIN T14   IOSTANDARD LVCMOS33     } [get_ports { jd[0] }]; #IO_L5P_T0_34 Sch=jd_p[1]                  
+set_property -dict { PACKAGE_PIN T14   IOSTANDARD LVCMOS33     } [get_ports { rfid_intr }]; #IO_L5P_T0_34 Sch=jd_p[1]                  
 #set_property -dict { PACKAGE_PIN T15   IOSTANDARD LVCMOS33     } [get_ports { jd[1] }]; #IO_L5N_T0_34 Sch=jd_n[1]				 
 set_property -dict { PACKAGE_PIN P14   IOSTANDARD LVCMOS33     } [get_ports { ps_iic_scl_io }]; #IO_L6P_T0_34 Sch=jd_p[2]   
 set_property PULLUP true [get_ports {ps_iic_scl_io}];               

@@ -20,14 +20,14 @@
 #define CHARVIDEO_IOCQBUFSIZE _IOR(CHARVIDEO_IOC_MAGIC,  6, int)
 
 int main(int argc, char *argv[]) {
-	if (argc < 2) {
-		printf("Usage ./%s /dev/videoX\n", argv[0]);
+	if (argc < 3) {
+		printf("Usage ./%s /dev/videoX out_name\n", argv[0]);
 		return -1;
 	}
 
 	int fd;
 	fd = open(argv[1], O_RDONLY);
-	if (fd<0) {
+	if (fd < 0) {
 		printf("Can't open %s\n", argv[1]);
 		return -1;
 	}
@@ -39,28 +39,31 @@ int main(int argc, char *argv[]) {
 	w = ioctl(fd, CHARVIDEO_IOCQWIDTH);
 	l = ioctl(fd, CHARVIDEO_IOCQPIXELLEN);
 
-	unsigned char buf[h*w*l];
-	read(fd, buf, w*h*l);
+	unsigned char buf[h * w * l];
+	read(fd, buf, w * h * l);
 	close(fd);
 
 	char filename[100];
-	sprintf(filename, "/home/root/outimg0.ppm");
+	sprintf(filename, "/home/root/%s.ppm", argv[2]);
 	FILE *outimg = fopen(filename, "wt");
-	fprintf(outimg, "P6\n%d %d\n%d\n", w, h, 255);
+	if (l == 1)
+		fprintf(outimg, "P5\n%d %d\n%d\n", w, h, 255);
+	else
+		fprintf(outimg, "P6\n%d %d\n%d\n", w, h, 255);
 
 	printf("Opened %s\n", filename);
 
-//	for (int i=0; i<width*height*pixellen; i+=3){
-//		uint8_t aux = buf[i+2];
-//		buf[i+2] = buf[i];
-//		buf[i] = aux;
-//		//printf("(%d, %d, %d)\n", buf[i], buf[i+1], buf[i+2]);
-//	}
+	if (l != 1) { //BGR to RGB
+		for (int i = 0; i < w * h * l; i += 3) {
+			uint8_t aux = buf[i + 2];
+			buf[i + 2] = buf[i];
+			buf[i] = aux;
+		}
+	}
 
-	fwrite(buf, 1, w*h*l, outimg);
+	fwrite(buf, 1, w * h * l, outimg);
 
 	fclose(outimg);
-
 
 	return 0;
 }

@@ -48,23 +48,31 @@
 
 
 // IP VLNV: xilinx.com:hls:canny_edge_detection:1.0
-// IP Revision: 1904121703
+// IP Revision: 1904152000
 
 (* X_CORE_INFO = "canny_edge_detection,Vivado 2017.4" *)
 (* CHECK_LICENSE_TYPE = "design_1_canny_edge_detection_0_0,canny_edge_detection,{}" *)
-(* CORE_GENERATION_INFO = "design_1_canny_edge_detection_0_0,canny_edge_detection,{x_ipProduct=Vivado 2017.4,x_ipVendor=xilinx.com,x_ipLibrary=hls,x_ipName=canny_edge_detection,x_ipVersion=1.0,x_ipCoreRevision=1904121703,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED}" *)
+(* CORE_GENERATION_INFO = "design_1_canny_edge_detection_0_0,canny_edge_detection,{x_ipProduct=Vivado 2017.4,x_ipVendor=xilinx.com,x_ipLibrary=hls,x_ipName=canny_edge_detection,x_ipVersion=1.0,x_ipCoreRevision=1904152000,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_canny_edge_detection_0_0 (
   axis_in_TVALID,
   axis_in_TREADY,
   axis_in_TDATA,
+  axis_in_TKEEP,
+  axis_in_TSTRB,
   axis_in_TUSER,
   axis_in_TLAST,
+  axis_in_TID,
+  axis_in_TDEST,
   axis_out_TVALID,
   axis_out_TREADY,
   axis_out_TDATA,
+  axis_out_TKEEP,
+  axis_out_TSTRB,
   axis_out_TUSER,
   axis_out_TLAST,
+  axis_out_TID,
+  axis_out_TDEST,
   ap_clk,
   ap_rst_n
 );
@@ -75,22 +83,38 @@ input wire axis_in_TVALID;
 output wire axis_in_TREADY;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_in TDATA" *)
 input wire [23 : 0] axis_in_TDATA;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_in TKEEP" *)
+input wire [2 : 0] axis_in_TKEEP;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_in TSTRB" *)
+input wire [2 : 0] axis_in_TSTRB;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_in TUSER" *)
 input wire [0 : 0] axis_in_TUSER;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME axis_in, TDATA_NUM_BYTES 3, TUSER_WIDTH 1, LAYERED_METADATA undef, TDEST_WIDTH 0, TID_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 150000000, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_in TLAST" *)
 input wire [0 : 0] axis_in_TLAST;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_in TID" *)
+input wire [0 : 0] axis_in_TID;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME axis_in, TDATA_NUM_BYTES 3, TDEST_WIDTH 1, TID_WIDTH 1, TUSER_WIDTH 1, LAYERED_METADATA undef, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 150000000, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_in TDEST" *)
+input wire [0 : 0] axis_in_TDEST;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_out TVALID" *)
 output wire axis_out_TVALID;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_out TREADY" *)
 input wire axis_out_TREADY;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_out TDATA" *)
-output wire [23 : 0] axis_out_TDATA;
+output wire [7 : 0] axis_out_TDATA;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_out TKEEP" *)
+output wire [0 : 0] axis_out_TKEEP;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_out TSTRB" *)
+output wire [0 : 0] axis_out_TSTRB;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_out TUSER" *)
 output wire [0 : 0] axis_out_TUSER;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME axis_out, TDATA_NUM_BYTES 3, TUSER_WIDTH 1, LAYERED_METADATA xilinx.com:interface:datatypes:1.0 {CLK {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0}}} TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 24} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} TDATA_WIDTH 24 TUSER {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} TUSER_WIDTH 1}, TDEST_WIDTH 0, TID_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 150000000, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_out TLAST" *)
 output wire [0 : 0] axis_out_TLAST;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_out TID" *)
+output wire [0 : 0] axis_out_TID;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME axis_out, TDATA_NUM_BYTES 1, TDEST_WIDTH 1, TID_WIDTH 1, TUSER_WIDTH 1, LAYERED_METADATA xilinx.com:interface:datatypes:1.0 {CLK {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0}}} TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 8} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} TDATA_WIDTH 8 TUSER {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} TUSER_WIDTH 1}, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 150000000, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 axis_out TDEST" *)
+output wire [0 : 0] axis_out_TDEST;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME ap_clk, ASSOCIATED_BUSIF axis_in:axis_out, ASSOCIATED_RESET ap_rst_n, LAYERED_METADATA xilinx.com:interface:datatypes:1.0 {CLK {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0}}}}, FREQ_HZ 150000000, PHASE 0.0, CLK_DOMAIN design_1_clk_wiz_0_0_clk_out1" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 ap_clk CLK" *)
 input wire ap_clk;
@@ -102,13 +126,21 @@ input wire ap_rst_n;
     .axis_in_TVALID(axis_in_TVALID),
     .axis_in_TREADY(axis_in_TREADY),
     .axis_in_TDATA(axis_in_TDATA),
+    .axis_in_TKEEP(axis_in_TKEEP),
+    .axis_in_TSTRB(axis_in_TSTRB),
     .axis_in_TUSER(axis_in_TUSER),
     .axis_in_TLAST(axis_in_TLAST),
+    .axis_in_TID(axis_in_TID),
+    .axis_in_TDEST(axis_in_TDEST),
     .axis_out_TVALID(axis_out_TVALID),
     .axis_out_TREADY(axis_out_TREADY),
     .axis_out_TDATA(axis_out_TDATA),
+    .axis_out_TKEEP(axis_out_TKEEP),
+    .axis_out_TSTRB(axis_out_TSTRB),
     .axis_out_TUSER(axis_out_TUSER),
     .axis_out_TLAST(axis_out_TLAST),
+    .axis_out_TID(axis_out_TID),
+    .axis_out_TDEST(axis_out_TDEST),
     .ap_clk(ap_clk),
     .ap_rst_n(ap_rst_n)
   );

@@ -5,7 +5,7 @@
 preplace port motor_left_pwm_out -pg 1 -y 940 -defaultsOSRD
 preplace port motor_left_dir_out -pg 1 -y 900 -defaultsOSRD
 preplace port DDR -pg 1 -y 170 -defaultsOSRD
-preplace port cameraEnableLed -pg 1 -y 830 -defaultsOSRD
+preplace port cameraEnableLed -pg 1 -y 680 -defaultsOSRD
 preplace port dphy_hs_clock -pg 1 -y 480 -defaultsOSRD
 preplace port motion_enable_sw -pg 1 -y 930 -defaultsOSRD
 preplace port motor_right_dir_out -pg 1 -y 920 -defaultsOSRD
@@ -16,12 +16,13 @@ preplace port dphy_clk_lp_p -pg 1 -y 500 -defaultsOSRD
 preplace port ps_iic -pg 1 -y 230 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -y 190 -defaultsOSRD
 preplace port camera_enable_sw -pg 1 -y 900 -defaultsOSRD
-preplace port motionEnableLed -pg 1 -y 1030 -defaultsOSRD
+preplace port motionEnableLed -pg 1 -y 840 -defaultsOSRD
 preplace port motor_right_pwm_out -pg 1 -y 960 -defaultsOSRD
 preplace port cam_iic -pg 1 -y 210 -defaultsOSRD
 preplace portBus dphy_data_hs_n -pg 1 -y 560 -defaultsOSRD
+preplace portBus rfid_intr -pg 1 -y 1190 -defaultsOSRD
 preplace portBus dphy_data_hs_p -pg 1 -y 540 -defaultsOSRD
-preplace portBus camera_enable -pg 1 -y 850 -defaultsOSRD
+preplace portBus camera_enable -pg 1 -y 730 -defaultsOSRD
 preplace portBus dphy_data_lp_n -pg 1 -y 600 -defaultsOSRD
 preplace portBus dphy_data_lp_p -pg 1 -y 580 -defaultsOSRD
 preplace inst axis_broadcaster_0 -pg 1 -lvl 7 -y 260 -defaultsOSRD
@@ -31,66 +32,72 @@ preplace inst MIPI_CSI_2_RX_0 -pg 1 -lvl 5 -y 280 -defaultsOSRD
 preplace inst MIPI_D_PHY_RX_0 -pg 1 -lvl 4 -y 560 -defaultsOSRD
 preplace inst axi_vdma_0 -pg 1 -lvl 9 -y 180 -defaultsOSRD
 preplace inst axi_vdma_1 -pg 1 -lvl 9 -y 390 -defaultsOSRD
+preplace inst axi_gpio_rfid_intr -pg 1 -lvl 4 -y 1190 -defaultsOSRD
 preplace inst canny_edge_detection_0 -pg 1 -lvl 8 -y 300 -defaultsOSRD
 preplace inst proc_sys_reset_0 -pg 1 -lvl 2 -y 680 -defaultsOSRD
 preplace inst MotionController_0 -pg 1 -lvl 11 -y 940 -defaultsOSRD
 preplace inst xlconcat_0 -pg 1 -lvl 10 -y 450 -defaultsOSRD
 preplace inst proc_sys_reset_1 -pg 1 -lvl 2 -y 850 -defaultsOSRD
+preplace inst axi_gpio_camera_enable -pg 1 -lvl 11 -y 700 -defaultsOSRD
 preplace inst ps7_0_axi_periph -pg 1 -lvl 3 -y 240 -defaultsOSRD
 preplace inst axi_interconnect_0 -pg 1 -lvl 10 -y 220 -defaultsOSRD
 preplace inst AXI_BayerToRGB_0 -pg 1 -lvl 6 -y 240 -defaultsOSRD
 preplace inst clk_wiz_0 -pg 1 -lvl 1 -y 400 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 11 -y 230 -defaultsOSRD
-preplace netloc processing_system7_0_DDR 1 11 1 4260J
-preplace netloc ps7_0_axi_periph_M02_AXI 1 3 2 NJ 230 N
-preplace netloc MotionController_0_motor_right_dir_out 1 11 1 NJ
-preplace netloc dphy_data_hs_p_1 1 0 4 -180J 550 NJ 550 NJ 550 930J
-preplace netloc axis_broadcaster_0_M00_AXIS 1 7 2 2270J 140 N
-preplace netloc axi_vdma_1_M_AXI_S2MM 1 9 1 3460
-preplace netloc axi_vdma_1_s2mm_introut 1 9 1 3430
-preplace netloc axi_vdma_0_s2mm_introut 1 9 1 3440
-preplace netloc dphy_data_lp_n_1 1 0 4 -170J 590 NJ 590 NJ 590 930J
-preplace netloc clk_wiz_0_locked 1 1 1 140
-preplace netloc pwm_in_0_1 1 0 4 NJ 800 110J 940 550J 800 NJ
-preplace netloc MotionController_0_motor_right_pwm_out 1 11 1 NJ
-preplace netloc dphy_hs_clock_1 1 0 4 NJ 480 NJ 480 NJ 480 880J
-preplace netloc processing_system7_0_M_AXI_GP0 1 2 10 550 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 4250
-preplace netloc dphy_clk_lp_p_1 1 0 4 NJ 500 NJ 500 NJ 500 890J
-preplace netloc ARESETN_1 1 2 1 530
-preplace netloc dphy_clk_lp_n_1 1 0 4 NJ 520 NJ 520 NJ 520 920J
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 1 11 150 510 NJ 510 870J 380 NJ 380 NJ 380 NJ 380 NJ 380 2710J 510 NJ 510 NJ 510 4240
-preplace netloc processing_system7_0_IIC_0 1 11 1 4260J
-preplace netloc axis_broadcaster_0_M01_AXIS 1 7 1 2240
-preplace netloc ps7_0_axi_periph_M03_AXI 1 3 6 870J 140 NJ 140 NJ 140 1980J 150 NJ 150 2740
-preplace netloc AXI_BayerToRGB_0_AXI_Stream_Master 1 6 1 N
-preplace netloc dphy_data_hs_n_1 1 0 4 -170J 540 NJ 540 NJ 540 NJ
-preplace netloc processing_system7_0_IIC_1 1 11 1 4260
-preplace netloc ps7_0_axi_periph_M01_AXI 1 3 1 880
-preplace netloc proc_sys_reset_0_interconnect_aresetn 1 2 8 510 0 NJ 0 NJ 0 NJ 0 NJ 0 NJ 0 NJ 0 3470J
-preplace netloc motion_enable_sw_1 1 0 12 NJ 930 90J 960 NJ 960 NJ 960 NJ 960 NJ 960 NJ 960 NJ 960 NJ 960 NJ 960 3780 1030 NJ
-preplace netloc proc_sys_reset_1_peripheral_reset 1 2 2 530 620 NJ
-preplace netloc MotionController_0_motor_left_dir_out 1 11 1 NJ
+preplace netloc axi_vdma_1_M_AXI_S2MM 1 9 1 3320
+preplace netloc canny_edge_detection_0_axis_out 1 8 1 2640
+preplace netloc motion_enable_sw_1 1 0 12 NJ 930 90J 940 600J 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 3810 840 NJ
+preplace netloc dphy_hs_clock_1 1 0 4 NJ 480 NJ 480 590J 500 930J
+preplace netloc processing_system7_0_FIXED_IO 1 11 1 4320J
+preplace netloc axi_vdma_0_M_AXI_S2MM 1 9 1 3300
+preplace netloc rfid_intr_1 1 0 5 NJ 1190 NJ 1190 NJ 1190 900J 1260 1360
+preplace netloc dphy_clk_lp_p_1 1 0 4 NJ 500 NJ 500 540J 560 980J
+preplace netloc axi_vdma_1_s2mm_introut 1 9 1 3290
+preplace netloc axi_vdma_0_s2mm_introut 1 9 1 3300
+preplace netloc ps7_0_axi_periph_M02_AXI 1 3 2 NJ 210 1370
+preplace netloc dphy_data_hs_p_1 1 0 4 NJ 540 NJ 540 530J 550 990J
+preplace netloc proc_sys_reset_0_interconnect_aresetn 1 2 8 530 630 940J 30 NJ 30 NJ 30 NJ 30 NJ 30 NJ 30 3330J
+preplace netloc ps7_0_axi_periph_M04_AXI 1 3 8 880 -10 NJ -10 NJ -10 NJ -10 NJ -10 NJ -10 NJ -10 3800J
 preplace netloc xlconcat_0_dout 1 10 1 3780
-preplace netloc processing_system7_0_FIXED_IO 1 11 1 4260J
-preplace netloc rst_ps7_0_50M_peripheral_aresetn 1 2 9 550 490 910 390 1300 390 N 390 N 390 N 390 2720 520 N 520 3760
-preplace netloc MotionController_0_motor_left_pwm_out 1 11 1 NJ
-preplace netloc MIPI_D_PHY_RX_0_RxByteClkHS 1 4 1 1290
-preplace netloc clk_wiz_0_clk_out1 1 1 10 130J 460 NJ 460 860J 290 1280 180 1600 310 1990 190 2250 190 2730 60 3480 60 3780J
-preplace netloc axi_interconnect_0_M00_AXI 1 10 1 3760
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 2 8 520 20 880J 160 NJ 160 1620J 160 1980 160 2260 40 N 40 3450
-preplace netloc clk_wiz_0_clk_out2 1 1 3 120J 580 NJ 580 840
-preplace netloc canny_edge_detection_0_axis_out 1 8 1 2710J
-preplace netloc ps7_0_axi_periph_M05_AXI 1 3 1 850
-preplace netloc ps7_0_axi_periph_M04_AXI 1 3 8 860 30 NJ 30 NJ 30 NJ 30 NJ 30 NJ 30 NJ 30 3790J
+preplace netloc MIPI_D_PHY_RX_0_RxByteClkHS 1 4 1 1370
+preplace netloc ps7_0_axi_periph_M03_AXI 1 3 6 910J 150 NJ 150 NJ 150 NJ 150 NJ 150 2660
+preplace netloc processing_system7_0_DDR 1 11 1 4320J
+preplace netloc AXI_BayerToRGB_0_AXI_Stream_Master 1 6 1 N
+preplace netloc dphy_data_lp_n_1 1 0 4 -170J 580 NJ 580 NJ 580 NJ
+preplace netloc ps7_0_axi_periph_M00_AXI 1 3 6 890 120 NJ 120 NJ 120 NJ 120 NJ 120 NJ
+preplace netloc rst_ps7_0_50M_peripheral_aresetn 1 2 9 570 620 1010 370 1380 410 N 410 N 410 N 410 2650 540 N 540 3760
+preplace netloc dphy_clk_lp_n_1 1 0 4 NJ 520 NJ 520 560J 540 970J
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 1 11 140 530 NJ 530 950J 380 1360J 400 NJ 400 NJ 400 NJ 400 2630J 530 NJ 530 NJ 530 4290
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 2 8 N 720 910J 730 NJ 730 1700J 310 2080 190 2340 40 N 40 3310
+preplace netloc ps7_0_axi_periph_M01_AXI 1 3 1 980
+preplace netloc axi_gpio_0_ip2intc_irpt 1 4 6 1390 500 NJ 500 NJ 500 NJ 500 NJ 500 3320J
+preplace netloc dphy_data_lp_p_1 1 0 4 -180J 590 NJ 590 NJ 590 1030J
+preplace netloc ps7_0_axi_periph_M07_AXI 1 3 8 900J 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 3790
+preplace netloc processing_system7_0_IIC_0 1 11 1 4320J
+preplace netloc axis_broadcaster_0_M01_AXIS 1 7 1 2320
+preplace netloc MotionController_0_motor_right_dir_out 1 11 1 NJ
+preplace netloc processing_system7_0_IIC_1 1 11 1 4320
+preplace netloc axis_broadcaster_0_M00_AXIS 1 7 2 2350J 140 N
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 12 -180 470 100 450 550 610 1000 360 1390 380 1710J 370 N 370 NJ 370 2630J 50 NJ 50 3770 110 4310
+preplace netloc pwm_in_0_1 1 0 4 NJ 800 100J 950 580J 800 NJ
+preplace netloc MotionController_0_motor_left_dir_out 1 11 1 NJ
+preplace netloc dphy_data_hs_n_1 1 0 4 NJ 560 NJ 560 530J 570 1020J
+preplace netloc MotionController_0_motor_right_pwm_out 1 11 1 NJ
+preplace netloc clk_wiz_0_locked 1 1 1 130
+preplace netloc MIPI_CSI_2_RX_0_m_axis_video 1 5 1 1690
+preplace netloc ps7_0_axi_periph_M06_AXI 1 3 1 890
 preplace netloc MotionController_0_servo_pwm_out 1 11 1 NJ
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 12 -180 470 110 470 540 470 900 310 1270 170 NJ 170 N 170 NJ 170 2750J 70 NJ 70 3770 110 4240
-preplace netloc MIPI_D_PHY_RX_0_D_PHY_PPI 1 4 1 1260
-preplace netloc ps7_0_axi_periph_M00_AXI 1 3 6 850 120 NJ 120 NJ 120 NJ 120 NJ 120 NJ
-preplace netloc axi_vdma_0_M_AXI_S2MM 1 9 1 3440
-preplace netloc dphy_data_lp_p_1 1 0 4 -160J 560 NJ 560 NJ 560 NJ
-preplace netloc MIPI_CSI_2_RX_0_m_axis_video 1 5 1 1610
-preplace netloc camera_enable_sw_1 1 0 12 NJ 900 100J 950 NJ 950 NJ 950 1280J 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 4250J
-levelinfo -pg 1 -200 -10 330 700 1100 1450 1800 2120 2570 3230 3620 4020 4280 -top -10 -bot 1280
+preplace netloc MIPI_D_PHY_RX_0_D_PHY_PPI 1 4 1 1350
+preplace netloc ps7_0_axi_periph_M05_AXI 1 3 1 960
+preplace netloc clk_wiz_0_clk_out1 1 1 10 120J 490 580J 520 910J 290 1360 180 1700 170 2070 170 2330 170 2670 70 3340 70 3780J
+preplace netloc proc_sys_reset_1_peripheral_reset 1 2 2 560 640 1030J
+preplace netloc clk_wiz_0_clk_out2 1 1 3 110J 570 520J 600 N
+preplace netloc processing_system7_0_M_AXI_GP0 1 2 10 600 510 920J 390 NJ 390 NJ 390 NJ 390 NJ 390 2640J 520 NJ 520 NJ 520 4300
+preplace netloc axi_gpio_0_gpio_io_o 1 11 1 4310
+preplace netloc ARESETN_1 1 2 1 540
+preplace netloc MotionController_0_motor_left_pwm_out 1 11 1 NJ
+preplace netloc axi_interconnect_0_M00_AXI 1 10 1 3760
+levelinfo -pg 1 -200 -10 340 740 1190 1540 1890 2200 2490 3090 3620 4065 4340 -top -20 -bot 1320
 ",
 }
 {

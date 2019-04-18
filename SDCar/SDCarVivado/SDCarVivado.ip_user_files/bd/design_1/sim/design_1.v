@@ -1,7 +1,7 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Fri Apr 12 14:09:11 2019
+//Date        : Mon Apr 15 20:18:22 2019
 //Host        : catabit-UX430UAR running 64-bit Ubuntu 16.04.6 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -229,7 +229,8 @@ module design_1
   wire [1:1]axis_broadcaster_0_M01_AXIS_TUSER;
   wire [1:1]axis_broadcaster_0_M01_AXIS_TVALID;
   wire camera_enable_sw_1;
-  wire [23:0]canny_edge_detection_0_axis_out_TDATA;
+  wire [7:0]canny_edge_detection_0_axis_out_TDATA;
+  wire [0:0]canny_edge_detection_0_axis_out_TKEEP;
   wire [0:0]canny_edge_detection_0_axis_out_TLAST;
   wire canny_edge_detection_0_axis_out_TREADY;
   wire [0:0]canny_edge_detection_0_axis_out_TUSER;
@@ -769,7 +770,7 @@ module design_1
         .s_axi_lite_wvalid(ps7_0_axi_periph_M03_AXI_WVALID),
         .s_axis_s2mm_aclk(clk_wiz_0_clk_out1),
         .s_axis_s2mm_tdata(canny_edge_detection_0_axis_out_TDATA),
-        .s_axis_s2mm_tkeep({1'b1,1'b1,1'b1}),
+        .s_axis_s2mm_tkeep(canny_edge_detection_0_axis_out_TKEEP),
         .s_axis_s2mm_tlast(canny_edge_detection_0_axis_out_TLAST),
         .s_axis_s2mm_tready(canny_edge_detection_0_axis_out_TREADY),
         .s_axis_s2mm_tuser(canny_edge_detection_0_axis_out_TUSER),
@@ -791,11 +792,16 @@ module design_1
        (.ap_clk(clk_wiz_0_clk_out1),
         .ap_rst_n(proc_sys_reset_0_peripheral_aresetn),
         .axis_in_TDATA(axis_broadcaster_0_M01_AXIS_TDATA),
+        .axis_in_TDEST(1'b0),
+        .axis_in_TID(1'b0),
+        .axis_in_TKEEP({1'b1,1'b1,1'b1}),
         .axis_in_TLAST(axis_broadcaster_0_M01_AXIS_TLAST),
         .axis_in_TREADY(axis_broadcaster_0_M01_AXIS_TREADY),
+        .axis_in_TSTRB({1'b1,1'b1,1'b1}),
         .axis_in_TUSER(axis_broadcaster_0_M01_AXIS_TUSER),
         .axis_in_TVALID(axis_broadcaster_0_M01_AXIS_TVALID),
         .axis_out_TDATA(canny_edge_detection_0_axis_out_TDATA),
+        .axis_out_TKEEP(canny_edge_detection_0_axis_out_TKEEP),
         .axis_out_TLAST(canny_edge_detection_0_axis_out_TLAST),
         .axis_out_TREADY(canny_edge_detection_0_axis_out_TREADY),
         .axis_out_TUSER(canny_edge_detection_0_axis_out_TUSER),

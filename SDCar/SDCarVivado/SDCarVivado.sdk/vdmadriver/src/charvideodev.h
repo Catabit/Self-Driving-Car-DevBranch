@@ -95,7 +95,7 @@ long charvideo_ioctl(struct file *fp, unsigned int cmd, unsigned long arg) {
 int charvideo_open(struct inode *in, struct file *fp)
 {
 	struct charvideo_dev *dev;
-	printk(KERN_NOTICE "Opened a file\n");
+	//printk(KERN_NOTICE "Opened a file\n");
 
 	dev = container_of(in->i_cdev, struct charvideo_dev, cdev);
 	fp->private_data = dev;
