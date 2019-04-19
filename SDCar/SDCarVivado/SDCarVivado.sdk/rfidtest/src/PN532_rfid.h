@@ -10,8 +10,6 @@
 #include <linux/i2c-dev.h>
 #include <uiotools/uiotools.h>
 
-//#define RFID_DEBUG
-
 #define PN532_PREAMBLE                (0x00)
 #define PN532_STARTCODE1              (0x00)
 #define PN532_STARTCODE2              (0xFF)
@@ -341,7 +339,6 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 	 */
 
 	//###############################
-
 	if (0x00 != iicbuf[1] ||       // PREAMBLE
 			0x00 != iicbuf[2] ||       // STARTCODE1
 			0xFF != iicbuf[3]           // STARTCODE2
@@ -723,9 +720,8 @@ uint8_t mifareclassic_WriteDataBlock(int fd, uint8_t blockNumber, uint8_t *data)
 	}
 
 	/* Read the response packet */
-	return (0
-			< readResponse(fd, pn532_packetbuffer, sizeof(pn532_packetbuffer),
-					1000));
+	//readResponse(fd, pn532_packetbuffer, sizeof(pn532_packetbuffer), 1000);
+	return 1;
 }
 
 int init() {
