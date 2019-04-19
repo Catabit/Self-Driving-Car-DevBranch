@@ -130,7 +130,12 @@
 				xlnx,genlock-mode ;
 			};
 		};
-
+		axi_rgb_led: pwmDriverAXI@43c40000 {
+			compatible = "ctbt,rgbleddriver";
+			reg = <0x43c40000 0x10000>;
+			xlnx,s00-axi-addr-width = <0x4>;
+			xlnx,s00-axi-data-width = <0x20>;
+		};
 		MotionController_0: MotionController@43c20000 {
 			compatible = "ctbt,motiondriver";
 			reg = <0x43c20000 0x10000>;

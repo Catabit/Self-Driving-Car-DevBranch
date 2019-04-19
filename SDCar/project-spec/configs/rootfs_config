@@ -4130,6 +4130,7 @@ CONFIG_mjpg-streamer=y
 CONFIG_motion=y
 # CONFIG_motionselftest is not set
 CONFIG_opencv-control=y
+CONFIG_opencv-control-config=y
 CONFIG_peekpoke=y
 CONFIG_rfidtest=y
 CONFIG_rtl8188eufw=y
@@ -4142,6 +4143,7 @@ CONFIG_stop-xml=y
 CONFIG_8188eu=y
 CONFIG_hlsvdmadriver=y
 CONFIG_motiondriver=y
+CONFIG_rgbleddriver=y
 CONFIG_sonardriver=y
 CONFIG_vdmadriver=y
 
