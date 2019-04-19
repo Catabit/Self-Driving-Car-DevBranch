@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;HLSvdmadriver/src/vdmadriver.c&apos; to &apos;HLSvdmadriver.c&apos;" description="Rename resource &apos;vdmadriver.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/vdmadriver.c" name="HLSvdmadriver.c" stamp="1554993616583" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;HLSvdmadriver/src/vdmadriver.h&apos; to &apos;HLSvdmadriver.h&apos;" description="Rename resource &apos;vdmadriver.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/vdmadriver.h" name="HLSvdmadriver.h" stamp="1554993634863" updateReferences="true"/>
+</session>

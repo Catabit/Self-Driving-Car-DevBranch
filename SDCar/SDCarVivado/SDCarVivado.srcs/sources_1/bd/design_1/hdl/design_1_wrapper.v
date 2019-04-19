@@ -1,7 +1,7 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Sat Apr  6 10:38:21 2019
+//Date        : Fri Apr 19 17:09:17 2019
 //Host        : catabit-UX430UAR running 64-bit Ubuntu 16.04.6 LTS
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
@@ -52,6 +52,8 @@ module design_1_wrapper
     motor_right_pwm_out,
     ps_iic_scl_io,
     ps_iic_sda_io,
+    rfid_intr,
+    rgb_led,
     servo_pwm_out,
     sonar0_pwm_in);
   inout [14:0]DDR_addr;
@@ -77,7 +79,7 @@ module design_1_wrapper
   inout FIXED_IO_ps_srstb;
   inout cam_iic_scl_io;
   inout cam_iic_sda_io;
-  output cameraEnableLed;
+  output [0:0]cameraEnableLed;
   output [0:0]camera_enable;
   input camera_enable_sw;
   input dphy_clk_lp_n;
@@ -96,6 +98,8 @@ module design_1_wrapper
   output motor_right_pwm_out;
   inout ps_iic_scl_io;
   inout ps_iic_sda_io;
+  input [0:0]rfid_intr;
+  output [2:0]rgb_led;
   output servo_pwm_out;
   input sonar0_pwm_in;
 
@@ -128,7 +132,7 @@ module design_1_wrapper
   wire cam_iic_sda_io;
   wire cam_iic_sda_o;
   wire cam_iic_sda_t;
-  wire cameraEnableLed;
+  wire [0:0]cameraEnableLed;
   wire [0:0]camera_enable;
   wire camera_enable_sw;
   wire dphy_clk_lp_n;
@@ -153,6 +157,8 @@ module design_1_wrapper
   wire ps_iic_sda_io;
   wire ps_iic_sda_o;
   wire ps_iic_sda_t;
+  wire [0:0]rfid_intr;
+  wire [2:0]rgb_led;
   wire servo_pwm_out;
   wire sonar0_pwm_in;
 
@@ -217,6 +223,8 @@ module design_1_wrapper
         .ps_iic_sda_i(ps_iic_sda_i),
         .ps_iic_sda_o(ps_iic_sda_o),
         .ps_iic_sda_t(ps_iic_sda_t),
+        .rfid_intr(rfid_intr),
+        .rgb_led(rgb_led),
         .servo_pwm_out(servo_pwm_out),
         .sonar0_pwm_in(sonar0_pwm_in));
   IOBUF ps_iic_scl_iobuf

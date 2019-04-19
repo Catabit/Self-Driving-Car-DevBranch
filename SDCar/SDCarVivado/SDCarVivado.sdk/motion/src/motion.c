@@ -6,16 +6,9 @@
 #include <errno.h>
 #include <unistd.h>
 #include <sys/mman.h>
-
-
 #include <linux/ioctl.h>
 
-#define MOTION_IOC_MAGIC  '9'
-
-#define MOTION_IOCTSETENABLE    _IO(MOTION_IOC_MAGIC, 0)
-#define MOTION_IOCTSETDIR	_IO(MOTION_IOC_MAGIC, 1)
-
-#define MOTION_IOC_MAXNR 1
+#include <motiondriver/linux/motion_ioctl.h>
 
 #define SERVO_LEFT 220
 #define SERVO_RIGHT 380
