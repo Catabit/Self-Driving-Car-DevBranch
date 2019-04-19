@@ -101,7 +101,7 @@ int init() {
 	}
 	printf("Opened the bus\n");
 
-	if (ioctl(fd, I2C_SLAVE_FORCE, ACL_I2C_ADDR) < 0) {
+	if (ioctl(fd, I2C_SLAVE, ACL_I2C_ADDR) < 0) {
 		printf("Failed to acquire bus access and/or talk to slave.\n");
 		/* ERROR HANDLING; you can check errno to see what went wrong */
 		return -1;
