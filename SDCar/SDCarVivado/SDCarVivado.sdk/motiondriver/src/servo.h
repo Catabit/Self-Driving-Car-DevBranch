@@ -43,8 +43,10 @@ ssize_t servo_write(struct file *filp, const char __user *buf, size_t count,
 
 	//limit the value to the current steering config
 	//TODO: add ioctl to get the defaults
-	if(value<SERVO_LEFT || value>SERVO_RIGHT)
+	if(value<SERVO_LEFT || value>SERVO_RIGHT) {
+		printk(KERN_WARNING "Requested servo value %d is not in the accepted range of [%d, %d]\n", value, SERVO_LEFT, SERVO_RIGHT);
 		return -1;
+	}
 
 
 

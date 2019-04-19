@@ -2,7 +2,6 @@
 #include "cardQueue.h"
 #include "cards.h"
 
-
 #define TIMEOUT 1000
 #define MAXCARDS 4
 
@@ -79,10 +78,10 @@ void writeRFID(int fd, uint8_t *data) {
 			if (success) {
 				success = mifareclassic_WriteDataBlock(fd, block, data);
 				if (success) {
-					printf("Successfully wrote data!\n");
+					printf("Success!\n");
 				}
 			} else {
-				printf("Read block failed.\n");
+				printf("Write block failed.\n");
 			}
 		} else {
 			printf("Block auth failed.\n");
@@ -101,7 +100,7 @@ int main(int argc, char *argv[]) {
 		memset(str, 0, 12);
 		printf("Enter the string you want written. Max 11 chars\n");
 		fgets((char *) str, 12, stdin);
-		printf("Writing card with type %d and string %s\n", cardType, str);
+		printf("Writing card with type %d and string %s\s", cardType, str);
 
 		uint8_t data[16];
 		memset(data, 0, 16);
