@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;opencv-control/src/cvthread.cc&apos; to &apos;opencv-control.cc&apos;" description="Rename resource &apos;cvthread.cc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/cvthread.cc" name="opencv-control.cc" stamp="1555766366527" updateReferences="true"/>
+</session>

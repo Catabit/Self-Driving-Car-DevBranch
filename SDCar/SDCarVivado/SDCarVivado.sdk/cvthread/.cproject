@@ -51,6 +51,7 @@
 								<option id="xilinx.gnu.c.link.option.ldflags.1851356629" name="Linker Flags" superClass="xilinx.gnu.c.link.option.ldflags" value="--sysroot=&quot;/home/catabit/Zybo/SDCar/build/tmp/sysroots/plnx_arm&quot;" valueType="string"/>
 								<option id="xilinx.gnu.c.link.option.libs.725436122" name="Libraries (-l)" superClass="xilinx.gnu.c.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="opencv_imgcodecs"/>
+									<listOptionValue builtIn="false" value="uiotools"/>
 									<listOptionValue builtIn="false" value="pthread"/>
 									<listOptionValue builtIn="false" value="opencv_imgproc"/>
 									<listOptionValue builtIn="false" value="opencv_core"/>

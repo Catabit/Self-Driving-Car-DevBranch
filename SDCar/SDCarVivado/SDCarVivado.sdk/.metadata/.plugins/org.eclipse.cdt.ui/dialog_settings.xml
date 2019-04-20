@@ -24,6 +24,7 @@
 	</section>
 	<section name="CRenameRefactoringInputPage">
 		<item value="3" key="scope"/>
+		<item value="false" key="preprocessor"/>
 		<item value="" key="workingset"/>
 		<item value="false" key="references_inv"/>
 		<item value="false" key="comment"/>

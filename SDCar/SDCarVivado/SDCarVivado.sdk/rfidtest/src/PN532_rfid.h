@@ -10,6 +10,8 @@
 #include <linux/i2c-dev.h>
 #include <uiotools/uiotools.h>
 
+//#define RFID_DEBUG
+
 #define PN532_PREAMBLE                (0x00)
 #define PN532_STARTCODE1              (0x00)
 #define PN532_STARTCODE2              (0xFF)
@@ -92,6 +94,7 @@
 static uint8_t command; //last command sent
 static int irq_fd = -1;
 static void *irq_ptr;
+static uint8_t disable_irq = 0;
 
 void PrintHex(const uint8_t *data, const uint32_t numBytes) {
 	for (uint8_t i = 0; i < numBytes; i++) {
@@ -118,6 +121,8 @@ void PrintHexChar(const uint8_t *data, const uint32_t numBytes) {
 }
 
 void wait_for_interrupt() {
+	if(disable_irq==1)
+		return;
 	int reenable = 1;
 	unsigned int reg;
 	unsigned int value;
@@ -139,6 +144,11 @@ void wait_for_interrupt() {
 	// re-enable the interrupt in the interrupt controller thru the
 	// the UIO subsystem now that it's been handled
 	write(irq_fd, (void *) &reenable, sizeof(int));
+}
+
+void fake_interrupt(){
+	disable_irq=1;
+	*((unsigned *) (irq_ptr + GPIO_IRQ_STATUS)) = 1;
 }
 
 int requestData(int fd, int8_t address, uint8_t *output, uint8_t length) {
@@ -175,7 +185,7 @@ int8_t readAckFrame(int fd) {
 		 printf("\n");
 		 */
 
-		usleep(1000);
+		usleep(100);
 		time++;
 		if (time > PN532_ACK_WAIT_TIME) {
 			printf("TIMEOUT ACK\n");
@@ -322,7 +332,7 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 			}
 		}
 
-		usleep(1000);
+		usleep(100);
 		time++;
 		if ((0 != timeout) && (time > timeout)) {
 			printf("TIMEOUT RESPONSE\n");
@@ -339,6 +349,7 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 	 */
 
 	//###############################
+
 	if (0x00 != iicbuf[1] ||       // PREAMBLE
 			0x00 != iicbuf[2] ||       // STARTCODE1
 			0xFF != iicbuf[3]           // STARTCODE2
@@ -720,8 +731,9 @@ uint8_t mifareclassic_WriteDataBlock(int fd, uint8_t blockNumber, uint8_t *data)
 	}
 
 	/* Read the response packet */
-	//readResponse(fd, pn532_packetbuffer, sizeof(pn532_packetbuffer), 1000);
-	return 1;
+	return (0
+			< readResponse(fd, pn532_packetbuffer, sizeof(pn532_packetbuffer),
+					1000));
 }
 
 int init() {
@@ -777,6 +789,7 @@ int init() {
 }
 
 int initRFID() {
+	disable_irq=0;
 	int fd = init();
 	if (!fd) {
 		printf("Error opening device");
@@ -805,6 +818,7 @@ int initRFID() {
 }
 
 void closeRFID(int fd) {
+	disable_irq=1;
 	if (fd > 0)
 		close(fd);
 	if (irq_ptr != NULL)

@@ -69,7 +69,7 @@ fixlinks-modules:
 	$(TOOLS)/addLinks.sh $(VIVADO_PROJECT_NAME) modules $(PETALINUX_MODULES)
 
 sendelfs:
-	scp `find $(VIVADO_PROJECT_NAME)/ -name rfidtest.elf -path */Debug/*` root@$(SSH_IP):
+	scp `find $(VIVADO_PROJECT_NAME)/ -name opencv-control.elf -path */Debug/*` root@$(SSH_IP):
 
 resetssh:
 	ssh-keygen -f "/home/$(LOCAL_USERNAME)/.ssh/known_hosts" -R $(SSH_IP)
