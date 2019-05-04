@@ -1,3 +1,14 @@
+/**
+ * This application can be used as a reference for the /dev/video and /dev/videoHLS
+ * device nodes usage and API.
+ * It uses all the available function calls supported (open, read, ioctl, close).
+ * The program reads the image form the given video pipeline and saves it into a
+ * .ppm image format (uncompressed image).
+ *
+ * Usage:
+ * 	./videotest <device name> <output_image_name>
+ * Where device name can be /dev/video or /dev/videoHLS
+ */
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -8,16 +19,7 @@
 #include <sys/mman.h>
 #include <sys/ioctl.h>
 
-#define CHARVIDEO_IOC_MAGIC  '8'
-
-#define CHARVIDEO_IOCHALT    _IO(CHARVIDEO_IOC_MAGIC, 0)
-#define CHARVIDEO_IOCSTART    _IO(CHARVIDEO_IOC_MAGIC, 1)
-#define CHARVIDEO_IOCSTATUS    _IO(CHARVIDEO_IOC_MAGIC, 2)
-
-#define CHARVIDEO_IOCQHEIGHT _IOR(CHARVIDEO_IOC_MAGIC,  3, int)
-#define CHARVIDEO_IOCQWIDTH _IOR(CHARVIDEO_IOC_MAGIC,  4, int)
-#define CHARVIDEO_IOCQPIXELLEN _IOR(CHARVIDEO_IOC_MAGIC,  5, int)
-#define CHARVIDEO_IOCQBUFSIZE _IOR(CHARVIDEO_IOC_MAGIC,  6, int)
+#include <vdmadriver/linux/charvideo_ioctl.h>
 
 int main(int argc, char *argv[]) {
 	if (argc < 3) {
@@ -32,8 +34,10 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
+	//Print the VDMA's status to kernel log
 	ioctl(fd, CHARVIDEO_IOCSTATUS);
 
+	//Get the image sizes from the video driver
 	int h, w, l;
 	h = ioctl(fd, CHARVIDEO_IOCQHEIGHT);
 	w = ioctl(fd, CHARVIDEO_IOCQWIDTH);
@@ -46,12 +50,17 @@ int main(int argc, char *argv[]) {
 	char filename[100];
 	sprintf(filename, "/home/root/%s.ppm", argv[2]);
 	FILE *outimg = fopen(filename, "wt");
+
+	//if the pixel length is only 1 byte, then the image is grayscale (ppm format 5)
 	if (l == 1)
 		fprintf(outimg, "P5\n%d %d\n%d\n", w, h, 255);
 	else
 		fprintf(outimg, "P6\n%d %d\n%d\n", w, h, 255);
 
 	printf("Opened %s\n", filename);
+
+	//The images are stored in the VDMAs in the BGR format so it must be
+	//changed to RGB for human understandable images
 
 	if (l != 1) { //BGR to RGB
 		for (int i = 0; i < w * h * l; i += 3) {

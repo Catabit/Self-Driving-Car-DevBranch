@@ -25,6 +25,7 @@ int main() {
 	int fd;
 	void *ptr;
 
+	//Get and reset the CSI_2_RX component
 	fd = findDeviceByName(CSI_2_RX_NAME);
 	if (fd<0)
 		return -1;
@@ -35,6 +36,7 @@ int main() {
 	munmap(ptr, MIPI_MAP_SIZE);
 	close(fd);
 
+	//Get and reset the D_PHY_RX component
 	fd = findDeviceByName(D_PHY_RX_NAME);
 	if (fd<0)
 		return -1;
@@ -45,6 +47,7 @@ int main() {
 	munmap(ptr, MIPI_MAP_SIZE);
 	close(fd);
 
+	//Reset the camera via the GPIO component (hardware reset)
 	fd = findDeviceByNameAndAddr(GPIO_NAME, GPIO_CAMERA_ADDR);
 	if (fd<0)
 		return -1;

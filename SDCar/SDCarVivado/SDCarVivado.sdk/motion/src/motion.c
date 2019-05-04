@@ -1,3 +1,20 @@
+/**
+ * This source file can be used as a good example of the API
+ * in use for /dev/motors, /dev/servo and /dev/sonar.
+ *
+ * Compile and run the application with no parameters to get
+ * the usage information.
+ *
+ * Examples:
+ * 	./motion <mode> ...
+ *
+ * 	Using the motors and sonar:
+ * 	./motion 0 <direction> <speed> <run time> <stop distance>
+ *
+ * 	Using the servo:
+ * 	(steering input is between 220 and 380 unless changed in the future)
+ * 	./motion 1 <steering input>
+ */
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>

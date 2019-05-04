@@ -89,7 +89,7 @@
 #define GPIO_IRQ_STATUS 0x120
 
 #define USE_INTERRUPTS //comment this to enable timeout based polling
-//#define RFID_DEBUG
+//#define RFID_DEBUG //uncomment this to enable debug messages
 
 static uint8_t command; //last command sent
 static int irq_fd = -1;
@@ -120,6 +120,10 @@ void PrintHexChar(const uint8_t *data, const uint32_t numBytes) {
 	printf("\n");
 }
 
+/**
+ * Uses the GPIO Interrupt controller to wait (blocking read)
+ * for an interrupt to arrive from the PN532 chip.
+ */
 void wait_for_interrupt() {
 	if(disable_irq==1)
 		return;
@@ -146,11 +150,20 @@ void wait_for_interrupt() {
 	write(irq_fd, (void *) &reenable, sizeof(int));
 }
 
+/**
+ * Sends a fake interrupt to the GPIO controller
+ * to break out of the blocking read and to enable
+ * gracious termination of the program otherwise
+ * stuck in a loop.
+ */
 void fake_interrupt(){
 	disable_irq=1;
 	*((unsigned *) (irq_ptr + GPIO_IRQ_STATUS)) = 1;
 }
 
+/**
+ * Wrapper over system call read()
+ */
 int requestData(int fd, int8_t address, uint8_t *output, uint8_t length) {
 	int result = read(fd, output, length);
 
@@ -178,13 +191,6 @@ int8_t readAckFrame(int fd) {
 				break;         // PN532 is ready
 			}
 		}
-		/*printf("ACK: ");
-		 for (int i=0; i<7; i++){
-		 printf(" 0x%x", ackBuf[i]);
-		 }
-		 printf("\n");
-		 */
-
 		usleep(100);
 		time++;
 		if (time > PN532_ACK_WAIT_TIME) {
@@ -193,15 +199,12 @@ int8_t readAckFrame(int fd) {
 		}
 	} while (1);
 
-	//requestData(fd, PN532_I2C_ADDRESS, ackBuf+1, 6);
-
 	int ok = 1;
 	for (int i = 0; i < sizeof(PN532_ACK); i++) {
 		if (ackBuf[1 + i] != PN532_ACK[i])
 			ok = 0;
 	}
 
-	//if (memcmp(ackBuf+1, PN532_ACK, sizeof(PN532_ACK))) {
 	if (ok == 0) {
 		printf("Invalid ACK\n");
 		return PN532_INVALID_ACK;
@@ -318,8 +321,6 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 	int8_t length;
 	uint8_t iicbuf[64];
 
-	//requestData(fd, PN532_I2C_ADDRESS, iicbuf, sizeof(iicbuf));
-	//length = iicbuf[3];
 
 	// [RDY] 00 00 FF LEN LCS (TFI PD0 ... PDn) DCS 00
 	do {
@@ -339,16 +340,6 @@ int16_t readResponse(int fd, uint8_t* buf, uint8_t len, uint16_t timeout) {
 			return -1;
 		}
 	} while (1);
-
-	//###############################
-
-	/*for (int i=0; i<30; i++){
-	 printf(" 0x%x", iicbuf[i]);
-	 }
-	 printf("\n");
-	 */
-
-	//###############################
 
 	if (0x00 != iicbuf[1] ||       // PREAMBLE
 			0x00 != iicbuf[2] ||       // STARTCODE1
@@ -736,6 +727,10 @@ uint8_t mifareclassic_WriteDataBlock(int fd, uint8_t blockNumber, uint8_t *data)
 					1000));
 }
 
+/**
+ * Initializes the I2C bus and the GPIO Interrupt controller
+ * returns a file descriptor if successful, otherwise it returns -1
+ */
 int init() {
 	int fd;
 	command = 0;
@@ -787,7 +782,9 @@ int init() {
 
 	return fd;
 }
-
+/**
+ * Returns a file descriptor if successful, otherwise it returns -1
+ */
 int initRFID() {
 	disable_irq=0;
 	int fd = init();
@@ -816,7 +813,9 @@ int initRFID() {
 	return fd;
 
 }
-
+/**
+ * Closes the opened file descriptors and unmaps memory
+ */
 void closeRFID(int fd) {
 	disable_irq=1;
 	if (fd > 0)

@@ -89,6 +89,17 @@ void writeRFID(int fd, uint8_t *data) {
 	}
 }
 
+/**
+ * Usage:
+ *
+ * Normal usage, reads up to MAXCARDS unique cards and then prints them
+ * ./rfidtest
+ *
+ * Write data mode
+ * ./rfidtest <TYPE>
+ * Where TYPE is a 0-255 value to be written on the card. An optional
+ * 11 character string can be written too, see console messages.
+ */
 int main(int argc, char *argv[]) {
 	int fd = initRFID();
 	if (fd < 0)

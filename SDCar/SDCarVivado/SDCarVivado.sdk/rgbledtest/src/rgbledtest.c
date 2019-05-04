@@ -1,3 +1,17 @@
+/**
+ * This application can be used as a reference to the /dev/rgbled
+ * device node API. Usage is:
+ *
+ * ./rgbledtest 0xXXBBGGRR
+ * where XXBBGGRR is a 32bit value represented in HEX, like 00FF33CD
+ *
+ * ./rgbledtest B G R
+ * where B, G and R are 8 bit values (between 0-255).
+ *
+ * B - blue LED duty cycle (0-0%, 255-100%)
+ * G - green LED duty cycle (0-0%, 255-100%)
+ * R - red LED duty cycle (0-0%, 255-100%)
+ */
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>

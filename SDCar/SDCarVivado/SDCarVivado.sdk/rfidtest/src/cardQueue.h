@@ -53,6 +53,9 @@ int insertCard(struct cardQueue *q, struct card *card) {
 	return 1;
 }
 
+/**
+ * Gets the top card in the queue
+ */
 struct card *getCard(struct cardQueue *q) {
 	if (q->head == NULL)
 		return NULL;
@@ -60,6 +63,9 @@ struct card *getCard(struct cardQueue *q) {
 	return q->head->card;
 }
 
+/**
+ * Gets the top card in the queue and removes it
+ */
 struct card *popCard(struct cardQueue *q) {
 	if (q->head == NULL)
 		return NULL;
@@ -71,6 +77,9 @@ struct card *popCard(struct cardQueue *q) {
 	return result->card;
 }
 
+/**
+ * Creates a new cardQueue object
+ */
 void createCardQueue(struct cardQueue **q) {
 	if ((*q) != NULL)
 		return;
@@ -81,6 +90,9 @@ void createCardQueue(struct cardQueue **q) {
 	(*q)->lastUID = 0;
 }
 
+/**
+ * Helper function used in freeing memory
+ */
 static void freeNodes(struct Node *node){
 	if (!node)
 		return;
@@ -93,12 +105,16 @@ static void freeNodes(struct Node *node){
 	free(node);
 }
 
+/**
+ * Frees the allocated meemory for the cardQueue
+ */
 void freeCardQueue(struct cardQueue *q){
 	freeNodes(q->head);
 	q->head=NULL;
 	q->last=NULL;
 }
 
+// DEBUG FUNCTIONS
 
 void printcard(struct card card) {
 	printf("Card UID: %d, type: %d\n", card.UID, card.type);

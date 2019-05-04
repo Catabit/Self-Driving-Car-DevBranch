@@ -11,6 +11,9 @@ struct rgbled_dev {
 	struct device *node;
 };
 
+/**
+ * Manges open calls on new files
+ */
 int rgbled_open(struct inode *in, struct file *fp)
 {
 	struct rgbled_dev *dev;
@@ -23,7 +26,8 @@ int rgbled_open(struct inode *in, struct file *fp)
 }
 
 /**
- * TODO: write() will be used to set the 3 pwm duty cycles via a 24 bit integer
+ * Manages write calls to the files associated with this device node
+ * Is used to set the 3 pwm duty cycles via a 24 bit integer
  * [31-24] unused
  * [23-16] red
  * [15-8] green
@@ -66,8 +70,9 @@ struct file_operations rgbled_fops = {
 	.write =	rgbled_write,
 };
 
-
-
+/**
+ * Clears memory and associated structures
+ */
 void rgbled_delete(struct rgbled_dev *dev)
 {
 	dev_t devno = MKDEV(dev->dev_major, 0);
@@ -84,7 +89,9 @@ void rgbled_delete(struct rgbled_dev *dev)
 	printk(KERN_NOTICE "Unregistered sonar char device.\n");
 }
 
-
+/**
+ * Does the required setup to create a new device node
+ */
 static int rgbled_setup_cdev(struct rgbled_dev *dev)
 {
 	int err, devno = MKDEV(dev->dev_major, 0);
