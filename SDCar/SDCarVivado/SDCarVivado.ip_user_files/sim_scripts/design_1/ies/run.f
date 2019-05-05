@@ -136,7 +136,6 @@
 -makelib ies_lib/xil_defaultlib \
   "../../../bd/design_1/ip/design_1_xbar_1/sim/design_1_xbar_1.v" \
   "../../../bd/design_1/ip/design_1_xbar_0/sim/design_1_xbar_0.v" \
-  "../../../bd/design_1/sim/design_1.v" \
 -endlib
 -makelib ies_lib/xlconcat_v2_1_1 \
   "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/2f66/hdl/xlconcat_v2_1_vl_rfs.v" \
@@ -169,6 +168,28 @@
   "../../../bd/design_1/ip/design_1_proc_sys_reset_0_0/sim/design_1_proc_sys_reset_0_0.vhd" \
   "../../../bd/design_1/ip/design_1_proc_sys_reset_1_0/sim/design_1_proc_sys_reset_1_0.vhd" \
 -endlib
+-makelib ies_lib/axi_lite_ipif_v3_0_4 \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/cced/hdl/axi_lite_ipif_v3_0_vh_rfs.vhd" \
+-endlib
+-makelib ies_lib/interrupt_control_v3_1_4 \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e66/hdl/interrupt_control_v3_1_vh_rfs.vhd" \
+-endlib
+-makelib ies_lib/axi_gpio_v2_0_17 \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/c450/hdl/axi_gpio_v2_0_vh_rfs.vhd" \
+-endlib
+-makelib ies_lib/xil_defaultlib \
+  "../../../bd/design_1/ip/design_1_axi_gpio_0_0/sim/design_1_axi_gpio_0_0.vhd" \
+  "../../../bd/design_1/ip/design_1_axi_gpio_0_1/sim/design_1_axi_gpio_0_1.vhd" \
+  "../../../bd/design_1/ipshared/96d0/hdl/pwmRgbLed_v1_0_S00_AXI.vhd" \
+  "../../../bd/design_1/ipshared/96d0/hdl/pwmRgbLed_v1_0.vhd" \
+  "../../../bd/design_1/ip/design_1_pwmDriverAXI_0_0/sim/design_1_pwmDriverAXI_0_0.vhd" \
+-endlib
+-makelib ies_lib/xlconstant_v1_1_3 \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/0750/hdl/xlconstant_v1_1_vl_rfs.v" \
+-endlib
+-makelib ies_lib/xil_defaultlib \
+  "../../../bd/design_1/ip/design_1_xlconstant_0_0/sim/design_1_xlconstant_0_0.v" \
+-endlib
 -makelib ies_lib/xbip_utils_v3_0_8 \
   "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/4173/hdl/xbip_utils_v3_0_vh_rfs.vhd" \
 -endlib
@@ -197,40 +218,40 @@
   "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/b20f/hdl/floating_point_v7_1_vh_rfs.vhd" \
 -endlib
 -makelib ies_lib/xil_defaultlib \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/start_for_Sobel_1pcA.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/start_for_ZeroPadrcU.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/Sobel_1280u_720u_fYi.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/canny_edge_detecthbi.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/start_for_GrayArrudo.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/start_for_HystThrsc4.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/canny_edge_detectdEe.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/fifo_w8_d1_A.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/NonMaxSuppression.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/NonMaxSuppressionmb6.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/GrayArray2AXIS.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/AXIS2GrayArray.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/canny_edge_detectcud.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/fifo_w2_d1_A.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/canny_edge_detectibs.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/ZeroPadding.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/GaussianBlur.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/GaussianBlur_lineeOg.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/canny_edge_detectkbM.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/canny_edge_detectjbC.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/Sobel_1280u_720u_s.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/canny_edge_detectbkb.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/start_for_HystThrtde.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/HystThreshold.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/start_for_Gaussiaocq.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/start_for_NonMaxSqcK.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/HystThresholdComp.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/canny_edge_detection.v" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/verilog/canny_edge_detectg8j.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/start_for_Sobel_1pcA.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/start_for_ZeroPadrcU.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/Sobel_1280u_720u_fYi.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/canny_edge_detecthbi.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/start_for_GrayArrudo.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/start_for_HystThrsc4.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/canny_edge_detectdEe.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/fifo_w8_d1_A.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/NonMaxSuppression.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/NonMaxSuppressionmb6.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/GrayArray2AXIS.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/AXIS2GrayArray.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/canny_edge_detectcud.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/fifo_w2_d1_A.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/canny_edge_detectibs.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/ZeroPadding.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/GaussianBlur.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/GaussianBlur_lineeOg.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/canny_edge_detectkbM.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/canny_edge_detectjbC.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/Sobel_1280u_720u_s.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/canny_edge_detectbkb.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/start_for_HystThrtde.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/HystThreshold.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/start_for_Gaussiaocq.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/start_for_NonMaxSqcK.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/HystThresholdComp.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/canny_edge_detection.v" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/verilog/canny_edge_detectg8j.v" \
 -endlib
 -makelib ies_lib/xil_defaultlib \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/ip/canny_edge_detection_ap_sitofp_4_no_dsp_32.vhd" \
-  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/ip/canny_edge_detection_ap_fsqrt_10_no_dsp_32.vhd" \
-  "../../../bd/design_1/ip/design_1_canny_edge_detection_0_0/sim/design_1_canny_edge_detection_0_0.vhd" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/ip/canny_edge_detection_ap_sitofp_4_no_dsp_32.vhd" \
+  "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/ip/canny_edge_detection_ap_fsqrt_10_no_dsp_32.vhd" \
+  "../../../bd/design_1/ip/design_1_canny_edge_detection_0_1/sim/design_1_canny_edge_detection_0_1.vhd" \
 -endlib
 -makelib ies_lib/axi_protocol_converter_v2_1_15 \
   "../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/ff69/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \
@@ -238,6 +259,7 @@
 -makelib ies_lib/xil_defaultlib \
   "../../../bd/design_1/ip/design_1_auto_pc_1/sim/design_1_auto_pc_1.v" \
   "../../../bd/design_1/ip/design_1_auto_pc_0/sim/design_1_auto_pc_0.v" \
+  "../../../bd/design_1/sim/design_1.v" \
 -endlib
 -makelib ies_lib/xil_defaultlib \
   glbl.v

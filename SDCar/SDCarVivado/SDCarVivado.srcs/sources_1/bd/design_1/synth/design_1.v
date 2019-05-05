@@ -1,7 +1,7 @@
 //Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-//Date        : Fri Apr 19 17:09:17 2019
+//Date        : Sun May  5 13:55:50 2019
 //Host        : catabit-UX430UAR running 64-bit Ubuntu 16.04.6 LTS
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=38,numReposBlks=23,numNonXlnxBlks=6,numHierBlks=15,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=1,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=6,da_board_cnt=1,da_clkrst_cnt=6,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
+(* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=38,numReposBlks=23,numNonXlnxBlks=7,numHierBlks=15,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=1,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=6,da_board_cnt=1,da_clkrst_cnt=6,da_ps7_cnt=1,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
 module design_1
    (DDR_addr,
     DDR_ba,
@@ -917,7 +917,7 @@ module design_1
         .s_axis_tready(AXI_BayerToRGB_0_AXI_Stream_Master_TREADY),
         .s_axis_tuser(AXI_BayerToRGB_0_AXI_Stream_Master_TUSER),
         .s_axis_tvalid(AXI_BayerToRGB_0_AXI_Stream_Master_TVALID));
-  design_1_canny_edge_detection_0_0 canny_edge_detection_0
+  design_1_canny_edge_detection_0_1 canny_edge_detection_0
        (.ap_clk(clk_wiz_0_clk_out1),
         .ap_rst_n(proc_sys_reset_0_peripheral_aresetn),
         .axis_in_TDATA(axis_broadcaster_0_M01_AXIS_TDATA),

@@ -46,8 +46,42 @@ vhdl xil_defaultlib  \
 "../../../bd/design_1/ip/design_1_axi_vdma_0_1/sim/design_1_axi_vdma_0_1.vhd" \
 "../../../bd/design_1/ip/design_1_proc_sys_reset_0_0/sim/design_1_proc_sys_reset_0_0.vhd" \
 "../../../bd/design_1/ip/design_1_proc_sys_reset_1_0/sim/design_1_proc_sys_reset_1_0.vhd" \
-"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/ip/canny_edge_detection_ap_sitofp_4_no_dsp_32.vhd" \
-"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/8e3d/hdl/ip/canny_edge_detection_ap_fsqrt_10_no_dsp_32.vhd" \
-"../../../bd/design_1/ip/design_1_canny_edge_detection_0_0/sim/design_1_canny_edge_detection_0_0.vhd" \
+"../../../bd/design_1/ip/design_1_axi_gpio_0_0/sim/design_1_axi_gpio_0_0.vhd" \
+"../../../bd/design_1/ip/design_1_axi_gpio_0_1/sim/design_1_axi_gpio_0_1.vhd" \
+"../../../bd/design_1/ipshared/96d0/hdl/pwmRgbLed_v1_0_S00_AXI.vhd" \
+"../../../bd/design_1/ipshared/96d0/hdl/pwmRgbLed_v1_0.vhd" \
+"../../../bd/design_1/ip/design_1_pwmDriverAXI_0_0/sim/design_1_pwmDriverAXI_0_0.vhd" \
+
+vhdl xbip_utils_v3_0_8  \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/4173/hdl/xbip_utils_v3_0_vh_rfs.vhd" \
+
+vhdl axi_utils_v2_0_4  \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/4575/hdl/axi_utils_v2_0_vh_rfs.vhd" \
+
+vhdl xbip_pipe_v3_0_4  \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/ee5e/hdl/xbip_pipe_v3_0_vh_rfs.vhd" \
+
+vhdl xbip_dsp48_wrapper_v3_0_4  \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/da55/hdl/xbip_dsp48_wrapper_v3_0_vh_rfs.vhd" \
+
+vhdl xbip_dsp48_addsub_v3_0_4  \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/7b8d/hdl/xbip_dsp48_addsub_v3_0_vh_rfs.vhd" \
+
+vhdl xbip_dsp48_multadd_v3_0_4  \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/65ba/hdl/xbip_dsp48_multadd_v3_0_vh_rfs.vhd" \
+
+vhdl xbip_bram18k_v3_0_4  \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/9eb4/hdl/xbip_bram18k_v3_0_vh_rfs.vhd" \
+
+vhdl mult_gen_v12_0_13  \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/257f/hdl/mult_gen_v12_0_vh_rfs.vhd" \
+
+vhdl floating_point_v7_1_5  \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/b20f/hdl/floating_point_v7_1_vh_rfs.vhd" \
+
+vhdl xil_defaultlib  \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/ip/canny_edge_detection_ap_sitofp_4_no_dsp_32.vhd" \
+"../../../../SDCarVivado.srcs/sources_1/bd/design_1/ipshared/d69f/hdl/ip/canny_edge_detection_ap_fsqrt_10_no_dsp_32.vhd" \
+"../../../bd/design_1/ip/design_1_canny_edge_detection_0_1/sim/design_1_canny_edge_detection_0_1.vhd" \
 
 nosort

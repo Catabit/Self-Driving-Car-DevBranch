@@ -1,6 +1,8 @@
 #include "uiotools.h"
 
-
+/**
+* Tries to find a UIO device that matches the name
+*/
 int findDeviceByName(char* name){
 	FILE* fd;
 	int id=0;
@@ -31,6 +33,10 @@ int findDeviceByName(char* name){
 	return -1;
 }
 
+/**
+* Tries to find a UIO device that matches the name and is
+* physically mapped to the givven memory address
+*/
 int findDeviceByNameAndAddr(char *name, unsigned int addr) {
 	FILE* fd;
 	int id=0;

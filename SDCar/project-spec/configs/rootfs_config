@@ -4133,9 +4133,11 @@ CONFIG_opencv-control=y
 CONFIG_opencv-control-config=y
 CONFIG_peekpoke=y
 CONFIG_rfidtest=y
+CONFIG_rgbledtest=y
 CONFIG_rtl8188eufw=y
 # CONFIG_sonarTest is not set
 CONFIG_stop-xml=y
+CONFIG_videotest=y
 
 #
 # modules 

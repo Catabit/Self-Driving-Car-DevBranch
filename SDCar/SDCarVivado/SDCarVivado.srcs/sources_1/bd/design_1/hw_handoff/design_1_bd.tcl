@@ -269,7 +269,7 @@ proc create_root_design { parentCell } {
   set axis_broadcaster_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_broadcaster:1.1 axis_broadcaster_0 ]
 
   # Create instance: canny_edge_detection_0, and set properties
-  set canny_edge_detection_0 [ create_bd_cell -type ip -vlnv xilinx.com:hls:canny_edge_detection:1.0 canny_edge_detection_0 ]
+  set canny_edge_detection_0 [ create_bd_cell -type ip -vlnv Catabit:hls:canny_edge_detection:1.0 canny_edge_detection_0 ]
 
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:5.4 clk_wiz_0 ]

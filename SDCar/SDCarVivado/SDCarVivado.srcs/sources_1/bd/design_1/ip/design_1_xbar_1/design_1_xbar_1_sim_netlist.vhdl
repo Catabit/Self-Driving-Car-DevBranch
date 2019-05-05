@@ -1,10 +1,10 @@
 -- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
--- Date        : Fri Apr 19 17:11:26 2019
+-- Date        : Fri Apr 19 17:11:25 2019
 -- Host        : catabit-UX430UAR running 64-bit Ubuntu 16.04.6 LTS
--- Command     : write_vhdl -force -mode funcsim
---               /home/catabit/Zybo/SDCar/SDCarVivado/SDCarVivado.srcs/sources_1/bd/design_1/ip/design_1_xbar_1/design_1_xbar_1_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top design_1_xbar_1 -prefix
+--               design_1_xbar_1_ design_1_xbar_1_sim_netlist.vhdl
 -- Design      : design_1_xbar_1
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -87,8 +87,6 @@ entity design_1_xbar_1_axi_crossbar_v2_1_16_addr_arbiter_sasd is
     mi_bvalid : in STD_LOGIC_VECTOR ( 0 to 0 );
     mi_wready : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of design_1_xbar_1_axi_crossbar_v2_1_16_addr_arbiter_sasd : entity is "axi_crossbar_v2_1_16_addr_arbiter_sasd";
 end design_1_xbar_1_axi_crossbar_v2_1_16_addr_arbiter_sasd;
 
 architecture STRUCTURE of design_1_xbar_1_axi_crossbar_v2_1_16_addr_arbiter_sasd is
@@ -2175,8 +2173,6 @@ entity design_1_xbar_1_axi_crossbar_v2_1_16_decerr_slave is
     \gen_no_arbiter.grant_rnw_reg\ : in STD_LOGIC;
     p_4_in : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of design_1_xbar_1_axi_crossbar_v2_1_16_decerr_slave : entity is "axi_crossbar_v2_1_16_decerr_slave";
 end design_1_xbar_1_axi_crossbar_v2_1_16_decerr_slave;
 
 architecture STRUCTURE of design_1_xbar_1_axi_crossbar_v2_1_16_decerr_slave is
@@ -2394,8 +2390,6 @@ entity design_1_xbar_1_axi_crossbar_v2_1_16_splitter is
     \p_0_out__0\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
     aclk : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of design_1_xbar_1_axi_crossbar_v2_1_16_splitter : entity is "axi_crossbar_v2_1_16_splitter";
 end design_1_xbar_1_axi_crossbar_v2_1_16_splitter;
 
 architecture STRUCTURE of design_1_xbar_1_axi_crossbar_v2_1_16_splitter is
@@ -2824,8 +2818,6 @@ entity design_1_xbar_1_axi_register_slice_v2_1_15_axic_register_slice is
     \m_atarget_hot_reg[8]\ : in STD_LOGIC_VECTOR ( 8 downto 0 );
     reset : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of design_1_xbar_1_axi_register_slice_v2_1_15_axic_register_slice : entity is "axi_register_slice_v2_1_15_axic_register_slice";
 end design_1_xbar_1_axi_register_slice_v2_1_15_axic_register_slice;
 
 architecture STRUCTURE of design_1_xbar_1_axi_register_slice_v2_1_15_axic_register_slice is
@@ -6011,8 +6003,6 @@ entity design_1_xbar_1_axi_crossbar_v2_1_16_crossbar_sasd is
     s_axi_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
     s_axi_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of design_1_xbar_1_axi_crossbar_v2_1_16_crossbar_sasd : entity is "axi_crossbar_v2_1_16_crossbar_sasd";
 end design_1_xbar_1_axi_crossbar_v2_1_16_crossbar_sasd;
 
 architecture STRUCTURE of design_1_xbar_1_axi_crossbar_v2_1_16_crossbar_sasd is
@@ -6598,8 +6588,6 @@ entity design_1_xbar_1_axi_crossbar_v2_1_16_axi_crossbar is
     s_axi_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
     s_axi_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of design_1_xbar_1_axi_crossbar_v2_1_16_axi_crossbar : entity is "axi_crossbar_v2_1_16_axi_crossbar";
 end design_1_xbar_1_axi_crossbar_v2_1_16_axi_crossbar;
 
 architecture STRUCTURE of design_1_xbar_1_axi_crossbar_v2_1_16_axi_crossbar is
